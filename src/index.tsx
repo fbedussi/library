@@ -1,3 +1,5 @@
+import './i18n'
+
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
@@ -31,32 +33,32 @@ const GlobalStyle = createGlobalStyle`
       appearance: none;
       font: inherit;
     }
-`
+`;
 
 const FullHeightContainer = styled(Container)`
 	height: 100%;
-`
+`;
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <StylesProvider injectFirst>
-          <GlobalStyle />
-          <ErrorBoundary>
-            <Suspense fallback={<CircularProgress />}>
-              <FullHeightContainer maxWidth={false} disableGutters={true}>
-                <Routes />
-                <NotificationArea />
-                {/* <DialogBox /> */}
-              </FullHeightContainer>
-            </Suspense>
-          </ErrorBoundary>
-        </StylesProvider>
-      </ThemeProvider>
-	</Provider>
-  </React.StrictMode>,
-  document.getElementById('root')
+	<React.StrictMode>
+		<Provider store={store}>
+			<ThemeProvider theme={theme}>
+				<StylesProvider injectFirst>
+					<GlobalStyle />
+					<ErrorBoundary>
+						<Suspense fallback={<CircularProgress />}>
+							<FullHeightContainer maxWidth={false} disableGutters={true}>
+								<Routes />
+								<NotificationArea />
+								{/* <DialogBox /> */}
+							</FullHeightContainer>
+						</Suspense>
+					</ErrorBoundary>
+				</StylesProvider>
+			</ThemeProvider>
+		</Provider>
+	</React.StrictMode>,
+	document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function

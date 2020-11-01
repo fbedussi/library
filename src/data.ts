@@ -1,14 +1,48 @@
 import db from './firebase'
-import { Book } from './model/model'
+import { Book, Id } from './model/model'
 
 const booksCollection = db.collection('books');
 
-export const getBooksFromDB = (
+export const searchBooksInDB = (
 	handleUpdate: (books: Book[]) => void,
-	userId: string,
+	searchCriteria: {
+		author: string;
+		title: string;
+		location: string;
+		userId: Id;
+	},
 ) => {
-	booksCollection.doc(userId).onSnapshot(doc => {
-		const dataFromDb = doc.data() as Book[];
-		handleUpdate(dataFromDb);
-	});
+	const { author, title, location, userId } = searchCriteria;
+	booksCollection
+		.where('title', '>=', title)
+		.where('author', '>=', author)
+		.where('location', '>=', location)
+		.where('userId', '==', userId)
+		.get()
+		.then(function (querySnapshot) {
+			let results: Book[] = [];
+			querySnapshot.forEach(function (doc) {
+				const dataFromDb = doc.data() as Book;
+				results.push(dataFromDb);
+			});
+			handleUpdate(results);
+		});
+};
+
+export const loadBooksFromDB = (
+	handleUpdate: (books: Book[]) => void,
+	userId: Id,
+) => {
+	booksCollection
+		.where('userId', '==', userId)
+		.get()
+		.then(function (querySnapshot) {
+			let results: Book[] = [];
+			querySnapshot.forEach(function (doc) {
+				const dataFromDb = doc.data() as Omit<Book, 'id'>;
+				results.push({ ...dataFromDb, id: doc.id });
+			});
+			debugger;
+			handleUpdate(results);
+		});
 };

@@ -1,0 +1,10 @@
+{
+  "app": {
+    "title": "titolo",
+    "author": "autore",
+    "location": "collocazione",
+    "search": "ricerca",
+    "reset": "reset",
+    "save": "salva"
+  }
+}

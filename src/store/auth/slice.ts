@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import { AuthState } from '../../model/model'
 
 const initialState: AuthState = {
-	userId: 'pippo',
+	userId: 'JaYQ9PxVOCUPiRWvArLANZUljor2',
 }
 
 export const slice = createSlice({

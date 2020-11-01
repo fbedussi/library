@@ -1,13 +1,15 @@
 import { Field, Form, Formik } from 'formik'
-import React from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import styled from 'styled-components'
 
+import BookCard from '../components/BookCard'
 import { BottomAppBar, LinkNoStyle } from '../components/CommonComponents'
+import { search } from '../libs/search'
 import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
-import { Button, IconButton, TextField, Toolbar } from '../styleguide'
-import { ChevronLeft, Close, Save } from '../styleguide/icons'
+import { Button, Fab, TextField, Toolbar } from '../styleguide'
+import { Add, Close, Search } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const PageWrapper = styled.div`
@@ -32,17 +34,46 @@ const ButtonsWrapper = styled.div`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
 `;
 
-const AddBookPage: React.FC = () => {
-	const blankInputs: SearchCriteria = {
+const BooksList = styled.div`
+	flex: 1;
+	overflow: auto;
+	> * {
+		margin-bottom: ${pxToRem(theme.spacing(1))}rem;
+	}
+`;
+
+const FabLink = styled(LinkNoStyle)`
+	position: absolute;
+	z-index: 1;
+	top: -${pxToRem(theme.spacing(4))}rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: ${theme.spacing(7)}px;
+`;
+
+const SearchPage: React.FC = () => {
+	const blankSearchCriteria: SearchCriteria = {
 		author: '',
 		title: '',
 		location: '',
 	};
+	const [searchCriteria, setSearchCriteria] = useState(blankSearchCriteria);
 	const { t } = useTranslation();
+
+	const filteredBooks = search(searchCriteria) || [];
 
 	return (
 		<PageWrapper>
-			<Formik initialValues={blankInputs} onSubmit={values => {}}>
+			<Formik
+				initialValues={blankSearchCriteria}
+				onSubmit={values => {
+					setSearchCriteria(values);
+				}}
+				onReset={() => {
+					setSearchCriteria(blankSearchCriteria);
+				}}
+			>
 				{() => {
 					return (
 						<Form>
@@ -71,10 +102,10 @@ const AddBookPage: React.FC = () => {
 									variant="contained"
 									color="primary"
 									size="large"
-									startIcon={<Save />}
+									startIcon={<Search />}
 									type="submit"
 								>
-									{t('app.save')}
+									{t('app.search')}
 								</Button>
 								<Button
 									variant="outlined"
@@ -90,18 +121,28 @@ const AddBookPage: React.FC = () => {
 					);
 				}}
 			</Formik>
+			<BooksList>
+				{filteredBooks
+					.filter(({ score }) => score && score < 0.8)
+					.map(({ item }) => (
+						<BookCard key={item.id} book={item} />
+					))}
+			</BooksList>
 
 			<BottomAppBar position="fixed" color="primary">
 				<Toolbar>
-					<LinkNoStyle to="/">
-						<IconButton edge="start" color="inherit" aria-label="open drawer">
-							<ChevronLeft />
-						</IconButton>
-					</LinkNoStyle>
+					{/* <IconButton edge="start" color="inherit" aria-label="open drawer">
+            <MenuIcon />
+          </IconButton> */}
+					<FabLink to="/add">
+						<Fab color="secondary" aria-label="add">
+							<Add />
+						</Fab>
+					</FabLink>
 				</Toolbar>
 			</BottomAppBar>
 		</PageWrapper>
 	);
 };
 
-export default AddBookPage;
+export default SearchPage;
