@@ -1,13 +1,16 @@
 import { Field, Form, Formik } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
-import { BottomAppBar, LinkNoStyle } from '../components/CommonComponents'
+import { BottomAppBar, LinkNoStyle, ToolbarStyled } from '../components/CommonComponents'
 import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
-import { Button, IconButton, TextField, Toolbar } from '../styleguide'
-import { ChevronLeft, Close, Save } from '../styleguide/icons'
+import booksActions from '../store/books/actions'
+import { selectBooks } from '../store/books/selectors'
+import { Badge, Button, IconButton, TextField } from '../styleguide'
+import { Book, ChevronLeft, Close, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const PageWrapper = styled.div`
@@ -33,17 +36,33 @@ const ButtonsWrapper = styled.div`
 `;
 
 const AddBookPage: React.FC = () => {
+	const { t } = useTranslation();
+	const dispatch = useDispatch();
+	const books = useSelector(selectBooks);
 	const blankInputs: SearchCriteria = {
 		author: '',
 		title: '',
 		location: '',
 	};
-	const { t } = useTranslation();
 
 	return (
 		<PageWrapper>
-			<Formik initialValues={blankInputs} onSubmit={values => {}}>
-				{() => {
+			<Formik
+				initialValues={blankInputs}
+				validate={values => {
+					return Object.entries(values).reduce((errors, [key, val]) => {
+						if (!val) {
+							errors[key] = t('errors.mandatoryField');
+						}
+						return errors;
+					}, {} as { [k: string]: string | undefined });
+				}}
+				onSubmit={(values, { resetForm }) => {
+					dispatch(booksActions.add(values));
+					resetForm();
+				}}
+			>
+				{({ errors, dirty }) => {
 					return (
 						<Form>
 							<InputWrapper>
@@ -52,18 +71,24 @@ const AddBookPage: React.FC = () => {
 									variant="outlined"
 									as={TextField}
 									label={t('app.author')}
+									error={!!errors.author}
+									helperText={errors.author}
 								/>
 								<Field
 									name="title"
 									variant="outlined"
 									as={TextField}
 									label={t('app.title')}
+									error={!!errors.title}
+									helperText={errors.title}
 								/>
 								<Field
 									name="location"
 									as={TextField}
 									variant="outlined"
 									label={t('app.location')}
+									error={!!errors.location}
+									helperText={errors.location}
 								/>
 							</InputWrapper>
 							<ButtonsWrapper>
@@ -73,6 +98,7 @@ const AddBookPage: React.FC = () => {
 									size="large"
 									startIcon={<Save />}
 									type="submit"
+									disabled={!dirty}
 								>
 									{t('app.save')}
 								</Button>
@@ -82,6 +108,7 @@ const AddBookPage: React.FC = () => {
 									size="large"
 									startIcon={<Close />}
 									type="reset"
+									disabled={!dirty}
 								>
 									{t('app.reset')}
 								</Button>
@@ -92,13 +119,19 @@ const AddBookPage: React.FC = () => {
 			</Formik>
 
 			<BottomAppBar position="fixed" color="primary">
-				<Toolbar>
+				<ToolbarStyled>
 					<LinkNoStyle to="/">
 						<IconButton edge="start" color="inherit" aria-label="open drawer">
 							<ChevronLeft />
 						</IconButton>
 					</LinkNoStyle>
-				</Toolbar>
+
+					<IconButton color="inherit" disableRipple={true}>
+						<Badge badgeContent={books.length} color="secondary">
+							<Book />
+						</Badge>
+					</IconButton>
+				</ToolbarStyled>
 			</BottomAppBar>
 		</PageWrapper>
 	);

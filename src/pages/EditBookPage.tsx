@@ -1,18 +1,17 @@
 import { Field, Form, Formik } from 'formik'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 
-import BookCard from '../components/BookCard'
 import { BottomAppBar, LinkNoStyle, ToolbarStyled } from '../components/CommonComponents'
-import { search } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import { SearchCriteria } from '../model/model'
+import { Id, SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
-import { selectBooks } from '../store/books/selectors'
-import { Badge, Button, CircularProgress, Fab, IconButton, TextField } from '../styleguide'
-import { Add, Book, Close, Search } from '../styleguide/icons'
+import { selectBook } from '../store/books/selectors'
+import { Button, IconButton, TextField } from '../styleguide'
+import { ChevronLeft, Close, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const PageWrapper = styled.div`
@@ -37,54 +36,41 @@ const ButtonsWrapper = styled.div`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
 `;
 
-const BooksList = styled.div`
-	flex: 1;
-	overflow: auto;
-	> * {
-		margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-	}
-`;
-
-const FabLink = styled(LinkNoStyle)`
-	position: absolute;
-	z-index: 1;
-	top: -${pxToRem(theme.spacing(4))}rem;
-	left: 0;
-	right: 0;
-	margin: 0 auto;
-	width: ${theme.spacing(7)}px;
-`;
-
-const blankSearchCriteria: SearchCriteria = {
-	author: '',
-	title: '',
-	location: '',
-};
-
-const SearchPage: React.FC = () => {
-	const [searchCriteria, setSearchCriteria] = useState(blankSearchCriteria);
-	const dispatch = useDispatch();
-	const books = useSelector(selectBooks);
+const EditBookPage: React.FC = () => {
+	const { bookId } = useParams<{ bookId: Id }>();
 	const { t } = useTranslation();
+	const dispatch = useDispatch();
+	const book = useSelector(selectBook(bookId));
 
-	useEffect(() => {
-		books.length && dispatch(booksActions.initSearchAction());
-	}, [dispatch, books]);
+	if (!book) {
+		return null;
+	}
 
-	const filteredBooks = search(searchCriteria) || [];
+	const { author, title, location } = book;
+	const initialValues: SearchCriteria = {
+		author,
+		title,
+		location,
+	};
 
 	return (
 		<PageWrapper>
 			<Formik
-				initialValues={blankSearchCriteria}
-				onSubmit={values => {
-					setSearchCriteria(values);
+				initialValues={initialValues}
+				enableReinitialize={true}
+				validate={values => {
+					return Object.entries(values).reduce((errors, [key, val]) => {
+						if (!val) {
+							errors[key] = t('errors.mandatoryField');
+						}
+						return errors;
+					}, {} as { [k: string]: string | undefined });
 				}}
-				onReset={() => {
-					setSearchCriteria(blankSearchCriteria);
+				onSubmit={(values, { resetForm }) => {
+					dispatch(booksActions.update({ ...book, ...values }));
 				}}
 			>
-				{() => {
+				{({ errors, dirty }) => {
 					return (
 						<Form>
 							<InputWrapper>
@@ -93,18 +79,24 @@ const SearchPage: React.FC = () => {
 									variant="outlined"
 									as={TextField}
 									label={t('app.author')}
+									error={!!errors.author}
+									helperText={errors.author}
 								/>
 								<Field
 									name="title"
 									variant="outlined"
 									as={TextField}
 									label={t('app.title')}
+									error={!!errors.title}
+									helperText={errors.title}
 								/>
 								<Field
 									name="location"
 									as={TextField}
 									variant="outlined"
 									label={t('app.location')}
+									error={!!errors.location}
+									helperText={errors.location}
 								/>
 							</InputWrapper>
 							<ButtonsWrapper>
@@ -112,10 +104,11 @@ const SearchPage: React.FC = () => {
 									variant="contained"
 									color="primary"
 									size="large"
-									startIcon={<Search />}
+									startIcon={<Save />}
 									type="submit"
+									disabled={!dirty}
 								>
-									{t('app.search')}
+									{t('app.save')}
 								</Button>
 								<Button
 									variant="outlined"
@@ -123,6 +116,7 @@ const SearchPage: React.FC = () => {
 									size="large"
 									startIcon={<Close />}
 									type="reset"
+									disabled={!dirty}
 								>
 									{t('app.reset')}
 								</Button>
@@ -131,31 +125,18 @@ const SearchPage: React.FC = () => {
 					);
 				}}
 			</Formik>
-			<BooksList>
-				{filteredBooks
-					.filter(({ score }) => score && score < 0.8)
-					.map(({ item }) => (
-						<BookCard key={item.id} book={item} />
-					))}
-			</BooksList>
 
 			<BottomAppBar position="fixed" color="primary">
 				<ToolbarStyled>
-					{!books.length ? <CircularProgress color="secondary" /> : <div></div>}
-					<FabLink to="/add">
-						<Fab color="secondary" aria-label="add">
-							<Add />
-						</Fab>
-					</FabLink>
-					<IconButton color="inherit" disableRipple={true}>
-						<Badge badgeContent={books.length} color="secondary">
-							<Book />
-						</Badge>
-					</IconButton>
+					<LinkNoStyle to="/">
+						<IconButton edge="start" color="inherit" aria-label="open drawer">
+							<ChevronLeft />
+						</IconButton>
+					</LinkNoStyle>
 				</ToolbarStyled>
 			</BottomAppBar>
 		</PageWrapper>
 	);
 };
 
-export default SearchPage;
+export default EditBookPage;

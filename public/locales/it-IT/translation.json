@@ -6,5 +6,8 @@
     "search": "ricerca",
     "reset": "reset",
     "save": "salva"
+  },
+  "errors": {
+    "mandatoryField": "campo obbligatorio"
   }
 }

@@ -5,6 +5,9 @@
     "location": "location",
     "search": "search",
     "reset": "reset",
-    "save": "save"
+    "save": "save",
+  },
+  "errors": {
+    "mandatoryField": "mandatory field"
   }
 }

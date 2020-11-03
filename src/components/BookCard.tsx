@@ -1,10 +1,16 @@
 import React from 'react'
+import { useDispatch } from 'react-redux'
+
+import { Delete, Edit } from '@material-ui/icons'
 
 import { Book } from '../model/model'
-import { Card, CardContent, Typography } from '../styleguide'
+import booksActions from '../store/books/actions'
+import { Card, CardActions, CardContent, IconButton, Typography } from '../styleguide'
+import { LinkNoStyle } from './CommonComponents'
 
 const BookCard: React.FC<{ book: Book }> = ({ book }) => {
-	const { author, title, location } = book;
+	const dispatch = useDispatch();
+	const { author, title, location, id } = book;
 	return (
 		<Card variant="outlined">
 			<CardContent>
@@ -16,6 +22,20 @@ const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 				</Typography>
 				<Typography color="textSecondary">{location}</Typography>
 			</CardContent>
+			<CardActions disableSpacing>
+				<IconButton
+					onClick={() => {
+						dispatch(booksActions.remove(id));
+					}}
+				>
+					<Delete />
+				</IconButton>
+				<LinkNoStyle to={`/edit/${id}`}>
+					<IconButton>
+						<Edit />
+					</IconButton>
+				</LinkNoStyle>
+			</CardActions>
 		</Card>
 	);
 };

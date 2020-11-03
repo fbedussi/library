@@ -1,6 +1,6 @@
 export type Id = string;
 
-export type ErrorOrigin = 'internal-ui' | 'external' | 'unknown'; // TODO: add types as needed
+export type ErrorOrigin = 'ui' | 'db' | 'unknown'; // TODO: add types as needed
 
 export type HttpErrorCode = 400 | 401 | 403 | 404 | 405 | 408 | 500;
 
@@ -8,8 +8,7 @@ export interface HttpError {
 	status: HttpErrorCode;
 	stack: string;
 	message: string;
-	internalUrl: string;
-	externalUrl: string;
+	url: string;
 	origin: ErrorOrigin;
 }
 
@@ -35,9 +34,12 @@ export interface Errors {
 export interface Book {
 	id: Id;
 	author: string;
-	publisher: string;
 	title: string;
 	location: string;
+}
+
+export interface DbBook extends Book {
+	userId: Id;
 }
 
 export type NotificationType = 'success' | 'error' | 'info';
@@ -64,7 +66,7 @@ export interface RootState {
 }
 
 export interface SearchCriteria {
-	author: string
-	title: string
-	location: string
+	author: string;
+	title: string;
+	location: string;
 }

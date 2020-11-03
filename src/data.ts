@@ -1,5 +1,5 @@
 import db from './firebase'
-import { Book, Id } from './model/model'
+import { Book, DbBook, Id } from './model/model'
 
 const booksCollection = db.collection('books');
 
@@ -38,11 +38,27 @@ export const loadBooksFromDB = (
 		.get()
 		.then(function (querySnapshot) {
 			let results: Book[] = [];
-			querySnapshot.forEach(function (doc) {
+			querySnapshot.forEach(doc => {
 				const dataFromDb = doc.data() as Omit<Book, 'id'>;
 				results.push({ ...dataFromDb, id: doc.id });
 			});
-			debugger;
 			handleUpdate(results);
 		});
+};
+
+export const addBookInDB = (
+	book: Omit<Book, 'id'>,
+	userId: Id,
+): Promise<Book> => {
+	return booksCollection.add({ ...book, userId }).then(doc => {
+		return { ...book, id: doc.id };
+	});
+};
+
+export const deleteBookInDB = (id: Id) => {
+	return booksCollection.doc(id).delete();
+};
+
+export const updateBookInDB = (book: DbBook) => {
+	return booksCollection.doc(book.id).set(book);
 };
