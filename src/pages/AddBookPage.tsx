@@ -1,39 +1,16 @@
-import { Field, Form, Formik } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
-import { BottomAppBar, LinkNoStyle, ToolbarStyled } from '../components/CommonComponents'
-import { pxToRem } from '../libs/styles'
+import BookForm from '../components/BookForm'
+import {
+  BottomAppBar, LinkNoStyle, PageWrapper, ToolbarStyled
+} from '../components/CommonComponents'
 import { SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
-import { Badge, Button, IconButton, TextField } from '../styleguide'
-import { Book, ChevronLeft, Close, Save } from '../styleguide/icons'
-import theme from '../styleguide/theme'
-
-const PageWrapper = styled.div`
-	padding: ${pxToRem(theme.spacing(1))}rem;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-`;
-
-const InputWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-`;
-
-const ButtonsWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
+import { Badge, IconButton } from '../styleguide'
+import { Book, ChevronLeft, Save } from '../styleguide/icons'
 
 const AddBookPage: React.FC = () => {
 	const { t } = useTranslation();
@@ -47,7 +24,7 @@ const AddBookPage: React.FC = () => {
 
 	return (
 		<PageWrapper>
-			<Formik
+			<BookForm
 				initialValues={blankInputs}
 				validate={values => {
 					return Object.entries(values).reduce((errors, [key, val]) => {
@@ -55,68 +32,15 @@ const AddBookPage: React.FC = () => {
 							errors[key] = t('errors.mandatoryField');
 						}
 						return errors;
-					}, {} as { [k: string]: string | undefined });
+					}, {} as { [k: string]: string });
 				}}
 				onSubmit={(values, { resetForm }) => {
 					dispatch(booksActions.add(values));
 					resetForm();
 				}}
-			>
-				{({ errors, dirty }) => {
-					return (
-						<Form>
-							<InputWrapper>
-								<Field
-									name="author"
-									variant="outlined"
-									as={TextField}
-									label={t('app.author')}
-									error={!!errors.author}
-									helperText={errors.author}
-								/>
-								<Field
-									name="title"
-									variant="outlined"
-									as={TextField}
-									label={t('app.title')}
-									error={!!errors.title}
-									helperText={errors.title}
-								/>
-								<Field
-									name="location"
-									as={TextField}
-									variant="outlined"
-									label={t('app.location')}
-									error={!!errors.location}
-									helperText={errors.location}
-								/>
-							</InputWrapper>
-							<ButtonsWrapper>
-								<Button
-									variant="contained"
-									color="primary"
-									size="large"
-									startIcon={<Save />}
-									type="submit"
-									disabled={!dirty}
-								>
-									{t('app.save')}
-								</Button>
-								<Button
-									variant="outlined"
-									color="primary"
-									size="large"
-									startIcon={<Close />}
-									type="reset"
-									disabled={!dirty}
-								>
-									{t('app.reset')}
-								</Button>
-							</ButtonsWrapper>
-						</Form>
-					);
-				}}
-			</Formik>
+				PrimaryIcon={<Save />}
+				primaryLabel={t('app.save')}
+			/>
 
 			<BottomAppBar position="fixed" color="primary">
 				<ToolbarStyled>
