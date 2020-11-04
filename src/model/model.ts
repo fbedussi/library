@@ -1,25 +1,21 @@
 export type Id = string;
 
-export type ErrorOrigin = 'ui' | 'db' | 'unknown'; // TODO: add types as needed
+export type ErrorOrigin = 'ui' | 'db' | 'auth' | 'unknown'; // TODO: add types as needed
 
 export type HttpErrorCode = 400 | 401 | 403 | 404 | 405 | 408 | 500;
 
-export interface HttpError {
-	status: HttpErrorCode;
-	stack: string;
+export interface BeError {
 	message: string;
-	url: string;
 	origin: ErrorOrigin;
 }
 
-export interface RecordedHttpError extends HttpError {
+export interface RecordedBeError extends BeError {
 	id: string;
 }
 
 export interface UiError {
-	id: string;
 	message: string;
-	stack: string;
+	stack?: string;
 }
 
 export interface RecordedUiError extends UiError {
@@ -27,7 +23,7 @@ export interface RecordedUiError extends UiError {
 }
 
 export interface Errors {
-	http: RecordedHttpError[];
+	http: RecordedBeError[];
 	ui: RecordedUiError[];
 }
 

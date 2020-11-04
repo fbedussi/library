@@ -6,6 +6,10 @@
     "search": "search",
     "reset": "reset",
     "save": "save",
+    "username": "username",
+    "password": "password",
+    "rememberMe": "remember me",
+    "login": "login"
   },
   "errors": {
     "mandatoryField": "mandatory field"

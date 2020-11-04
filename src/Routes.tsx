@@ -2,9 +2,11 @@ import React, { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { Route, Router, Switch } from 'react-router-dom'
 
+import AuthenticatedRoute from './components/AuthenticatedRoute'
 import history from './history'
 import AddBookPage from './pages/AddBookPage'
 import EditBookPage from './pages/EditBookPage'
+import LoginPage from './pages/LoginPage'
 import SearchPage from './pages/SearchPage'
 import booksActions from './store/books/actions'
 
@@ -18,14 +20,17 @@ const Routes = () => {
 	return (
 		<Router history={history}>
 			<Switch>
-				<Route path="/add">
+				<AuthenticatedRoute path="/add">
 					<AddBookPage />
-				</Route>
-				<Route path="/edit/:bookId">
+				</AuthenticatedRoute>
+				<AuthenticatedRoute path="/edit/:bookId">
 					<EditBookPage />
-				</Route>
-				<Route path="/">
+				</AuthenticatedRoute>
+				<AuthenticatedRoute path="/search">
 					<SearchPage />
+				</AuthenticatedRoute>
+				<Route path="/">
+					<LoginPage />
 				</Route>
 			</Switch>
 		</Router>

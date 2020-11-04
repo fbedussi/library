@@ -40,9 +40,6 @@ const load = (): AppThunk => async (dispatch, getState) => {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
-				stack: e.stack,
-				url: 'load books',
-				status: 500,
 				origin: 'db',
 			}),
 		);
@@ -62,9 +59,6 @@ const add = (book: Omit<Book, 'id'>): AppThunk => async (
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
-				stack: e.stack,
-				url: 'add book',
-				status: 500,
 				origin: 'db',
 			}),
 		);
@@ -81,9 +75,6 @@ const update = (book: Book): AppThunk => async (dispatch, getState) => {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
-				stack: e.stack,
-				url: 'update book',
-				status: 500,
 				origin: 'db',
 			}),
 		);
@@ -98,9 +89,6 @@ const remove = (id: Id): AppThunk => async (dispatch, getState) => {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
-				stack: e.stack,
-				url: 'delete book',
-				status: 500,
 				origin: 'db',
 			}),
 		);

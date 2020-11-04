@@ -5,7 +5,11 @@
     "location": "collocazione",
     "search": "ricerca",
     "reset": "reset",
-    "save": "salva"
+    "save": "salva",
+    "username": "nome utente",
+    "password": "password",
+    "rememberMe": "ricordami",
+    "login": "accedi"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"
