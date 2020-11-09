@@ -51,12 +51,23 @@ const BookForm: React.FC<Props> = ({
 			validate={validate}
 			onSubmit={onSubmit}
 		>
-			{({ errors, dirty }) => {
+			{({ values, errors, setFieldValue, dirty }) => {
 				return (
 					<Form>
 						<InputWrapper>
 							<Field
 								name="author"
+								onDrop={(ev: React.DragEvent) => {
+									const word = ev.dataTransfer.getData('text/plain');
+									setFieldValue(
+										'author',
+										values.author.length ? `${values.author} ${word}` : word,
+									);
+								}}
+								onDragOver={(ev: React.DragEvent) => {
+									ev.preventDefault();
+									ev.dataTransfer.dropEffect = 'move';
+								}}
 								variant="outlined"
 								as={TextField}
 								label={t('app.author')}

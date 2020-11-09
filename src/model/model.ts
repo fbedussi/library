@@ -4,6 +4,7 @@ export type ErrorOrigin = 'ui' | 'db' | 'auth' | 'unknown'; // TODO: add types a
 
 export type HttpErrorCode = 400 | 401 | 403 | 404 | 405 | 408 | 500;
 
+export type UrlString = string;
 export interface BeError {
 	message: string;
 	origin: ErrorOrigin;
@@ -57,6 +58,10 @@ export interface AuthState {
 export interface RootState {
 	books: Book[];
 	notifications: Notification[];
+	photos: {
+		currentPhotoPath: UrlString;
+		words: string[];
+	};
 	errors: Errors;
 	auth: AuthState;
 }
@@ -66,3 +71,5 @@ export interface SearchCriteria {
 	title: string;
 	location: string;
 }
+
+export type Base64 = string;

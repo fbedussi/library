@@ -12,8 +12,10 @@ export const slice = createSlice({
 		_addBook: (state, { payload }: PayloadAction<Book>) => {
 			state.push(payload);
 		},
-		_removeBook: (state, { payload }: PayloadAction<Id>) => state.filter(({ id }) => id !== payload),
-		_updateBook: (state, { payload }: PayloadAction<Book>) => state.map((book) => book.id === payload.id ? payload : book),
+		_removeBook: (state, { payload }: PayloadAction<Id>) =>
+			state.filter(({ id }) => id !== payload),
+		_updateBook: (state, { payload }: PayloadAction<Book>) =>
+			state.map(book => (book.id === payload.id ? payload : book)),
 	},
 });
 

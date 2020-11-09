@@ -1,5 +1,8 @@
-import db from './firebase'
-import { Book, DbBook, Id } from './model/model'
+import { v4 as uuidv4 } from 'uuid'
+
+import db, { storage, UploadTaskSnapshot } from './firebase'
+import { b64toBlob } from './libs/photos'
+import { Base64, Book, DbBook, Id } from './model/model'
 
 const booksCollection = db.collection('books');
 
@@ -62,3 +65,17 @@ export const deleteBookInDB = (id: Id) => {
 export const updateBookInDB = (book: DbBook) => {
 	return booksCollection.doc(book.id).set(book);
 };
+
+export const uploadPhotoToBucket = (
+	base64: Base64,
+	contentType: string,
+): Promise<UploadTaskSnapshot> => {
+	const uuid = uuidv4();
+	const pictureRef = storage.child(`${uuid}.jpg`);
+	return pictureRef
+		.put(b64toBlob(base64, contentType))
+		.catch(error => console.error(error));
+};
+
+export const getPhotoUrl = (photoId: string) =>
+	storage.child(photoId).getDownloadURL();

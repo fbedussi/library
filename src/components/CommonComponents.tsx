@@ -23,6 +23,11 @@ export const BottomAppBar = styled(AppBar)`
 	bottom: 0;
 `;
 
+export const TopAppBar = styled(AppBar)`
+	top: 0;
+	bottom: auto;
+`;
+
 export const ToolbarStyled = styled(Toolbar)`
 	justify-content: space-between;
 `;

@@ -5,6 +5,7 @@ import { Route, Router, Switch } from 'react-router-dom'
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import history from './history'
 import AddBookPage from './pages/AddBookPage'
+import CameraPage from './pages/CameraPage'
 import EditBookPage from './pages/EditBookPage'
 import LoginPage from './pages/LoginPage'
 import SearchPage from './pages/SearchPage'
@@ -22,6 +23,9 @@ const Routes = () => {
 			<Switch>
 				<AuthenticatedRoute path="/add">
 					<AddBookPage />
+				</AuthenticatedRoute>
+				<AuthenticatedRoute path="/camera">
+					<CameraPage />
 				</AuthenticatedRoute>
 				<AuthenticatedRoute path="/edit/:bookId">
 					<EditBookPage />

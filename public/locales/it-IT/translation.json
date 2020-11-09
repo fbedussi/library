@@ -9,7 +9,8 @@
     "username": "nome utente",
     "password": "password",
     "rememberMe": "ricordami",
-    "login": "accedi"
+    "login": "accedi",
+    "takePhoto": "fai una foto alla copertina"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"
