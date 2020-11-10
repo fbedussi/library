@@ -10,7 +10,9 @@
     "password": "password",
     "rememberMe": "ricordami",
     "login": "accedi",
-    "takePhoto": "fai una foto alla copertina"
+    "takePhoto": "fai una foto alla copertina",
+    "addToAuthor": "autore",
+    "addToTitle": "titolo"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"

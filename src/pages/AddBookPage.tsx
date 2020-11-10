@@ -1,4 +1,4 @@
-import React, { DragEvent, useRef } from 'react'
+import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -7,12 +7,22 @@ import BookForm from '../components/BookForm'
 import {
   BottomAppBar, LinkNoStyle, PageWrapper, ToolbarStyled
 } from '../components/CommonComponents'
+import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
 import { Badge, Button, Chip, IconButton } from '../styleguide'
-import { Book, Camera, ChevronLeft, Save } from '../styleguide/icons'
+import { ArrowDownward, Book, Camera, ChevronLeft, Save } from '../styleguide/icons'
+import theme from '../styleguide/theme'
+
+const WordRow = styled.div`
+	display: grid;
+	grid-template-columns: 1fr 3fr 1fr;
+	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
+	gap: ${pxToRem(theme.spacing(1))}rem;
+	width: 100%;
+`;
 
 const Image = styled.img`
 	width: 300px;
@@ -24,39 +34,17 @@ const AddBookPage: React.FC = () => {
 	const dispatch = useDispatch();
 	const books = useSelector(selectBooks);
 	const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
-	// const words = useSelector(selectWords);
-	const words = ['pippo', 'pluto', 'lasciateli', 'giocare'];
-	const draggingWord = useRef('');
-	const dragOverItem = useRef();
-
 	const blankInputs: SearchCriteria = {
 		author: '',
 		title: '',
 		location: '',
 	};
-
-	const onDragStart = (ev: DragEvent<HTMLDivElement>, word: string) => {
-		// draggingWord.current = word;
-		ev.dataTransfer.setData('text/plain', word);
-	};
-
-	const onDrop = (e: DragEvent<HTMLDivElement>) => {
-		// dragOverItem.current = position;
-		console.log(e.target);
-		// const listCopy = [...list];
-		// console.log(draggingItem.current, dragOverItem.current);
-		// const draggingItemContent = listCopy[draggingItem.current];
-		// listCopy.splice(draggingItem.current, 1);
-		// listCopy.splice(dragOverItem.current, 0, draggingItemContent);
-
-		// draggingItem.current = dragOverItem.current;
-		// dragOverItem.current = null;
-		// setList(listCopy);
-	};
+	const [initialValues, setInitialValues] = useState({ ...blankInputs });
+	const words = useSelector(selectWords);
 
 	return (
 		<PageWrapper>
-			{/* {currentPhotoUrl ? (
+			{currentPhotoUrl ? (
 				<Image src={currentPhotoUrl} alt="" />
 			) : (
 				<LinkNoStyle to="/camera">
@@ -64,19 +52,45 @@ const AddBookPage: React.FC = () => {
 						{t('app.takePhoto')}
 					</Button>
 				</LinkNoStyle>
-			)} */}
+			)}
 			{words.map(word => (
-				<Chip
-					key={word}
-					label={word}
-					draggable
-					onDragStart={e => onDragStart(e, word)}
-					onDragOver={e => e.preventDefault()}
-				/>
+				<WordRow>
+					<Button
+						startIcon={<ArrowDownward />}
+						variant="outlined"
+						color="primary"
+						onClick={() =>
+							setInitialValues({
+								...initialValues,
+								author: initialValues.author.length
+									? `${initialValues.author} ${word}`
+									: word,
+							})
+						}
+					>
+						{t('app.addToAuthor')}
+					</Button>
+					<Chip key={word} label={word} />
+					<Button
+						startIcon={<ArrowDownward />}
+						variant="outlined"
+						color="primary"
+						onClick={() =>
+							setInitialValues({
+								...initialValues,
+								title: initialValues.title.length
+									? `${initialValues.title} ${word}`
+									: word,
+							})
+						}
+					>
+						{t('app.addToTitle')}
+					</Button>
+				</WordRow>
 			))}
 
 			<BookForm
-				initialValues={blankInputs}
+				initialValues={initialValues}
 				enableReinitialize={true}
 				validate={values => {
 					return Object.entries(values).reduce((errors, [key, val]) => {
