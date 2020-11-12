@@ -11,7 +11,7 @@ import theme from '../styleguide/theme'
 
 const InputWrapper = styled.div`
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	gap: ${pxToRem(theme.spacing(1))}rem;
 	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
 `;

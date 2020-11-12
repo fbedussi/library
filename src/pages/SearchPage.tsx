@@ -5,16 +5,15 @@ import styled from 'styled-components'
 
 import BookCard from '../components/BookCard'
 import BookForm from '../components/BookForm'
-import {
-  BottomAppBar, LinkNoStyle, PageWrapper, ToolbarStyled
-} from '../components/CommonComponents'
+import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import ViewAllLink from '../components/ViewAllLink'
 import { search } from '../libs/search'
 import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
-import { Badge, CircularProgress, Fab, IconButton } from '../styleguide'
-import { Add, Book, Search } from '../styleguide/icons'
+import { CircularProgress, Fab, Typography } from '../styleguide'
+import { Add, Search } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const BooksList = styled.div`
@@ -28,9 +27,8 @@ const BooksList = styled.div`
 const FabLink = styled(LinkNoStyle)`
 	position: absolute;
 	z-index: 1;
-	top: -${pxToRem(theme.spacing(4))}rem;
-	left: 0;
-	right: 0;
+	bottom: ${pxToRem(theme.spacing(2))}rem;
+	right: ${pxToRem(theme.spacing(2))}rem;
 	margin: 0 auto;
 	width: ${theme.spacing(7)}px;
 `;
@@ -55,6 +53,13 @@ const SearchPage: React.FC = () => {
 
 	return (
 		<PageWrapper>
+			<TopAppBar position="fixed" color="primary">
+				<ToolbarStyled>
+					{!books.length ? <CircularProgress color="secondary" /> : null}
+					<Typography variant="h6">{t('app.search')}</Typography>
+					<ViewAllLink />
+				</ToolbarStyled>
+			</TopAppBar>
 			<BookForm
 				initialValues={blankSearchCriteria}
 				onSubmit={values => {
@@ -72,21 +77,11 @@ const SearchPage: React.FC = () => {
 					))}
 			</BooksList>
 
-			<BottomAppBar position="fixed" color="primary">
-				<ToolbarStyled>
-					{!books.length ? <CircularProgress color="secondary" /> : <div></div>}
-					<FabLink to="/add">
-						<Fab color="secondary" aria-label="add">
-							<Add />
-						</Fab>
-					</FabLink>
-					<IconButton color="inherit" disableRipple={true}>
-						<Badge badgeContent={books.length} color="secondary">
-							<Book />
-						</Badge>
-					</IconButton>
-				</ToolbarStyled>
-			</BottomAppBar>
+			<FabLink to="/add">
+				<Fab color="secondary" aria-label="add">
+					<Add />
+				</Fab>
+			</FabLink>
 		</PageWrapper>
 	);
 };

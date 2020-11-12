@@ -3,16 +3,19 @@
     "title": "titolo",
     "author": "autore",
     "location": "collocazione",
-    "search": "ricerca",
+    "search": "Ricerca",
     "reset": "reset",
     "save": "salva",
     "username": "nome utente",
     "password": "password",
     "rememberMe": "ricordami",
     "login": "accedi",
-    "takePhoto": "fai una foto alla copertina",
+    "takePhoto": "fotografa la copertina",
     "addToAuthor": "autore",
-    "addToTitle": "titolo"
+    "addToTitle": "titolo",
+    "insert": "Inserimento",
+    "cameraInstructions": "Se vuoi puoi fotografare la copertina, questo consentirà anche di estrarre automaticamente il titolo e l'autore (se presenti in copertina)",
+    "viewAll": "Vedi tutti"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"

@@ -4,24 +4,25 @@ import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
 
 import BookForm from '../components/BookForm'
-import {
-  BottomAppBar, LinkNoStyle, PageWrapper, ToolbarStyled
-} from '../components/CommonComponents'
+import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import HomeLink from '../components/HomeLink'
+import ViewAllLink from '../components/ViewAllLink'
 import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
-import { selectBooks } from '../store/books/selectors'
 import photosActions from '../store/photos/actions'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
-import { Badge, Button, Chip, IconButton } from '../styleguide'
-import { ArrowDownward, Book, Camera, ChevronLeft, Save } from '../styleguide/icons'
+import { Button, Chip, IconButton, Typography } from '../styleguide'
+import { ArrowDownward, Camera, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const CameraButtonWrapper = styled.div`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-	display: flex;
-	width: 100%;
-	justify-content: center;
+	text-align: center;
+`;
+
+const Instructions = styled.p`
+	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
 `;
 
 const WordRow = styled.div`
@@ -51,7 +52,6 @@ const Image = styled.img`
 const AddBookPage: React.FC = () => {
 	const { t } = useTranslation();
 	const dispatch = useDispatch();
-	const books = useSelector(selectBooks);
 	const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
 	const blankInputs: SearchCriteria = {
 		author: '',
@@ -63,8 +63,16 @@ const AddBookPage: React.FC = () => {
 
 	return (
 		<PageWrapper>
+			<TopAppBar position="fixed" color="primary">
+				<ToolbarStyled>
+					<HomeLink />
+					<Typography variant="h6">{t('app.insert')}</Typography>
+					<ViewAllLink />
+				</ToolbarStyled>
+			</TopAppBar>
 			{!currentPhotoUrl && (
 				<CameraButtonWrapper>
+					<Instructions>{t('app.cameraInstructions')}</Instructions>
 					<LinkNoStyle to="/camera">
 						<Button variant="contained" color="primary" startIcon={<Camera />}>
 							{t('app.takePhoto')}
@@ -132,22 +140,6 @@ const AddBookPage: React.FC = () => {
 			/>
 
 			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="" />}
-
-			<BottomAppBar position="fixed" color="primary">
-				<ToolbarStyled>
-					<LinkNoStyle to="/">
-						<IconButton edge="start" color="inherit" aria-label="open drawer">
-							<ChevronLeft />
-						</IconButton>
-					</LinkNoStyle>
-
-					<IconButton color="inherit" disableRipple={true}>
-						<Badge badgeContent={books.length} color="secondary">
-							<Book />
-						</Badge>
-					</IconButton>
-				</ToolbarStyled>
-			</BottomAppBar>
 		</PageWrapper>
 	);
 };

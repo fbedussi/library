@@ -4,25 +4,23 @@ import React from 'react'
 import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo'
 import { useDispatch } from 'react-redux'
 
-import { LinkNoStyle, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import BackLink from '../components/BackLink'
+import { PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
 import history from '../history'
 import { TDispatch } from '../model/types'
 import photosActions from '../store/photos/actions'
-import { IconButton } from '../styleguide'
-import { ChevronLeft } from '../styleguide/icons'
 
 const CameraPage: React.FC = () => {
 	const dispatch: TDispatch = useDispatch();
 
+	const width = Math.min(window.innerWidth, window.innerHeight);
+	const height = Math.round((width / 3) * 4);
+
 	return (
-		<div>
+		<PageWrapper>
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
-					<LinkNoStyle to="/add">
-						<IconButton edge="start" color="inherit" aria-label="open drawer">
-							<ChevronLeft />
-						</IconButton>
-					</LinkNoStyle>
+					<BackLink />
 				</ToolbarStyled>
 			</TopAppBar>
 			<Camera
@@ -33,15 +31,15 @@ const CameraPage: React.FC = () => {
 				}}
 				idealFacingMode={FACING_MODES.ENVIRONMENT}
 				idealResolution={{
-					width: window.innerWidth,
-					height: window.innerHeight,
+					width,
+					height,
 				}}
 				imageType={IMAGE_TYPES.JPG}
 				imageCompression={0.97}
-				isFullscreen={true}
+				isFullscreen={false}
 				isImageMirror={false}
 			/>
-		</div>
+		</PageWrapper>
 	);
 };
 
