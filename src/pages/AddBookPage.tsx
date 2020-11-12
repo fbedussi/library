@@ -11,22 +11,41 @@ import { pxToRem } from '../libs/styles'
 import { SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
+import photosActions from '../store/photos/actions'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
 import { Badge, Button, Chip, IconButton } from '../styleguide'
 import { ArrowDownward, Book, Camera, ChevronLeft, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
+const CameraButtonWrapper = styled.div`
+	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+`;
+
 const WordRow = styled.div`
 	display: grid;
 	grid-template-columns: 1fr 3fr 1fr;
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-	gap: ${pxToRem(theme.spacing(1))}rem;
+	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
+	gap: ${pxToRem(theme.spacing(0.5))}rem;
+	grid-template-rows: repeat(auto-fit, 2em);
 	width: 100%;
 `;
 
+const ColumnLabel = styled.div`
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	font-size: 0.8rem;
+	color: ${theme.palette.grey[500]};
+`;
+
 const Image = styled.img`
-	width: 300px;
+	width: 50vmin;
+	max-width: 300px;
 	height: auto;
+	margin: 0 auto;
 `;
 
 const AddBookPage: React.FC = () => {
@@ -44,20 +63,25 @@ const AddBookPage: React.FC = () => {
 
 	return (
 		<PageWrapper>
-			{currentPhotoUrl ? (
-				<Image src={currentPhotoUrl} alt="" />
-			) : (
-				<LinkNoStyle to="/camera">
-					<Button variant="contained" color="primary" startIcon={<Camera />}>
-						{t('app.takePhoto')}
-					</Button>
-				</LinkNoStyle>
+			{!currentPhotoUrl && (
+				<CameraButtonWrapper>
+					<LinkNoStyle to="/camera">
+						<Button variant="contained" color="primary" startIcon={<Camera />}>
+							{t('app.takePhoto')}
+						</Button>
+					</LinkNoStyle>
+				</CameraButtonWrapper>
 			)}
-			{words.map(word => (
+			{!!words.length && (
 				<WordRow>
-					<Button
-						startIcon={<ArrowDownward />}
-						variant="outlined"
+					<ColumnLabel>{t('app.author')}</ColumnLabel>
+					<div></div>
+					<ColumnLabel>{t('app.title')}</ColumnLabel>
+				</WordRow>
+			)}
+			{words.map((word, index) => (
+				<WordRow key={index}>
+					<IconButton
 						color="primary"
 						onClick={() =>
 							setInitialValues({
@@ -68,12 +92,10 @@ const AddBookPage: React.FC = () => {
 							})
 						}
 					>
-						{t('app.addToAuthor')}
-					</Button>
+						<ArrowDownward />
+					</IconButton>
 					<Chip key={word} label={word} />
-					<Button
-						startIcon={<ArrowDownward />}
-						variant="outlined"
+					<IconButton
 						color="primary"
 						onClick={() =>
 							setInitialValues({
@@ -84,8 +106,8 @@ const AddBookPage: React.FC = () => {
 							})
 						}
 					>
-						{t('app.addToTitle')}
-					</Button>
+						<ArrowDownward />
+					</IconButton>
 				</WordRow>
 			))}
 
@@ -101,12 +123,15 @@ const AddBookPage: React.FC = () => {
 					}, {} as { [k: string]: string });
 				}}
 				onSubmit={(values, { resetForm }) => {
-					dispatch(booksActions.add(values));
+					dispatch(booksActions.add({ ...values, coverPath: currentPhotoUrl }));
+					dispatch(photosActions.resetPhotoData());
 					resetForm();
 				}}
 				PrimaryIcon={<Save />}
 				primaryLabel={t('app.save')}
 			/>
+
+			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="" />}
 
 			<BottomAppBar position="fixed" color="primary">
 				<ToolbarStyled>

@@ -15,6 +15,7 @@ export const slice = createSlice({
 		_setWords: (state, { payload }: PayloadAction<string[]>) => {
 			state.words = payload;
 		},
+		resetPhotoData: () => initialState,
 	},
 });
 

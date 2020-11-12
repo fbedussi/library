@@ -6,11 +6,12 @@ import { AppBar, Toolbar } from '../styleguide'
 import theme from '../styleguide/theme'
 
 export const PageWrapper = styled.div`
-	padding: ${pxToRem(theme.spacing(2))}rem;
+	padding: ${pxToRem(theme.spacing(2))}rem ${pxToRem(theme.spacing(2))}rem 72px;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	height: 100%;
+	overflow-y: auto;
 `;
 
 export const LinkNoStyle = styled(Link)`

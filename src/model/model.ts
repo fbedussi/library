@@ -33,6 +33,7 @@ export interface Book {
 	author: string;
 	title: string;
 	location: string;
+	coverPath: string;
 }
 
 export interface DbBook extends Book {
