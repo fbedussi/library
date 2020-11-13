@@ -13,8 +13,8 @@ import photosActions from '../store/photos/actions'
 const CameraPage: React.FC = () => {
 	const dispatch: TDispatch = useDispatch();
 
-	const width = Math.min(window.innerWidth, window.innerHeight);
-	const height = Math.round((width / 3) * 4);
+	// const width = Math.min(window.innerWidth, window.innerHeight);
+	// const height = Math.round((width / 3) * 4);
 
 	return (
 		<PageWrapper>
@@ -30,10 +30,10 @@ const CameraPage: React.FC = () => {
 					);
 				}}
 				idealFacingMode={FACING_MODES.ENVIRONMENT}
-				idealResolution={{
-					width,
-					height,
-				}}
+				// idealResolution={{
+				// 	width,
+				// 	height,
+				// }}
 				imageType={IMAGE_TYPES.JPG}
 				imageCompression={0.97}
 				isFullscreen={false}
