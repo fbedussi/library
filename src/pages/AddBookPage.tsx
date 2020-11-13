@@ -14,9 +14,9 @@ import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
 import {
-  Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography
+  Button, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup, Typography
 } from '../styleguide'
-import { Camera, Save } from '../styleguide/icons'
+import { Camera, Close, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const CameraButtonWrapper = styled.div`
@@ -26,6 +26,12 @@ const CameraButtonWrapper = styled.div`
 
 const Instructions = styled.p`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
+`;
+
+const ResetImageButtonWrapper = styled.div`
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
 `;
 
 const FieldSelection = styled(RadioGroup)`
@@ -98,6 +104,15 @@ const AddBookPage: React.FC = () => {
 
 			{!!words.length && (
 				<div>
+					<ResetImageButtonWrapper>
+						<IconButton
+							onClick={() => {
+								dispatch(photosActions.resetPhotoData());
+							}}
+						>
+							<Close />
+						</IconButton>
+					</ResetImageButtonWrapper>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">
 							{t('app.autocompleteInstructions')}
