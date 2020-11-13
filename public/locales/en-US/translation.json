@@ -9,7 +9,12 @@
     "username": "username",
     "password": "password",
     "rememberMe": "remember me",
-    "login": "login"
+    "login": "login",
+    "takePhoto": "shot the cover",
+    "insert": "Insert",
+    "cameraInstructions": "You can take a shot to the cover, the app can extract the title and the author (if they are on the cover)",
+    "viewAll": "View all",
+    "autocompleteInstructions": "Select the field and click on the words to add them to the selected field"
   },
   "errors": {
     "mandatoryField": "mandatory field"
