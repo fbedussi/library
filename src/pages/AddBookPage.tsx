@@ -7,13 +7,14 @@ import BookForm from '../components/BookForm'
 import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
 import HomeLink from '../components/HomeLink'
 import ViewAllLink from '../components/ViewAllLink'
+import Word from '../components/Word'
 import { pxToRem } from '../libs/styles'
 import { SearchCriteria, SelectedField } from '../model/model'
 import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
 import {
-  Button, Chip, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography
+  Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography
 } from '../styleguide'
 import { Camera, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
@@ -33,10 +34,6 @@ const FieldSelection = styled(RadioGroup)`
 
 const WordContainer = styled.div`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
-
-const Word = styled(Chip)`
-	display: inline-flex;
 `;
 
 const Image = styled.img`
@@ -126,7 +123,7 @@ const AddBookPage: React.FC = () => {
 						{words.map((word, index) => (
 							<Word
 								key={`${word}_${index}`}
-								label={word}
+								word={word}
 								onClick={() => {
 									setInitialValues({
 										...initialValues,
