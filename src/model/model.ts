@@ -74,3 +74,5 @@ export interface SearchCriteria {
 }
 
 export type Base64 = string;
+
+export type SelectedField = 'author' | 'title';

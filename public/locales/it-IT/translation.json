@@ -15,7 +15,8 @@
     "addToTitle": "titolo",
     "insert": "Inserimento",
     "cameraInstructions": "Se vuoi puoi fotografare la copertina, questo consentirà anche di estrarre automaticamente il titolo e l'autore (se presenti in copertina)",
-    "viewAll": "Vedi tutti"
+    "viewAll": "Vedi tutti",
+    "autocompleteInstructions": "Seleziona il campo e clicca sulle parole per aggiongerle al campo selezionato"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"

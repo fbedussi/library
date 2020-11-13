@@ -8,12 +8,14 @@ import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../component
 import HomeLink from '../components/HomeLink'
 import ViewAllLink from '../components/ViewAllLink'
 import { pxToRem } from '../libs/styles'
-import { SearchCriteria } from '../model/model'
+import { SearchCriteria, SelectedField } from '../model/model'
 import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
-import { Button, Chip, IconButton, Typography } from '../styleguide'
-import { ArrowDownward, Camera, Save } from '../styleguide/icons'
+import {
+  Button, Chip, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, Typography
+} from '../styleguide'
+import { Camera, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
 
 const CameraButtonWrapper = styled.div`
@@ -25,21 +27,16 @@ const Instructions = styled.p`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
 `;
 
-const WordRow = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 3fr 1fr;
-	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-	gap: ${pxToRem(theme.spacing(0.5))}rem;
-	grid-template-rows: repeat(auto-fit, 2em);
-	width: 100%;
+const FieldSelection = styled(RadioGroup)`
+	flex-direction: row;
 `;
 
-const ColumnLabel = styled.div`
-	text-align: center;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-size: 0.8rem;
-	color: ${theme.palette.grey[500]};
+const WordContainer = styled.div`
+	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
+`;
+
+const Word = styled(Chip)`
+	display: inline-flex;
 `;
 
 const Image = styled.img`
@@ -59,6 +56,7 @@ const AddBookPage: React.FC = () => {
 		location: '',
 	};
 	const [initialValues, setInitialValues] = useState({ ...blankInputs });
+	const [selectedField, setSelectedField] = useState('author' as SelectedField);
 	const words = useSelector(selectWords);
 
 	return (
@@ -80,44 +78,6 @@ const AddBookPage: React.FC = () => {
 					</LinkNoStyle>
 				</CameraButtonWrapper>
 			)}
-			{!!words.length && (
-				<WordRow>
-					<ColumnLabel>{t('app.author')}</ColumnLabel>
-					<div></div>
-					<ColumnLabel>{t('app.title')}</ColumnLabel>
-				</WordRow>
-			)}
-			{words.map((word, index) => (
-				<WordRow key={index}>
-					<IconButton
-						color="primary"
-						onClick={() =>
-							setInitialValues({
-								...initialValues,
-								author: initialValues.author.length
-									? `${initialValues.author} ${word}`
-									: word,
-							})
-						}
-					>
-						<ArrowDownward />
-					</IconButton>
-					<Chip key={word} label={word} />
-					<IconButton
-						color="primary"
-						onClick={() =>
-							setInitialValues({
-								...initialValues,
-								title: initialValues.title.length
-									? `${initialValues.title} ${word}`
-									: word,
-							})
-						}
-					>
-						<ArrowDownward />
-					</IconButton>
-				</WordRow>
-			))}
 
 			<BookForm
 				initialValues={initialValues}
@@ -138,6 +98,48 @@ const AddBookPage: React.FC = () => {
 				PrimaryIcon={<Save />}
 				primaryLabel={t('app.save')}
 			/>
+
+			{!!words.length && (
+				<div>
+					<FormControl component="fieldset">
+						<FormLabel component="legend">
+							{t('app.autocompleteInstructions')}
+						</FormLabel>
+						<FieldSelection
+							name="selectedField"
+							value={selectedField}
+							onChange={e => setSelectedField(e.target.value as SelectedField)}
+						>
+							<FormControlLabel
+								value="author"
+								control={<Radio />}
+								label={t('app.author')}
+							/>
+							<FormControlLabel
+								value="title"
+								control={<Radio />}
+								label={t('app.title')}
+							/>
+						</FieldSelection>
+					</FormControl>
+					<WordContainer>
+						{words.map((word, index) => (
+							<Word
+								key={`${word}_${index}`}
+								label={word}
+								onClick={() => {
+									setInitialValues({
+										...initialValues,
+										[selectedField]: initialValues[selectedField].length
+											? `${initialValues[selectedField]} ${word}`
+											: word,
+									});
+								}}
+							/>
+						))}
+					</WordContainer>
+				</div>
+			)}
 
 			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="" />}
 		</PageWrapper>
