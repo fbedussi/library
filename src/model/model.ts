@@ -76,3 +76,5 @@ export interface SearchCriteria {
 export type Base64 = string;
 
 export type SelectedField = 'author' | 'title';
+
+export type SortingOrder = 'asc' | 'desc'
