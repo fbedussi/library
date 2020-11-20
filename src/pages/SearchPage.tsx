@@ -28,6 +28,10 @@ const SortControls = styled.div`
 
 const SortingRadioGroup = styled(RadioGroup)`
 	flex-direction: row;
+	.MuiFormControlLabel-label {
+		font-size: 0.8rem;
+		font-size: 0.8rem;
+	}
 `;
 
 const BooksList = styled.div`
