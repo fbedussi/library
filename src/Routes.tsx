@@ -9,6 +9,7 @@ import CameraPage from './pages/CameraPage'
 import EditBookPage from './pages/EditBookPage'
 import LoginPage from './pages/LoginPage'
 import SearchPage from './pages/SearchPage'
+import SettingsPage from './pages/SettingsPage'
 import ViewAllPage from './pages/ViewAllPage'
 import booksActions from './store/books/actions'
 
@@ -22,6 +23,9 @@ const Routes = () => {
 	return (
 		<Router history={history}>
 			<Switch>
+				<AuthenticatedRoute path="/settings">
+					<SettingsPage />
+				</AuthenticatedRoute>
 				<AuthenticatedRoute path="/add">
 					<AddBookPage />
 				</AuthenticatedRoute>

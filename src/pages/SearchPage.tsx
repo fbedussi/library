@@ -16,8 +16,9 @@ import {
   CircularProgress, Fab, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup,
   Typography
 } from '../styleguide'
-import { Add, ArrowDownward, ArrowUpward, Search } from '../styleguide/icons'
+import { Add, ArrowDownward, ArrowUpward, MoreVert, Search } from '../styleguide/icons'
 import theme from '../styleguide/theme'
+import history from '../history'
 
 const SortControls = styled.div`
 	display: flex;
@@ -76,6 +77,9 @@ const SearchPage: React.FC = () => {
 		<PageWrapper>
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
+					<IconButton color="inherit" onClick={() => history.push('/settings')}>
+						<MoreVert />
+					</IconButton>
 					{!books.length ? <CircularProgress color="secondary" /> : null}
 					<Typography variant="h6">{t('app.search')}</Typography>
 					<ViewAllLink />

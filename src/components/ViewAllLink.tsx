@@ -11,7 +11,7 @@ const ViewAllLink = () => {
 
 	return (
 		<LinkNoStyle to="/view-all">
-			<IconButton color="inherit" disableRipple={true}>
+			<IconButton color="inherit">
 				<Badge badgeContent={books.length} color="secondary">
 					<Book />
 				</Badge>

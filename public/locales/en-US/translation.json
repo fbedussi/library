@@ -15,7 +15,9 @@
     "cameraInstructions": "You can take a shot to the cover, the app can extract the title and the author (if they are on the cover)",
     "viewAll": "View all",
     "autocompleteInstructions": "Select the field and click on the words to add them to the selected field",
-    "orderBy": "Order by"
+    "orderBy": "Order by",
+    "settings": "Settings",
+    "export": "export data"
   },
   "errors": {
     "mandatoryField": "mandatory field"
