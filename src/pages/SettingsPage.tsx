@@ -15,7 +15,7 @@ const SettingsPage: React.FC = () => {
 	const books = useSelector(selectBooks);
 	const {t} = useTranslation()
 
-	const csv = ['Author;Title;Location'].concat(books.map(({author, title, location}) => `${author};${title};${location}`)).join('\n')
+	const csv = ['"Author";"Title";"Location"'].concat(books.map(({author, title, location}) => `"${author}";"${title}";"${location}"`)).join('\n')
 
 	const href =  `data:text/csv;charset=utf-8,${encodeURI(csv)}`;
 	
