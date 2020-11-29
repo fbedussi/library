@@ -4,7 +4,6 @@ import { AuthState } from '../../model/model'
 import { getPersistedtUserId } from '../../persistance'
 
 const initialState: AuthState = {
-	// userId: 'JaYQ9PxVOCUPiRWvArLANZUljor2',
 	userId: getPersistedtUserId() || '',
 };
 

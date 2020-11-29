@@ -32,6 +32,11 @@ export const firebaseLogin = (username: string, password: string) => {
 	return firebase.auth().signInWithEmailAndPassword(username, password);
 };
 
+export const firebaseLogout = () => {
+	return firebase.auth().signOut()
+};
+
+
 export const storage = firebase.storage().ref();
 
 export type UploadTaskSnapshot = firebase.storage.UploadTaskSnapshot;

@@ -1,7 +1,8 @@
-import { firebaseLogin } from '../../firebase'
+import { firebaseLogin, firebaseLogout } from '../../firebase'
 import history from '../../history'
 import { AppThunk } from '../../model/types'
-import { persistUserId } from '../../persistance'
+import { deletePersistedtUserId, persistUserId } from '../../persistance'
+import booksActions from '../books/actions'
 import errorsActions from '../errors/actions'
 import { slice } from './slice'
 
@@ -41,9 +42,19 @@ const login = ({
 		);
 };
 
+const logout = (): AppThunk => dispatch => {
+	firebaseLogout().then(() => {
+		deletePersistedtUserId()
+		dispatch(booksActions._loadBooks([]))
+		dispatch(booksActions.initSearchAction())
+		dispatch(authActions._setUserId(''))
+	})
+}
+
 const authActions = {
 	...slice.actions,
 	login,
+	logout,
 };
 
 export default authActions;

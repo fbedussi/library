@@ -17,7 +17,8 @@
     "autocompleteInstructions": "Select the field and click on the words to add them to the selected field",
     "orderBy": "Order by",
     "settings": "Settings",
-    "export": "export data"
+    "export": "export data",
+    "logout": "logout"
   },
   "errors": {
     "mandatoryField": "mandatory field"
