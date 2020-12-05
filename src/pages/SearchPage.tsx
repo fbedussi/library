@@ -1,24 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
+import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import BookCard from '../components/BookCard'
-import BookForm from '../components/BookForm'
-import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
-import ViewAllLink from '../components/ViewAllLink'
-import { search } from '../libs/search'
-import { pxToRem } from '../libs/styles'
-import { SearchCriteria, SortingOrder } from '../model/model'
-import booksActions from '../store/books/actions'
-import { selectBooks } from '../store/books/selectors'
+import BookCard from '../components/BookCard';
+import BookForm from '../components/BookForm';
 import {
-  CircularProgress, Fab, FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup,
-  Typography
-} from '../styleguide'
-import { Add, ArrowDownward, ArrowUpward, MoreVert, Search } from '../styleguide/icons'
-import theme from '../styleguide/theme'
-import history from '../history'
+	LinkNoStyle,
+	PageWrapper,
+	ToolbarStyled,
+	TopAppBar,
+} from '../components/CommonComponents';
+import ViewAllLink from '../components/ViewAllLink';
+import { search, sort } from '../libs/search';
+import { pxToRem } from '../libs/styles';
+import { SearchCriteria, SortingOrder } from '../model/model';
+import booksActions from '../store/books/actions';
+import { selectBooks } from '../store/books/selectors';
+import {
+	CircularProgress,
+	Fab,
+	FormControl,
+	FormControlLabel,
+	FormLabel,
+	IconButton,
+	Radio,
+	RadioGroup,
+	Typography,
+} from '../styleguide';
+import {
+	Add,
+	ArrowDownward,
+	ArrowUpward,
+	MoreVert,
+	Search,
+} from '../styleguide/icons';
+import theme from '../styleguide/theme';
+import history from '../history';
 
 const SortControls = styled.div`
 	display: flex;
@@ -133,11 +151,10 @@ const SearchPage: React.FC = () => {
 			<BooksList>
 				{filteredBooks
 					.filter(({ score }) => score && score < 0.8)
-					.sort((res1, res2) =>
-						res1.item[sortingKey] === res2.item[sortingKey]
-							? 0
-							: (sortingOrder === 'asc' ? 1 : -1) *
-							  (res1.item[sortingKey] > res2.item[sortingKey] ? 1 : -1),
+					.sort(
+						(res1, res2) =>
+							sort(res1.item[sortingKey], res2.item[sortingKey]) *
+							(sortingOrder === 'asc' ? 1 : -1),
 					)
 					.map(({ item }) => (
 						<BookCard key={item.id} book={item} />
