@@ -2,7 +2,11 @@ import Fuse from 'fuse.js';
 
 import { Book, SearchCriteria } from '../model/model';
 
-const options = { keys: ['title', 'author', 'location'], includeScore: true };
+const options = {
+	keys: ['title', 'author', 'location'],
+	includeScore: true,
+	useExtendedSearch: true,
+};
 
 let fuse: Fuse<Book> | undefined;
 
@@ -12,9 +16,15 @@ export const initSearch = (books: Book[]) => {
 };
 
 export const search = ({ author, title, location }: SearchCriteria) => {
-	const query: any[] = [{ author }, { title }, { location }].filter(obj =>
-		Object.values(obj).every(value => value),
-	);
+	// TODO: why is not a { [field: string]: string }[]
+	const query: any[] = [{ author }, { title }, { location }]
+		.filter(obj => Object.values(obj).every(value => value))
+		.map(field =>
+			Object.keys(field)[0] === 'location'
+				? { location: `^${field.location}` }
+				: field,
+		);
+	console.log(query);
 	const result = fuse?.search({
 		$and: query,
 	});
