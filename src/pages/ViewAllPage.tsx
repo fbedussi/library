@@ -1,16 +1,20 @@
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import styled from 'styled-components'
+import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import BackLink from '../components/BackLink'
-import BookCard from '../components/BookCard'
-import { PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
-import { pxToRem } from '../libs/styles'
-import { selectBooks } from '../store/books/selectors'
-import { Badge, IconButton, Typography } from '../styleguide'
-import { Book } from '../styleguide/icons'
-import theme from '../styleguide/theme'
+import BackLink from '../components/BackLink';
+import BookCard from '../components/BookCard';
+import {
+	PageWrapper,
+	ToolbarStyled,
+	TopAppBar,
+} from '../components/CommonComponents';
+import ViewAllLink from '../components/ViewAllLink';
+import { pxToRem } from '../libs/styles';
+import { selectBooks } from '../store/books/selectors';
+import { Typography } from '../styleguide';
+import theme from '../styleguide/theme';
 
 const BooksList = styled.div`
 	flex: 1;
@@ -30,11 +34,7 @@ const ViewAllPage: React.FC = () => {
 				<ToolbarStyled>
 					<BackLink />
 					<Typography variant="h6">{t('app.viewAll')}</Typography>
-					<IconButton color="inherit" disableRipple={true}>
-						<Badge badgeContent={books.length} color="secondary">
-							<Book />
-						</Badge>
-					</IconButton>
+					<ViewAllLink />
 				</ToolbarStyled>
 			</TopAppBar>
 			<BooksList>
