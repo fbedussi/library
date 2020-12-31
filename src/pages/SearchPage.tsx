@@ -17,41 +17,11 @@ import { pxToRem } from '../libs/styles';
 import { SearchCriteria, SortingOrder } from '../model/model';
 import booksActions from '../store/books/actions';
 import { selectBooks } from '../store/books/selectors';
-import {
-	CircularProgress,
-	Fab,
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup,
-	Typography,
-} from '../styleguide';
-import {
-	Add,
-	ArrowDownward,
-	ArrowUpward,
-	MoreVert,
-	Search,
-} from '../styleguide/icons';
+import { CircularProgress, Fab, IconButton, Typography } from '../styleguide';
+import { Add, MoreVert, Search } from '../styleguide/icons';
 import theme from '../styleguide/theme';
 import history from '../history';
-
-const SortControls = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-`;
-
-const SortingRadioGroup = styled(RadioGroup)`
-	flex-direction: row;
-	.MuiFormControlLabel-label {
-		font-size: 0.8rem;
-		font-size: 0.8rem;
-	}
-`;
+import SortingBar from '../components/SortingBar';
 
 const BooksList = styled.div`
 	flex: 1;
@@ -112,41 +82,12 @@ const SearchPage: React.FC = () => {
 				primaryLabel={t('app.search')}
 			/>
 
-			<FormControl component="fieldset">
-				<FormLabel component="legend">{t('app.orderBy')}</FormLabel>
-				<SortControls>
-					<SortingRadioGroup
-						name="sortingKey"
-						value={sortingKey}
-						onChange={(e, value) =>
-							setSortingKey(value as keyof SearchCriteria)
-						}
-					>
-						<FormControlLabel
-							value="author"
-							control={<Radio />}
-							label={t('app.author')}
-						/>
-						<FormControlLabel
-							value="title"
-							control={<Radio />}
-							label={t('app.title')}
-						/>
-						<FormControlLabel
-							value="location"
-							control={<Radio />}
-							label={t('app.location')}
-						/>
-					</SortingRadioGroup>
-					<IconButton
-						onClick={() =>
-							setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')
-						}
-					>
-						{sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
-					</IconButton>
-				</SortControls>
-			</FormControl>
+			<SortingBar
+				sortingOrder={sortingOrder}
+				setSortingOrder={setSortingOrder}
+				sortingKey={sortingKey}
+				setSortingKey={setSortingKey}
+			/>
 
 			<BooksList>
 				{filteredBooks

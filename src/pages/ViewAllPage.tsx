@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -10,8 +10,11 @@ import {
 	ToolbarStyled,
 	TopAppBar,
 } from '../components/CommonComponents';
+import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
+import { sort } from '../libs/search';
 import { pxToRem } from '../libs/styles';
+import { SearchCriteria, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
 import { Typography } from '../styleguide';
 import theme from '../styleguide/theme';
@@ -27,6 +30,10 @@ const BooksList = styled.div`
 const ViewAllPage: React.FC = () => {
 	const books = useSelector(selectBooks);
 	const { t } = useTranslation();
+	const [sortingKey, setSortingKey] = useState(
+		'author' as keyof SearchCriteria,
+	);
+	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
 
 	return (
 		<PageWrapper>
@@ -37,10 +44,26 @@ const ViewAllPage: React.FC = () => {
 					<ViewAllLink />
 				</ToolbarStyled>
 			</TopAppBar>
+
+			<SortingBar
+				sortingOrder={sortingOrder}
+				setSortingOrder={setSortingOrder}
+				sortingKey={sortingKey}
+				setSortingKey={setSortingKey}
+			/>
+
 			<BooksList>
-				{books.map(book => (
-					<BookCard key={book.id} book={book} />
-				))}
+				{books
+					.slice()
+					.sort((res1, res2) => {
+						return (
+							sort(res1[sortingKey], res2[sortingKey]) *
+							(sortingOrder === 'asc' ? 1 : -1)
+						);
+					})
+					.map(book => (
+						<BookCard key={book.id} book={book} />
+					))}
 			</BooksList>
 		</PageWrapper>
 	);
