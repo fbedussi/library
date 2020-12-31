@@ -56,7 +56,8 @@ export const sort = (cod1: string, cod2: string): number => {
 		typeof parts1[firstDifferentPartIndex] !==
 		typeof parts2[firstDifferentPartIndex]
 	) {
-		throw new Error('Codes have a different pattern');
+		// throw new Error('Codes have a different pattern');
+		return 0;
 	}
 
 	const a = parts1[firstDifferentPartIndex];
