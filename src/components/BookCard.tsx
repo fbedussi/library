@@ -10,26 +10,39 @@ import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } fro
 import { LinkNoStyle } from './CommonComponents'
 
 const StyledCard = styled(Card)`
-	display: grid;
-	grid-template-columns: 3fr 1fr;
+	display: flex;
+	width: 100%;
+`;
+
+const BookInfo = styled.div`
+	flex: 1;
+	max-width: 100%;
+`;
+
+const BookCardActions = styled(CardActions)`
+	padding: 0;
+`;
+
+const BookCover = styled(CardMedia)`
+	width: 25%;
 `;
 
 const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 	const dispatch = useDispatch();
 	const { author, title, location, id, coverPath } = book;
 	return (
-		<StyledCard variant="outlined">
-			<div>
+		<StyledCard variant="outlined" className="book-card">
+			<BookInfo>
 				<CardContent>
 					<Typography color="textSecondary" gutterBottom>
 						{author}
 					</Typography>
-					<Typography variant="h5" component="h2">
+					<Typography variant="h5" component="h2" className="book-title">
 						{title}
 					</Typography>
 					<Typography color="textSecondary">{location}</Typography>
 				</CardContent>
-				<CardActions disableSpacing>
+				<BookCardActions disableSpacing>
 					<IconButton
 						onClick={() => {
 							dispatch(booksActions.remove(id));
@@ -42,9 +55,9 @@ const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 							<Edit />
 						</IconButton>
 					</LinkNoStyle>
-				</CardActions>
-			</div>
-			{!!coverPath && <CardMedia image={coverPath} />}
+				</BookCardActions>
+			</BookInfo>
+			{!!coverPath && <BookCover image={coverPath} />}
 		</StyledCard>
 	);
 };

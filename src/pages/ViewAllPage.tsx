@@ -1,31 +1,31 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import React, { useLayoutEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
+import { FixedSizeList as List } from 'react-window'
+import styled from 'styled-components'
 
-import BackLink from '../components/BackLink';
-import BookCard from '../components/BookCard';
-import {
-	PageWrapper,
-	ToolbarStyled,
-	TopAppBar,
-} from '../components/CommonComponents';
-import SortingBar from '../components/SortingBar';
-import ViewAllLink from '../components/ViewAllLink';
-import { sort } from '../libs/search';
-import { pxToRem } from '../libs/styles';
-import { SearchCriteria, SortingOrder } from '../model/model';
-import { selectBooks } from '../store/books/selectors';
-import { Typography } from '../styleguide';
-import theme from '../styleguide/theme';
+import BackLink from '../components/BackLink'
+import BookCard from '../components/BookCard'
+import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
+import SortingBar from '../components/SortingBar'
+import ViewAllLink from '../components/ViewAllLink'
+import { sort } from '../libs/search'
+import { SearchCriteria, SortingOrder } from '../model/model'
+import { selectBooks } from '../store/books/selectors'
+import { Typography } from '../styleguide'
 
 const BooksList = styled.div`
 	flex: 1;
 	overflow: auto;
-	> * {
-		margin-bottom: ${pxToRem(theme.spacing(1))}rem;
+
+	.book-title {
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
 	}
 `;
+
+const BookCardContainer = styled.div``;
 
 const ViewAllPage: React.FC = () => {
 	const books = useSelector(selectBooks);
@@ -34,9 +34,41 @@ const ViewAllPage: React.FC = () => {
 		'author' as keyof SearchCriteria,
 	);
 	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
+	const listRef = useRef<HTMLDivElement>(null);
+	const [listHeight, _setListHeight] = useState(0);
+	const initialCellHeight = 160;
+	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
+
+	const listRefCurrent = listRef.current;
+	useLayoutEffect(() => {
+		if (!listRefCurrent) {
+			return;
+		}
+
+		const setHeights = () => {
+			const cellHeight =
+				listRef.current?.querySelector('.book-card')?.getBoundingClientRect()
+					?.height || initialCellHeight;
+
+			const gellGap = 16;
+			_setCellHeight(Math.round(cellHeight) + gellGap);
+			_setListHeight(listRef.current?.getBoundingClientRect()?.height || 0);
+		};
+
+		setHeights();
+		window.addEventListener('resize', setHeights);
+		return window.removeEventListener('resize', setHeights);
+	}, [listRefCurrent]);
+
+	const booksToRender = books.slice().sort((res1, res2) => {
+		return (
+			sort(res1[sortingKey], res2[sortingKey]) *
+			(sortingOrder === 'asc' ? 1 : -1)
+		);
+	});
 
 	return (
-		<PageWrapper>
+		<TopBarPageWrapper>
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
 					<BackLink />
@@ -52,20 +84,21 @@ const ViewAllPage: React.FC = () => {
 				setSortingKey={setSortingKey}
 			/>
 
-			<BooksList>
-				{books
-					.slice()
-					.sort((res1, res2) => {
-						return (
-							sort(res1[sortingKey], res2[sortingKey]) *
-							(sortingOrder === 'asc' ? 1 : -1)
-						);
-					})
-					.map(book => (
-						<BookCard key={book.id} book={book} />
-					))}
+			<BooksList ref={listRef}>
+				<List
+					height={listHeight}
+					itemCount={booksToRender.length}
+					itemSize={cellHeight}
+					width="100%"
+				>
+					{({ index, style }: { index: number; style: Object }) => (
+						<BookCardContainer style={style} key={booksToRender[index].id}>
+							<BookCard book={booksToRender[index]} />
+						</BookCardContainer>
+					)}
+				</List>
 			</BooksList>
-		</PageWrapper>
+		</TopBarPageWrapper>
 	);
 };
 
