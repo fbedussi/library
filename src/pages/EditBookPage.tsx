@@ -5,8 +5,9 @@ import { useParams } from 'react-router-dom'
 
 import BookForm from '../components/BookForm'
 import {
-  BottomAppBar, LinkNoStyle, PageWrapper, ToolbarStyled
+  BottomAppBar, BottomBarPageWrapper, LinkNoStyle, ToolbarStyled
 } from '../components/CommonComponents'
+import history from '../history'
 import { Id, SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBook } from '../store/books/selectors'
@@ -31,7 +32,7 @@ const EditBookPage: React.FC = () => {
 	};
 
 	return (
-		<PageWrapper>
+		<BottomBarPageWrapper>
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
@@ -52,14 +53,17 @@ const EditBookPage: React.FC = () => {
 
 			<BottomAppBar position="fixed" color="primary">
 				<ToolbarStyled>
-					<LinkNoStyle to="/">
-						<IconButton edge="start" color="inherit" aria-label="open drawer">
-							<ChevronLeft />
-						</IconButton>
-					</LinkNoStyle>
+					<IconButton
+						edge="start"
+						color="inherit"
+						aria-label="open drawer"
+						onClick={() => history.goBack()}
+					>
+						<ChevronLeft />
+					</IconButton>
 				</ToolbarStyled>
 			</BottomAppBar>
-		</PageWrapper>
+		</BottomBarPageWrapper>
 	);
 };
 
