@@ -1,6 +1,7 @@
 import React, { useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import Autosizer from 'react-virtualized-auto-sizer'
 import { FixedSizeList as List } from 'react-window'
 import styled from 'styled-components'
 
@@ -35,16 +36,10 @@ const ViewAllPage: React.FC = () => {
 	);
 	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
 	const listRef = useRef<HTMLDivElement>(null);
-	const [listHeight, _setListHeight] = useState(0);
 	const initialCellHeight = 160;
 	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
 
-	const listRefCurrent = listRef.current;
 	useLayoutEffect(() => {
-		if (!listRefCurrent) {
-			return;
-		}
-
 		const setHeights = () => {
 			const cellHeight =
 				listRef.current?.querySelector('.book-card')?.getBoundingClientRect()
@@ -52,13 +47,12 @@ const ViewAllPage: React.FC = () => {
 
 			const gellGap = 16;
 			_setCellHeight(Math.round(cellHeight) + gellGap);
-			_setListHeight(listRef.current?.getBoundingClientRect()?.height || 0);
 		};
 
 		setHeights();
 		window.addEventListener('resize', setHeights);
 		return window.removeEventListener('resize', setHeights);
-	}, [listRefCurrent]);
+	}, []);
 
 	const booksToRender = books.slice().sort((res1, res2) => {
 		return (
@@ -85,18 +79,22 @@ const ViewAllPage: React.FC = () => {
 			/>
 
 			<BooksList ref={listRef}>
-				<List
-					height={listHeight}
-					itemCount={booksToRender.length}
-					itemSize={cellHeight}
-					width="100%"
-				>
-					{({ index, style }: { index: number; style: Object }) => (
-						<BookCardContainer style={style} key={booksToRender[index].id}>
-							<BookCard book={booksToRender[index]} />
-						</BookCardContainer>
+				<Autosizer>
+					{({ height, width }) => (
+						<List
+							height={height}
+							itemCount={booksToRender.length}
+							itemSize={cellHeight}
+							width={width}
+						>
+							{({ index, style }: { index: number; style: Object }) => (
+								<BookCardContainer style={style} key={booksToRender[index].id}>
+									<BookCard book={booksToRender[index]} />
+								</BookCardContainer>
+							)}
+						</List>
 					)}
-				</List>
+				</Autosizer>
 			</BooksList>
 		</TopBarPageWrapper>
 	);
