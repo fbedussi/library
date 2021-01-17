@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 import BookForm from '../components/BookForm'
-import {
-  BottomAppBar, BottomBarPageWrapper, LinkNoStyle, ToolbarStyled
-} from '../components/CommonComponents'
+import { BottomAppBar, BottomBarPageWrapper, ToolbarStyled } from '../components/CommonComponents'
 import history from '../history'
 import { Id, SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
