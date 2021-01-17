@@ -37,9 +37,11 @@ const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 					<Typography color="textSecondary" gutterBottom>
 						{author}
 					</Typography>
-					<Typography variant="h5" component="h2" className="book-title">
-						{title}
-					</Typography>
+					<LinkNoStyle to={`/book/${id}`}>
+						<Typography variant="h5" component="h2" className="book-title">
+							{title}
+						</Typography>
+					</LinkNoStyle>
 					<Typography color="textSecondary">{location}</Typography>
 				</CardContent>
 				<BookCardActions disableSpacing>

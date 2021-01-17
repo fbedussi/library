@@ -18,6 +18,10 @@ export const TopBarPageWrapper = styled(PageWrapper)`
 	padding-bottom: ${pxToRem(theme.spacing(2))}rem;
 `;
 
+export const BottomBarPageWrapper = styled(PageWrapper)`
+	padding-top: ${pxToRem(theme.spacing(2))}rem;
+`;
+
 export const LinkNoStyle = styled(Link)`
 	color: inherit;
 	text-decoration: none;

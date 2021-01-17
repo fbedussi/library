@@ -10,6 +10,7 @@ import EditBookPage from './pages/EditBookPage'
 import LoginPage from './pages/LoginPage'
 import SearchPage from './pages/SearchPage'
 import SettingsPage from './pages/SettingsPage'
+import SingleBookPage from './pages/SingleBookPage'
 import ViewAllPage from './pages/ViewAllPage'
 import booksActions from './store/books/actions'
 
@@ -31,6 +32,9 @@ const Routes = () => {
 				</AuthenticatedRoute>
 				<AuthenticatedRoute path="/view-all">
 					<ViewAllPage />
+				</AuthenticatedRoute>
+				<AuthenticatedRoute path="/book/:bookId">
+					<SingleBookPage />
 				</AuthenticatedRoute>
 				<AuthenticatedRoute path="/camera">
 					<CameraPage />
