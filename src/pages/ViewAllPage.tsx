@@ -11,9 +11,31 @@ import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/Commo
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
 import { sort } from '../libs/search'
+import { pxToRem } from '../libs/styles'
+import { genCharArray } from '../libs/utils'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import { selectBooks } from '../store/books/selectors'
 import { Typography } from '../styleguide'
+import theme from '../styleguide/theme'
+
+const LettersAndList = styled.div`
+	display: flex;
+	width: 100%;
+	flex: 1;
+	overflow: hidden;
+`;
+
+const Letters = styled.div`
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding-right: ${pxToRem(theme.spacing(2))}rem;
+	overflow-y: auto;
+`;
+
+const Letter = styled.button`
+	padding: ${pxToRem(theme.spacing(1))}rem 0;
+`;
 
 const BooksList = styled.div`
 	flex: 1;
@@ -35,15 +57,18 @@ const ViewAllPage: React.FC = () => {
 		'author' as keyof SearchCriteria,
 	);
 	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
-	const listRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const listRef = useRef<List>(null);
 	const initialCellHeight = 160;
 	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
+	const letters = genCharArray('A', 'Z');
 
 	useLayoutEffect(() => {
 		const setHeights = () => {
 			const cellHeight =
-				listRef.current?.querySelector('.book-card')?.getBoundingClientRect()
-					?.height || initialCellHeight;
+				containerRef.current
+					?.querySelector('.book-card')
+					?.getBoundingClientRect()?.height || initialCellHeight;
 
 			const gellGap = 16;
 			_setCellHeight(Math.round(cellHeight) + gellGap);
@@ -78,24 +103,44 @@ const ViewAllPage: React.FC = () => {
 				setSortingKey={setSortingKey}
 			/>
 
-			<BooksList ref={listRef}>
-				<Autosizer>
-					{({ height, width }) => (
-						<List
-							height={height}
-							itemCount={booksToRender.length}
-							itemSize={cellHeight}
-							width={width}
+			<LettersAndList>
+				<Letters>
+					{letters.map(letter => (
+						<Letter
+							onClick={() => {
+								const itemIndex = booksToRender.findIndex(
+									book => book[sortingKey][0] >= letter,
+								);
+								listRef.current?.scrollToItem(itemIndex);
+							}}
 						>
-							{({ index, style }: { index: number; style: Object }) => (
-								<BookCardContainer style={style} key={booksToRender[index].id}>
-									<BookCard book={booksToRender[index]} />
-								</BookCardContainer>
-							)}
-						</List>
-					)}
-				</Autosizer>
-			</BooksList>
+							{letter}
+						</Letter>
+					))}
+				</Letters>
+				<BooksList ref={containerRef}>
+					<Autosizer>
+						{({ height, width }) => (
+							<List
+								ref={listRef}
+								height={height}
+								itemCount={booksToRender.length}
+								itemSize={cellHeight}
+								width={width}
+							>
+								{({ index, style }: { index: number; style: Object }) => (
+									<BookCardContainer
+										style={style}
+										key={booksToRender[index].id}
+									>
+										<BookCard book={booksToRender[index]} />
+									</BookCardContainer>
+								)}
+							</List>
+						)}
+					</Autosizer>
+				</BooksList>
+			</LettersAndList>
 		</TopBarPageWrapper>
 	);
 };
