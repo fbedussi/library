@@ -27,6 +27,8 @@ const login = ({
 			}
 
 			dispatch(authActions._setUserId(user.uid));
+			dispatch(booksActions.load());
+
 			if (rememberMe) {
 				persistUserId(user.uid);
 			}
@@ -44,12 +46,12 @@ const login = ({
 
 const logout = (): AppThunk => dispatch => {
 	firebaseLogout().then(() => {
-		deletePersistedtUserId()
-		dispatch(booksActions._loadBooks([]))
-		dispatch(booksActions.initSearchAction())
-		dispatch(authActions._setUserId(''))
-	})
-}
+		deletePersistedtUserId();
+		dispatch(booksActions._loadBooks([]));
+		dispatch(booksActions.initSearchAction());
+		dispatch(authActions._setUserId(''));
+	});
+};
 
 const authActions = {
 	...slice.actions,
