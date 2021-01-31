@@ -5,6 +5,7 @@ import { slice } from './slice'
 
 const uploadPhoto = (dataUri: string): AppThunkPromise => async dispatch => {
 	const match = dataUri.match(/^data:([^;]+);base64,(.+)$/);
+	// eslint-disable-next-line
 	const [_, contentType, base64] = match || [];
 	const words = await extractTextFromImage(base64);
 

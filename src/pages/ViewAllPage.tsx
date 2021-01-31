@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Autosizer from 'react-virtualized-auto-sizer'
@@ -10,9 +10,11 @@ import BookCard from '../components/BookCard'
 import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
+import history from '../history'
+import { useQuery } from '../hooks/useQuery'
 import { sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import { genCharArray } from '../libs/utils'
+import { genCharArray, isSearchKey, isSortingOrder } from '../libs/utils'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import { selectBooks } from '../store/books/selectors'
 import { Typography } from '../styleguide'
@@ -35,6 +37,11 @@ const Letters = styled.div`
 
 const Letter = styled.button`
 	padding: ${pxToRem(theme.spacing(1))}rem 0;
+
+	&.active {
+		color: ${theme.palette.secondary.main};
+		font-weight: bold;
+	}
 `;
 
 const BooksList = styled.div`
@@ -51,17 +58,47 @@ const BooksList = styled.div`
 const BookCardContainer = styled.div``;
 
 const ViewAllPage: React.FC = () => {
+	const query = useQuery();
 	const books = useSelector(selectBooks);
 	const { t } = useTranslation();
+	const queryKey = query.get('key');
+	const defaultSortingKey: keyof SearchCriteria = 'author';
 	const [sortingKey, setSortingKey] = useState(
-		'author' as keyof SearchCriteria,
+		isSearchKey(queryKey) ? queryKey : defaultSortingKey,
 	);
-	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
+	const queryOrder = query.get('order');
+	const defaultSortingOrder: SortingOrder = 'asc';
+	const [sortingOrder, setSortingOrder] = useState(
+		isSortingOrder(queryOrder) ? queryOrder : defaultSortingOrder,
+	);
+	const [selectedLetter, setSelectedLetter] = useState(
+		query.get('letter') || '',
+	);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const listRef = useRef<List>(null);
 	const initialCellHeight = 160;
 	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
 	const letters = genCharArray('A', 'Z');
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+		if (sortingKey) {
+			params.append('key', sortingKey);
+		} else {
+			params.delete('key');
+		}
+		if (sortingOrder) {
+			params.append('order', sortingOrder);
+		} else {
+			params.delete('order');
+		}
+		if (selectedLetter) {
+			params.append('letter', selectedLetter);
+		} else {
+			params.delete('letter');
+		}
+		history.push({ search: params.toString() });
+	}, [sortingKey, sortingOrder, selectedLetter]);
 
 	useLayoutEffect(() => {
 		const setHeights = () => {
@@ -86,6 +123,13 @@ const ViewAllPage: React.FC = () => {
 		);
 	});
 
+	useEffect(() => {
+		const itemIndex = booksToRender.findIndex(
+			book => book[sortingKey][0] >= selectedLetter,
+		);
+		listRef.current?.scrollToItem(itemIndex);
+	}, [selectedLetter, booksToRender, sortingKey]);
+
 	return (
 		<TopBarPageWrapper>
 			<TopAppBar position="fixed" color="primary">
@@ -107,12 +151,9 @@ const ViewAllPage: React.FC = () => {
 				<Letters>
 					{letters.map(letter => (
 						<Letter
-							onClick={() => {
-								const itemIndex = booksToRender.findIndex(
-									book => book[sortingKey][0] >= letter,
-								);
-								listRef.current?.scrollToItem(itemIndex);
-							}}
+							key={letter}
+							className={selectedLetter === letter ? 'active' : ''}
+							onClick={() => setSelectedLetter(letter)}
 						>
 							{letter}
 						</Letter>
