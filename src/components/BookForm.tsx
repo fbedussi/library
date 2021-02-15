@@ -57,6 +57,7 @@ const BookForm: React.FC<Props> = ({
 					<Form>
 						<InputWrapper>
 							<Field
+								id="author"
 								name="author"
 								variant="outlined"
 								as={TextField}
@@ -65,6 +66,7 @@ const BookForm: React.FC<Props> = ({
 								helperText={errors.author}
 							/>
 							<Field
+								id="title"
 								name="title"
 								variant="outlined"
 								as={TextField}
@@ -73,6 +75,7 @@ const BookForm: React.FC<Props> = ({
 								helperText={errors.title}
 							/>
 							<Field
+								id="location"
 								name="location"
 								as={TextField}
 								variant="outlined"

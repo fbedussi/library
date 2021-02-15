@@ -1,16 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-import { fireEvent, render, screen } from '../../test-utils'
-import NotificationArea from './NotificationArea'
+import { fireEvent, render, screen } from '../../test-utils';
+import NotificationArea from './NotificationArea';
 
 jest.mock('./actions', () => {
-	const originalModule = jest.requireActual('./actions')
-
 	return {
-		...originalModule,
-		removeNotification: jest.fn(() => 'removeNotification'),
-	}
-})
+		removeNotification: () => 'removeNotification',
+	};
+});
+
+jest.mock('react-i18next', () => ({
+	useTranslation: () => ({ t: key => key }),
+}));
 
 test('Renders the notification', () => {
 	render(<NotificationArea />, {
@@ -24,14 +25,14 @@ test('Renders the notification', () => {
 				},
 			],
 		},
-	})
+	});
 
-	expect(screen.getByText('foo')).toBeTruthy()
-	expect(screen.getByTestId('close-button')).toBeTruthy()
-})
+	expect(screen.getByText('foo')).toBeTruthy();
+	expect(screen.getByTestId('close-button')).toBeTruthy();
+});
 
 test('CloseButton', () => {
-	const dispatch = jest.fn()
+	const dispatch = jest.fn();
 	render(<NotificationArea />, {
 		dispatch,
 		initialState: {
@@ -44,7 +45,7 @@ test('CloseButton', () => {
 				},
 			],
 		},
-	})
-	fireEvent.click(screen.getByTestId('close-button'))
-	expect(dispatch).toBeCalledWith('removeNotification')
-})
+	});
+	fireEvent.click(screen.getByTestId('close-button'));
+	expect(dispatch).toBeCalledWith('removeNotification');
+});

@@ -1,6 +1,6 @@
-import Fuse from 'fuse.js';
+import Fuse from 'fuse.js'
 
-import { Book, SearchCriteria } from '../model/model';
+import { Book, SearchCriteria } from '../model/model'
 
 const options = {
 	keys: ['title', 'author', 'location'],
@@ -56,7 +56,6 @@ export const sort = (cod1: string, cod2: string): number => {
 		typeof parts1[firstDifferentPartIndex] !==
 		typeof parts2[firstDifferentPartIndex]
 	) {
-		// throw new Error('Codes have a different pattern');
 		return 0;
 	}
 

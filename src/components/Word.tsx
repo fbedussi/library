@@ -21,6 +21,7 @@ const Word: React.FC<{ word: string; onClick: () => void }> = ({
 	const [clicked, setClicked] = useState(false);
 	return (
 		<StyledChip
+			data-testid="word"
 			className={clicked ? 'clicked' : ''}
 			label={word}
 			onClick={() => {

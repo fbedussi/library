@@ -1,4 +1,4 @@
-import { sort, splitCode } from './search';
+import { sort, splitCode } from './search'
 
 describe('split code', () => {
 	test('aa12-b', () => {
@@ -40,6 +40,6 @@ describe('sort', () => {
 	});
 
 	test('bad formatted codes', () => {
-		expect(() => sort('12AA-b', 'BB34-c')).toThrow();
+		expect(sort('12AA-b', 'BB34-c')).toEqual(0);
 	});
 });

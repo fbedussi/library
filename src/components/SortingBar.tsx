@@ -1,16 +1,12 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-import { SearchCriteria, SortingOrder } from '../model/model';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
+import { SearchCriteria, SortingOrder } from '../model/model'
 import {
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup,
-} from '../styleguide';
-import { ArrowDownward, ArrowUpward } from '../styleguide/icons';
+  FormControl, FormControlLabel, FormLabel, IconButton, Radio, RadioGroup
+} from '../styleguide'
+import { ArrowDownward, ArrowUpward } from '../styleguide/icons'
 
 const SortControls = styled.div`
 	display: flex;
@@ -68,6 +64,7 @@ const SortingBar: React.FC<Props> = ({
 					/>
 				</SortingRadioGroup>
 				<IconButton
+					data-testid="sorting-btn"
 					onClick={() =>
 						setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')
 					}

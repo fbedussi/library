@@ -46,20 +46,21 @@ const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 				</CardContent>
 				<BookCardActions disableSpacing>
 					<IconButton
+						data-testid="delete-btn"
 						onClick={() => {
 							dispatch(booksActions.remove(id));
 						}}
 					>
 						<Delete />
 					</IconButton>
-					<LinkNoStyle to={`/edit/${id}`}>
+					<LinkNoStyle to={`/edit/${id}`} data-testid="edit-link">
 						<IconButton>
 							<Edit />
 						</IconButton>
 					</LinkNoStyle>
 				</BookCardActions>
 			</BookInfo>
-			{!!coverPath && <BookCover image={coverPath} />}
+			{!!coverPath && <BookCover data-testid="book-cover" image={coverPath} />}
 		</StyledCard>
 	);
 };
