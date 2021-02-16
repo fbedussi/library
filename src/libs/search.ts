@@ -24,7 +24,6 @@ export const search = ({ author, title, location }: SearchCriteria) => {
 				? { location: `^${field.location}` }
 				: field,
 		);
-	console.log(query);
 	const result = fuse?.search({
 		$and: query,
 	});

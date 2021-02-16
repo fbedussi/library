@@ -1,5 +1,50 @@
-import { sort, splitCode } from './search'
+import { initSearch, search, sort, splitCode } from './search'
 
+describe('search', () => {
+	it('works', () => {
+		initSearch([
+			{ id: '1', author: 'a', title: 't', location: 'l', coverPath: '' },
+			{ id: '2', author: 'b', title: 't', location: 'l2', coverPath: '' },
+		]);
+		expect(search({ author: 'a', title: '', location: '' })).toEqual([
+			{
+				item: {
+					author: 'a',
+					coverPath: '',
+					id: '1',
+					location: 'l',
+					title: 't',
+				},
+				refIndex: 0,
+				score: expect.any(Number),
+			},
+		]);
+		expect(search({ author: '', title: '', location: 'l' })).toEqual([
+			{
+				item: {
+					author: 'a',
+					coverPath: '',
+					id: '1',
+					location: 'l',
+					title: 't',
+				},
+				refIndex: 0,
+				score: expect.any(Number),
+			},
+			{
+				item: {
+					author: 'b',
+					coverPath: '',
+					id: '2',
+					location: 'l2',
+					title: 't',
+				},
+				refIndex: 1,
+				score: expect.any(Number),
+			},
+		]);
+	});
+});
 describe('split code', () => {
 	test('aa12-b', () => {
 		expect(splitCode('aa12-b')).toEqual(['aa', 12, '-b']);
