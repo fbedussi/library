@@ -9,6 +9,7 @@ import HomeLink from '../components/HomeLink'
 import ViewAllLink from '../components/ViewAllLink'
 import Word from '../components/Word'
 import { pxToRem } from '../libs/styles'
+import { addBookFormValidation } from '../libs/validation'
 import { SearchCriteria, SelectedField } from '../model/model'
 import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
@@ -61,7 +62,6 @@ const AddBookPage: React.FC = () => {
 	const [initialValues, setInitialValues] = useState({ ...blankInputs });
 	const [selectedField, setSelectedField] = useState('author' as SelectedField);
 	const words = useSelector(selectWords);
-
 	return (
 		<PageWrapper>
 			<TopAppBar position="fixed" color="primary">
@@ -85,14 +85,7 @@ const AddBookPage: React.FC = () => {
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
-				validate={values => {
-					return Object.entries(values).reduce((errors, [key, val]) => {
-						if (!val) {
-							errors[key] = t('errors.mandatoryField');
-						}
-						return errors;
-					}, {} as { [k: string]: string });
-				}}
+				validate={addBookFormValidation(t)}
 				onSubmit={(values, { resetForm }) => {
 					dispatch(booksActions.add({ ...values, coverPath: currentPhotoUrl }));
 					dispatch(photosActions.resetPhotoData());
@@ -106,6 +99,7 @@ const AddBookPage: React.FC = () => {
 				<div>
 					<ResetImageButtonWrapper>
 						<IconButton
+							data-testid="reset-photo-data-btn"
 							onClick={() => {
 								dispatch(photosActions.resetPhotoData());
 							}}
@@ -153,7 +147,7 @@ const AddBookPage: React.FC = () => {
 				</div>
 			)}
 
-			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="" />}
+			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="bookCover" />}
 		</PageWrapper>
 	);
 };
