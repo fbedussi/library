@@ -3,14 +3,14 @@ import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
+import BackLink from '../components/BackLink'
 import BookForm from '../components/BookForm'
 import { BottomAppBar, BottomBarPageWrapper, ToolbarStyled } from '../components/CommonComponents'
-import history from '../history'
+import { bookFormValidation } from '../libs/validation'
 import { Id, SearchCriteria } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBook } from '../store/books/selectors'
-import { IconButton } from '../styleguide'
-import { ChevronLeft, Save } from '../styleguide/icons'
+import { Save } from '../styleguide/icons'
 
 const EditBookPage: React.FC = () => {
 	const { bookId } = useParams<{ bookId: Id }>();
@@ -34,15 +34,8 @@ const EditBookPage: React.FC = () => {
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
-				validate={values => {
-					return Object.entries(values).reduce((errors, [key, val]) => {
-						if (!val) {
-							errors[key] = t('errors.mandatoryField');
-						}
-						return errors;
-					}, {} as { [k: string]: string });
-				}}
-				onSubmit={(values, { resetForm }) => {
+				validate={bookFormValidation(t)}
+				onSubmit={values => {
 					dispatch(booksActions.update({ ...book, ...values }));
 				}}
 				PrimaryIcon={<Save />}
@@ -51,14 +44,7 @@ const EditBookPage: React.FC = () => {
 
 			<BottomAppBar position="fixed" color="primary">
 				<ToolbarStyled>
-					<IconButton
-						edge="start"
-						color="inherit"
-						aria-label="open drawer"
-						onClick={() => history.goBack()}
-					>
-						<ChevronLeft />
-					</IconButton>
+					<BackLink />
 				</ToolbarStyled>
 			</BottomAppBar>
 		</BottomBarPageWrapper>

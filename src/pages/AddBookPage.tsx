@@ -9,7 +9,7 @@ import HomeLink from '../components/HomeLink'
 import ViewAllLink from '../components/ViewAllLink'
 import Word from '../components/Word'
 import { pxToRem } from '../libs/styles'
-import { addBookFormValidation } from '../libs/validation'
+import { bookFormValidation } from '../libs/validation'
 import { SearchCriteria, SelectedField } from '../model/model'
 import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
@@ -85,7 +85,7 @@ const AddBookPage: React.FC = () => {
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
-				validate={addBookFormValidation(t)}
+				validate={bookFormValidation(t)}
 				onSubmit={(values, { resetForm }) => {
 					dispatch(booksActions.add({ ...values, coverPath: currentPhotoUrl }));
 					dispatch(photosActions.resetPhotoData());

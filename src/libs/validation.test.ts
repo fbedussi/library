@@ -1,13 +1,13 @@
 import { TFunction } from 'i18next'
 
-import { addBookFormValidation } from './validation'
+import { bookFormValidation } from './validation'
 
 const tMock: TFunction = (x: string) => x;
 
-describe('addBookFormValidation', () => {
+describe('bookFormValidation', () => {
 	it('works', () => {
 		expect(
-			addBookFormValidation(tMock)({ author: '', location: '', title: '' }),
+			bookFormValidation(tMock)({ author: '', location: '', title: '' }),
 		).toEqual({
 			author: 'errors.mandatoryField',
 			location: 'errors.mandatoryField',

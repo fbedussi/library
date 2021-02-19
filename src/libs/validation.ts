@@ -2,7 +2,7 @@ import { TFunction } from 'i18next'
 
 import { SearchCriteria } from '../model/model'
 
-export const addBookFormValidation = (t: TFunction) => (
+export const bookFormValidation = (t: TFunction) => (
 	values: SearchCriteria,
 ) => {
 	return Object.entries(values).reduce((errors, [key, val]) => {
