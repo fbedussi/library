@@ -1,27 +1,24 @@
-import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import React, { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
-import BookCard from '../components/BookCard';
-import BookForm from '../components/BookForm';
-import {
-	LinkNoStyle,
-	PageWrapper,
-	ToolbarStyled,
-	TopAppBar,
-} from '../components/CommonComponents';
-import ViewAllLink from '../components/ViewAllLink';
-import { search, sort } from '../libs/search';
-import { pxToRem } from '../libs/styles';
-import { SearchCriteria, SortingOrder } from '../model/model';
-import booksActions from '../store/books/actions';
-import { selectBooks } from '../store/books/selectors';
-import { CircularProgress, Fab, IconButton, Typography } from '../styleguide';
-import { Add, MoreVert, Search } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-import history from '../history';
-import SortingBar from '../components/SortingBar';
+import BookCard from '../components/BookCard'
+import BookForm from '../components/BookForm'
+import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import SortingBar from '../components/SortingBar'
+import ViewAllLink from '../components/ViewAllLink'
+import history from '../history'
+import { useQuery } from '../hooks/useQuery'
+import { search, sort } from '../libs/search'
+import { pxToRem } from '../libs/styles'
+import { isSearchKey, isSortingOrder } from '../libs/utils'
+import { SearchCriteria, SortingOrder } from '../model/model'
+import booksActions from '../store/books/actions'
+import { selectBooks } from '../store/books/selectors'
+import { CircularProgress, Fab, IconButton, Typography } from '../styleguide'
+import { Add, MoreVert, Search } from '../styleguide/icons'
+import theme from '../styleguide/theme'
 
 const BooksList = styled.div`
 	flex: 1;
@@ -39,25 +36,66 @@ const FabLink = styled(LinkNoStyle)`
 	width: ${theme.spacing(7)}px;
 `;
 
-const blankSearchCriteria: SearchCriteria = {
-	author: '',
-	title: '',
-	location: '',
-};
-
 const SearchPage: React.FC = () => {
-	const [searchCriteria, setSearchCriteria] = useState(blankSearchCriteria);
+	const query = useQuery();
+	const initialValues = {
+		author: query.get('author') || '',
+		title: query.get('title') || '',
+		location: query.get('location') || '',
+	};
+	const [searchCriteria, setSearchCriteria] = useState(initialValues);
 	const dispatch = useDispatch();
 	const books = useSelector(selectBooks);
+	const queryKey = query.get('key');
+	const defaultSortingKey: keyof SearchCriteria = 'author';
 	const [sortingKey, setSortingKey] = useState(
-		'author' as keyof SearchCriteria,
+		isSearchKey(queryKey) ? queryKey : defaultSortingKey,
 	);
-	const [sortingOrder, setSortingOrder] = useState('asc' as SortingOrder);
+	const queryOrder = query.get('order');
+	const defaultSortingOrder: SortingOrder = 'asc';
+	const [sortingOrder, setSortingOrder] = useState(
+		isSortingOrder(queryOrder) ? queryOrder : defaultSortingOrder,
+	);
 	const { t } = useTranslation();
 
 	useEffect(() => {
-		books.length && dispatch(booksActions.initSearchAction());
+		if (books.length) {
+			dispatch(booksActions.initSearchAction());
+			// trick to update state and rerender the component to apply seachCriteria to
+			// newly loaded books
+			setSearchCriteria({ ...searchCriteria });
+		}
 	}, [dispatch, books]);
+
+	useEffect(() => {
+		const params = new URLSearchParams();
+		if (sortingKey) {
+			params.append('key', sortingKey);
+		} else {
+			params.delete('key');
+		}
+		if (sortingOrder) {
+			params.append('order', sortingOrder);
+		} else {
+			params.delete('order');
+		}
+		if (searchCriteria.author) {
+			params.append('author', searchCriteria.author);
+		} else {
+			params.delete('author');
+		}
+		if (searchCriteria.location) {
+			params.append('location', searchCriteria.location);
+		} else {
+			params.delete('location');
+		}
+		if (searchCriteria.title) {
+			params.append('title', searchCriteria.title);
+		} else {
+			params.delete('title');
+		}
+		history.push({ search: params.toString() });
+	}, [sortingKey, sortingOrder, searchCriteria]);
 
 	const filteredBooks = search(searchCriteria) || [];
 
@@ -74,7 +112,7 @@ const SearchPage: React.FC = () => {
 				</ToolbarStyled>
 			</TopAppBar>
 			<BookForm
-				initialValues={blankSearchCriteria}
+				initialValues={initialValues}
 				onSubmit={values => {
 					setSearchCriteria(values);
 				}}
