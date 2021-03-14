@@ -17,12 +17,6 @@ jest.mock('react-redux', () => {
 	};
 });
 
-jest.mock('../data', () => ({}));
-
-jest.mock('react-i18next', () => ({
-	useTranslation: () => ({ t: (key: string) => key }),
-}));
-
 booksActions.add = (x: any) => ({ ...x, type: 'add' });
 photosActions.resetPhotoData = ((x: any) => ({
 	...x,

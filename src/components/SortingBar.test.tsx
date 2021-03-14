@@ -3,10 +3,6 @@ import React from 'react'
 import { fireEvent, render, screen } from '../test-utils'
 import SortingBar from './SortingBar'
 
-jest.mock('react-i18next', () => ({
-	useTranslation: () => ({ t: (key: string) => key }),
-}));
-
 const setSortingKey = jest.fn();
 const setSortingOrder = jest.fn();
 

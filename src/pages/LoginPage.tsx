@@ -58,12 +58,14 @@ const LoginPage: React.FC = () => {
 							<Field
 								as={TextField}
 								name="username"
+								id="username"
 								label={t('app.username')}
 								variant="outlined"
 							/>
 							<Field
 								as={TextField}
 								name="password"
+								id="password"
 								type="password"
 								label={t('app.password')}
 								variant="outlined"

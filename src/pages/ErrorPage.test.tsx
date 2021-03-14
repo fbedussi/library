@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { act, fireEvent, render, screen, waitFor } from '../test-utils'
+import { render } from '../test-utils'
 import ErrorPage from './ErrorPage'
 
 describe('ErrorPage', () => {

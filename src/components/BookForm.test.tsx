@@ -3,10 +3,6 @@ import React from 'react'
 import { act, fireEvent, render, screen, waitFor } from '../test-utils'
 import BookForm from './BookForm'
 
-jest.mock('react-i18next', () => ({
-	useTranslation: () => ({ t: (key: string) => key }),
-}));
-
 jest.mock('../store/books/actions', () => ({
 	remove: (id: string) => id,
 }));
