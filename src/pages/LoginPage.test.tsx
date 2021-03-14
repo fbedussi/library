@@ -12,6 +12,15 @@ jest.mock('../store/auth/actions', () => {
 	};
 });
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => {
+	const originalModule = jest.requireActual('react-redux');
+	return {
+		...originalModule,
+		useDispatch: () => mockDispatch,
+	};
+});
+
 describe('LoginPage', () => {
 	it('redirects to search if userId is populated', () => {
 		const page = render(<LoginPage />, {
@@ -25,9 +34,8 @@ describe('LoginPage', () => {
 		expect(page).toMatchSnapshot();
 	});
 
-	it('submits', () => {
-		const dispatch = jest.fn();
-		render(<LoginPage />, { dispatch });
+	it('submits', async () => {
+		render(<LoginPage />);
 		act(() => {
 			fireEvent.change(screen.getByLabelText(/app.username/), {
 				target: { value: 'foo' },
@@ -41,11 +49,15 @@ describe('LoginPage', () => {
 		act(() => {
 			fireEvent.click(screen.getByLabelText(/app.rememberMe/));
 		});
-		waitFor(() => {
-			expect(dispatch).toBeCalledWith({
+		act(() => {
+			fireEvent.click(screen.getByRole('button', { name: /app.login/ }));
+		});
+		await waitFor(() => {
+			expect(mockDispatch).toBeCalledWith({
 				username: 'foo',
 				password: 'baz',
 				rememberMe: true,
+				type: 'login',
 			});
 		});
 	});
