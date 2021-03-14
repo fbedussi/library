@@ -1,3 +1,4 @@
+import history from '../history'
 import { SearchCriteria, SortingOrder } from '../model/model'
 
 export const genCharArray = (firstChar: string, lastChar: string) => {
@@ -24,4 +25,16 @@ export const isSearchKey = (
 export const isSortingOrder = (order: string | null): order is SortingOrder => {
 	const searchCriteriaKeys: SortingOrder[] = ['asc', 'desc'];
 	return searchCriteriaKeys.includes(order as SortingOrder);
+};
+
+export const handleUrlQuery = (queryParams: Record<string, string>) => {
+	const params = new URLSearchParams();
+	Object.entries(queryParams).forEach(([key, value]) => {
+		if (value) {
+			params.append(key, value);
+		} else {
+			params.delete(key);
+		}
+	});
+	history.push({ search: params.toString() });
 };

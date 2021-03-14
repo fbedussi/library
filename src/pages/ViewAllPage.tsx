@@ -14,7 +14,7 @@ import history from '../history'
 import { useQuery } from '../hooks/useQuery'
 import { sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import { genCharArray, isSearchKey, isSortingOrder } from '../libs/utils'
+import { genCharArray, handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import { selectBooks } from '../store/books/selectors'
 import { Typography } from '../styleguide'
@@ -81,23 +81,7 @@ const ViewAllPage: React.FC = () => {
 	const letters = genCharArray('A', 'Z');
 
 	useEffect(() => {
-		const params = new URLSearchParams();
-		if (sortingKey) {
-			params.append('key', sortingKey);
-		} else {
-			params.delete('key');
-		}
-		if (sortingOrder) {
-			params.append('order', sortingOrder);
-		} else {
-			params.delete('order');
-		}
-		if (selectedLetter) {
-			params.append('letter', selectedLetter);
-		} else {
-			params.delete('letter');
-		}
-		history.push({ search: params.toString() });
+		handleUrlQuery({key: sortingKey, order: sortingOrder, letter: selectedLetter})
 	}, [sortingKey, sortingOrder, selectedLetter]);
 
 	useLayoutEffect(() => {

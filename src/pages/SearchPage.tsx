@@ -12,7 +12,7 @@ import history from '../history'
 import { useQuery } from '../hooks/useQuery'
 import { search, sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import { isSearchKey, isSortingOrder } from '../libs/utils'
+import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
@@ -68,33 +68,11 @@ const SearchPage: React.FC = () => {
 	}, [dispatch, books]);
 
 	useEffect(() => {
-		const params = new URLSearchParams();
-		if (sortingKey) {
-			params.append('key', sortingKey);
-		} else {
-			params.delete('key');
-		}
-		if (sortingOrder) {
-			params.append('order', sortingOrder);
-		} else {
-			params.delete('order');
-		}
-		if (searchCriteria.author) {
-			params.append('author', searchCriteria.author);
-		} else {
-			params.delete('author');
-		}
-		if (searchCriteria.location) {
-			params.append('location', searchCriteria.location);
-		} else {
-			params.delete('location');
-		}
-		if (searchCriteria.title) {
-			params.append('title', searchCriteria.title);
-		} else {
-			params.delete('title');
-		}
-		history.push({ search: params.toString() });
+		handleUrlQuery({
+			key: sortingKey,
+			order: sortingOrder,
+			...searchCriteria,
+		})
 	}, [sortingKey, sortingOrder, searchCriteria]);
 
 	const filteredBooks = search(searchCriteria) || [];
