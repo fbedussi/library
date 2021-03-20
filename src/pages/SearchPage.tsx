@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import Fuse from 'fuse.js'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 import styled from 'styled-components'
@@ -13,7 +14,7 @@ import { useQuery } from '../hooks/useQuery'
 import { search, sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
 import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
-import { SearchCriteria, SortingOrder } from '../model/model'
+import { Book, SearchCriteria, SortingOrder } from '../model/model'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
 import { CircularProgress, Fab, IconButton, Typography } from '../styleguide'
@@ -56,7 +57,18 @@ const SearchPage: React.FC = () => {
 	const [sortingOrder, setSortingOrder] = useState(
 		isSortingOrder(queryOrder) ? queryOrder : defaultSortingOrder,
 	);
+	const queryScrollTop = query.get('scrollTop');
+	const defaultScrollTop = parseInt(queryScrollTop || '0');
+	const [scrollTop, setScrollTop] = useState(defaultScrollTop);
+	const scrollableContainerRef = useRef<HTMLDivElement>(null);
+	const [filteredBooks, setFilteredBooks] = useState<Fuse.FuseResult<Book>[]>();
 	const { t } = useTranslation();
+
+	useEffect(() => {
+		if (scrollableContainerRef.current && filteredBooks) {
+			scrollableContainerRef.current.scrollTop = scrollTop;
+		}
+	}, [filteredBooks]);
 
 	useEffect(() => {
 		if (books.length) {
@@ -71,14 +83,22 @@ const SearchPage: React.FC = () => {
 		handleUrlQuery({
 			key: sortingKey,
 			order: sortingOrder,
+			scrollTop: scrollTop.toString(),
 			...searchCriteria,
-		})
-	}, [sortingKey, sortingOrder, searchCriteria]);
+		});
+	}, [sortingKey, sortingOrder, searchCriteria, scrollTop]);
 
-	const filteredBooks = search(searchCriteria) || [];
+	useEffect(() => {
+		setFilteredBooks(search(searchCriteria));
+	}, [searchCriteria]);
 
 	return (
-		<PageWrapper>
+		<PageWrapper
+			ref={scrollableContainerRef}
+			onScroll={e => {
+				setScrollTop(e.currentTarget.scrollTop);
+			}}
+		>
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
 					<IconButton color="inherit" onClick={() => history.push('/settings')}>
@@ -107,7 +127,7 @@ const SearchPage: React.FC = () => {
 
 			<BooksList>
 				{filteredBooks
-					.filter(({ score }) => score && score < 0.8)
+					?.filter(({ score }) => score && score < 0.8)
 					.sort(
 						(res1, res2) =>
 							sort(res1.item[sortingKey], res2.item[sortingKey]) *
