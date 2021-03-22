@@ -1,16 +1,16 @@
 import React from 'react'
 
+import userEvent from '@testing-library/user-event'
+
 import history from '../history'
-import { fireEvent, render, screen } from '../test-utils'
+import { render, screen } from '../test-utils'
 import HomeLink from './HomeLink'
 
 jest.mock('../history');
 
-describe('HomeLink', () => {
-	it('triggers history.push on click', () => {
-		history.push = jest.fn();
-		render(<HomeLink />);
-		fireEvent.click(screen.getByRole('button'));
-		expect(history.push).toBeCalledWith('/');
-	});
+test('triggers history.push on click', () => {
+	history.push = jest.fn();
+	render(<HomeLink />);
+	userEvent.click(screen.getByRole('button'));
+	expect(history.push).toBeCalledWith('/');
 });

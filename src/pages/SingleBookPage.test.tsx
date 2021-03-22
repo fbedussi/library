@@ -6,26 +6,24 @@ import SingleBookPage from './SingleBookPage'
 
 jest.mock('../data', () => ({}));
 
-describe('SingleBookPage', () => {
-	it('renders correcly - no book', () => {
-		const page = render(<SingleBookPage />);
-		expect(page).toMatchSnapshot();
-	});
+test('renders correcly - no book', () => {
+	const page = render(<SingleBookPage />);
+	expect(page).toMatchSnapshot();
+});
 
-	it('renders correcly - with book', () => {
-		const page = render(
-			<Route path="/edit/:bookId">
-				<SingleBookPage />
-			</Route>,
-			{
-				initialState: {
-					books: [
-						{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
-					],
-				},
-				route: '/edit/B',
+test('renders correcly - with book', () => {
+	const page = render(
+		<Route path="/edit/:bookId">
+			<SingleBookPage />
+		</Route>,
+		{
+			initialState: {
+				books: [
+					{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
+				],
 			},
-		);
-		expect(page).toMatchSnapshot();
-	});
+			route: '/edit/B',
+		},
+	);
+	expect(page).toMatchSnapshot();
 });

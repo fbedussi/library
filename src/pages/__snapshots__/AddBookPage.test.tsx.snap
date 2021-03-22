@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`AddBookPage renders correcly 1`] = `
+exports[`renders correcly 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -126,6 +126,7 @@ Object {
         </div>
         <form
           action="#"
+          name="book-form"
         >
           <div
             class="sc-bdfBwQ kUDyUE"
@@ -422,6 +423,7 @@ Object {
       </div>
       <form
         action="#"
+        name="book-form"
       >
         <div
           class="sc-bdfBwQ kUDyUE"

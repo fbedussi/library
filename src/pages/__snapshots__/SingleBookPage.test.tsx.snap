@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SingleBookPage renders correcly - no book 1`] = `
+exports[`renders correcly - no book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -61,7 +61,7 @@ Object {
 }
 `;
 
-exports[`SingleBookPage renders correcly - with book 1`] = `
+exports[`renders correcly - with book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>

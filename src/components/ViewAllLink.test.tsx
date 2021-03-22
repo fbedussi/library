@@ -12,16 +12,14 @@ jest.mock('../store/books/selectors', () => {
 	};
 });
 
-describe('ViewAllLink', () => {
-	it('has the right link', () => {
-		render(<ViewAllLink />);
+test('has the right link', () => {
+	render(<ViewAllLink />);
 
-		const link = screen.getByRole('link') as HTMLAnchorElement;
-		expect(!!link.href.match(/\/view-all$/)).toBe(true);
-	});
+	const link = screen.getByRole<HTMLAnchorElement>('link');
+	expect(!!link.href.match(/\/view-all$/)).toBe(true);
+});
 
-	it('dispalys the right number of books', () => {
-		render(<ViewAllLink />);
-		expect(screen.getByText('3')).toBeInTheDocument();
-	});
+test('dispalys the right number of books', () => {
+	render(<ViewAllLink />);
+	expect(screen.getByText('3')).toBeInTheDocument();
 });

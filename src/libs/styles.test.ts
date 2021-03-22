@@ -1,7 +1,5 @@
 import { pxToRem } from './styles'
 
-describe('pxToRem', () => {
-	it('works', () => {
-		expect(pxToRem(16)).toEqual(1);
-	});
+test('v', () => {
+	expect(pxToRem(16)).toEqual(1);
 });

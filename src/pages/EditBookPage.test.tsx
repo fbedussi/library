@@ -1,8 +1,10 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
+import userEvent from '@testing-library/user-event'
+
 import booksActions from '../store/books/actions'
-import { act, fireEvent, render, screen, waitFor } from '../test-utils'
+import { render, screen, waitFor } from '../test-utils'
 import EditBookPage from './EditBookPage'
 
 const mockDispatch = jest.fn();
@@ -16,76 +18,63 @@ jest.mock('react-redux', () => {
 
 booksActions.update = (x: any) => ({ ...x, type: 'update' });
 
-describe('EditBookPage', () => {
-	it('renders correcly - no book', () => {
-		const page = render(<EditBookPage />);
-		expect(page).toMatchSnapshot();
-	});
+test('renders correcly - no book', () => {
+	const page = render(<EditBookPage />);
+	expect(page).toMatchSnapshot();
+});
 
-	it('renders correcly - with book', () => {
-		const page = render(
-			<Route path="/edit/:bookId">
-				<EditBookPage />
-			</Route>,
-			{
-				initialState: {
-					books: [
-						{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
-					],
-				},
-				route: '/edit/B',
+test('renders correcly - with book', () => {
+	const page = render(
+		<Route path="/edit/:bookId">
+			<EditBookPage />
+		</Route>,
+		{
+			initialState: {
+				books: [
+					{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
+				],
 			},
-		);
-		expect(page).toMatchSnapshot();
-	});
+			route: '/edit/B',
+		},
+	);
+	expect(page).toMatchSnapshot();
+});
 
-	it('submits correctly', async () => {
-		render(
-			<Route path="/edit/:bookId">
-				<EditBookPage />
-			</Route>,
-			{
-				initialState: {
-					books: [
-						{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
-					],
-				},
-				route: '/edit/B',
+test('submits correctly', async () => {
+	render(
+		<Route path="/edit/:bookId">
+			<EditBookPage />
+		</Route>,
+		{
+			initialState: {
+				books: [
+					{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
+				],
 			},
-		);
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.author/i), {
-				target: { value: 'author' },
-			});
-		});
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.title/i), {
-				target: { value: 'title' },
-			});
-		});
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.location/i), {
-				target: { value: 'location' },
-			});
-		});
-		act(() => {
-			const submitBtn = screen.getByRole('button', {
-				name: /app.save/i,
-			});
-			fireEvent.click(submitBtn);
-		});
-		await waitFor(() => {
-			expect(mockDispatch).toBeCalledWith({
-				author: 'author',
-				title: 'title',
-				location: 'location',
-				coverPath: '',
-				id: 'B',
-				type: 'update',
-			});
+			route: '/edit/B',
+		},
+	);
+	const authorInput = screen.getByLabelText(/app.author/i);
+	userEvent.clear(authorInput);
+	userEvent.type(authorInput, 'author');
+	const titleInput = screen.getByLabelText(/app.title/i);
+	userEvent.clear(titleInput);
+	userEvent.type(titleInput, 'title');
+	const locationInput = screen.getByLabelText(/app.location/i);
+	userEvent.clear(locationInput);
+	userEvent.type(locationInput, 'location');
+	const submitBtn = screen.getByRole('button', {
+		name: /app.save/i,
+	});
+	userEvent.click(submitBtn);
+	await waitFor(() => {
+		expect(mockDispatch).toBeCalledWith({
+			author: 'author',
+			title: 'title',
+			location: 'location',
+			coverPath: '',
+			id: 'B',
+			type: 'update',
 		});
 	});
 });

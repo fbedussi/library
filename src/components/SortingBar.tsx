@@ -39,7 +39,7 @@ const SortingBar: React.FC<Props> = ({
 	const { t } = useTranslation();
 
 	return (
-		<FormControl component="fieldset">
+		<FormControl component="fieldset" name="sorting-bar">
 			<FormLabel component="legend">{t('app.orderBy')}</FormLabel>
 			<SortControls>
 				<SortingRadioGroup

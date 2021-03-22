@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`EditBookPage renders correcly - no book 1`] = `
+exports[`renders correcly - no book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -61,7 +61,7 @@ Object {
 }
 `;
 
-exports[`EditBookPage renders correcly - with book 1`] = `
+exports[`renders correcly - with book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -71,6 +71,7 @@ Object {
       >
         <form
           action="#"
+          name="book-form"
         >
           <div
             class="sc-bdfBwQ kUDyUE"
@@ -282,6 +283,7 @@ Object {
     >
       <form
         action="#"
+        name="book-form"
       >
         <div
           class="sc-bdfBwQ kUDyUE"

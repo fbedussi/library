@@ -54,7 +54,7 @@ const BookForm: React.FC<Props> = ({
 		>
 			{({ errors, dirty }) => {
 				return (
-					<Form>
+					<Form name="book-form">
 						<InputWrapper>
 							<Field
 								id="author"

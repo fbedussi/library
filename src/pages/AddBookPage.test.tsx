@@ -2,10 +2,11 @@ import React from 'react'
 
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import { waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import booksActions from '../store/books/actions'
 import photosActions from '../store/photos/actions'
-import { act, fireEvent, render, screen } from '../test-utils'
+import { render, screen } from '../test-utils'
 import AddBookPage from './AddBookPage'
 
 const mockDispatch = jest.fn();
@@ -23,154 +24,117 @@ photosActions.resetPhotoData = ((x: any) => ({
 	type: 'resetPhoto',
 })) as ActionCreatorWithoutPayload<string>;
 
-describe('AddBookPage', () => {
-	it('renders correcly', () => {
-		const page = render(<AddBookPage />);
-		expect(page).toMatchSnapshot();
+test('renders correcly', () => {
+	const page = render(<AddBookPage />);
+	expect(page).toMatchSnapshot();
+});
+
+test('no currentPhotoUrl', () => {
+	render(<AddBookPage />);
+	const cameraLink = screen.getByRole<HTMLAnchorElement>('link', {
+		name: /app.takePhoto/i,
 	});
+	expect(cameraLink).toBeInTheDocument();
+	expect(!!cameraLink.href.match(/\/camera$/)).toBe(true);
+	expect(screen.queryByAltText('bookCover')).not.toBeInTheDocument();
+});
 
-	it('no currentPhotoUrl', () => {
-		render(<AddBookPage />);
-		const cameraLink = screen.getByRole<HTMLAnchorElement>('link', {
-			name: /app.takePhoto/i,
-		});
-		expect(cameraLink).toBeInTheDocument();
-		expect(!!cameraLink.href.match(/\/camera$/)).toBe(true);
-		expect(screen.queryByAltText('bookCover')).not.toBeInTheDocument();
+test('currentPhotoUrl', () => {
+	render(<AddBookPage />, {
+		initialState: {
+			photos: { words: ['word1', 'word2'], currentPhotoPath: 'photoPath' },
+		},
 	});
-
-	it('currentPhotoUrl', () => {
-		render(<AddBookPage />, {
-			initialState: {
-				photos: { words: ['word1', 'word2'], currentPhotoPath: 'photoPath' },
-			},
-		});
-		const cameraLink = screen.queryByRole('link', {
-			name: /app.takePhoto/i,
-		});
-		expect(cameraLink).not.toBeInTheDocument();
-		expect(screen.getByAltText('bookCover')).toBeInTheDocument();
+	const cameraLink = screen.queryByRole('link', {
+		name: /app.takePhoto/i,
 	});
+	expect(cameraLink).not.toBeInTheDocument();
+	expect(screen.getByAltText('bookCover')).toBeInTheDocument();
+});
 
-	it('validates', async () => {
-		render(<AddBookPage />);
+test('validates', async () => {
+	render(<AddBookPage />);
 
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.author/i), {
-				target: { value: 'author' },
-			});
-		});
+	userEvent.type(screen.getByLabelText(/app.author/i), 'author');
 
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.title/i), {
-				target: { value: 'title' },
-			});
-		});
-		act(() => {
-			const submitBtn = screen.getByRole('button', {
-				name: /app.save/i,
-			});
-			fireEvent.click(submitBtn);
-		});
-		await waitFor(() => {
-			expect(screen.queryByText(/errors.mandatoryField/i)).toBeInTheDocument();
-		});
+	userEvent.type(screen.getByLabelText(/app.title/i), 'title');
+	const submitBtn = screen.getByRole('button', {
+		name: /app.save/i,
 	});
-
-	it('submits correctly', async () => {
-		render(<AddBookPage />);
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.author/i), {
-				target: { value: 'author' },
-			});
-		});
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.title/i), {
-				target: { value: 'title' },
-			});
-		});
-
-		act(() => {
-			fireEvent.change(screen.getByLabelText(/app.location/i), {
-				target: { value: 'location' },
-			});
-		});
-		act(() => {
-			const submitBtn = screen.getByRole('button', {
-				name: /app.save/i,
-			});
-			fireEvent.click(submitBtn);
-		});
-		await waitFor(() => {
-			expect(mockDispatch).toBeCalledWith({
-				author: 'author',
-				title: 'title',
-				location: 'location',
-				coverPath: '',
-				type: 'add',
-			});
-			expect(mockDispatch).toBeCalledWith({
-				type: 'resetPhoto',
-			});
-		});
+	userEvent.click(submitBtn);
+	await waitFor(() => {
+		expect(screen.queryByText(/errors.mandatoryField/i)).toBeInTheDocument();
 	});
+});
 
-	it('displays no word', () => {
-		render(<AddBookPage />);
-		expect(
-			screen.queryByText(/app.autocompleteInstructions/i),
-		).not.toBeInTheDocument();
+test('submits correctly', async () => {
+	render(<AddBookPage />);
+
+	userEvent.type(screen.getByLabelText(/app.author/i), 'author');
+	userEvent.type(screen.getByLabelText(/app.title/i), 'title');
+	userEvent.type(screen.getByLabelText(/app.location/i), 'location');
+	const submitBtn = screen.getByRole('button', {
+		name: /app.save/i,
 	});
-
-	it('displays words', () => {
-		render(<AddBookPage />, {
-			initialState: {
-				photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
-			},
+	userEvent.click(submitBtn);
+	await waitFor(() => {
+		expect(mockDispatch).toBeCalledWith({
+			author: 'author',
+			title: 'title',
+			location: 'location',
+			coverPath: '',
+			type: 'add',
 		});
-		expect(
-			screen.getByText(/app.autocompleteInstructions/i),
-		).toBeInTheDocument();
-		expect(screen.getByText(/word1/i)).toBeInTheDocument();
-		expect(screen.getByText(/word2/i)).toBeInTheDocument();
-	});
-
-	it('reset photo data', () => {
-		render(<AddBookPage />, {
-			initialState: {
-				photos: { words: ['word1', 'word2'], currentPhotoPath: 'path' },
-			},
-		});
-		fireEvent.click(screen.getByTestId('reset-photo-data-btn'));
 		expect(mockDispatch).toBeCalledWith({
 			type: 'resetPhoto',
 		});
 	});
+});
 
-	it('insert word', () => {
-		render(<AddBookPage />, {
-			initialState: {
-				photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
-			},
-		});
-		act(() => {
-			fireEvent.click(screen.getByText(/word1/i));
-		});
-		act(() => {
-			fireEvent.click(screen.getByRole('radio', { name: /app.title/i }));
-		});
-		act(() => {
-			fireEvent.click(screen.getByText(/word2/i));
-		});
-		expect(
-			screen.getByRole<HTMLInputElement>('textbox', { name: /app.author/i })
-				.value,
-		).toBe('word1');
-		expect(
-			screen.getByRole<HTMLInputElement>('textbox', { name: /app.title/i })
-				.value,
-		).toBe('word2');
+test('displays no word', () => {
+	render(<AddBookPage />);
+	expect(
+		screen.queryByText(/app.autocompleteInstructions/i),
+	).not.toBeInTheDocument();
+});
+
+test('displays words', () => {
+	render(<AddBookPage />, {
+		initialState: {
+			photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
+		},
 	});
+	expect(screen.getByText(/app.autocompleteInstructions/i)).toBeInTheDocument();
+	expect(screen.getByText(/word1/i)).toBeInTheDocument();
+	expect(screen.getByText(/word2/i)).toBeInTheDocument();
+});
+
+test('reset photo data', () => {
+	render(<AddBookPage />, {
+		initialState: {
+			photos: { words: ['word1', 'word2'], currentPhotoPath: 'path' },
+		},
+	});
+	userEvent.click(screen.getByTestId('reset-photo-data-btn'));
+	expect(mockDispatch).toBeCalledWith({
+		type: 'resetPhoto',
+	});
+});
+
+test('insert word', () => {
+	render(<AddBookPage />, {
+		initialState: {
+			photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
+		},
+	});
+	userEvent.click(screen.getByText(/word1/i));
+	userEvent.click(screen.getByRole('radio', { name: /app.title/i }));
+	userEvent.click(screen.getByText(/word2/i));
+	expect(
+		screen.getByRole<HTMLInputElement>('textbox', { name: /app.author/i })
+			.value,
+	).toBe('word1');
+	expect(
+		screen.getByRole<HTMLInputElement>('textbox', { name: /app.title/i }).value,
+	).toBe('word2');
 });
