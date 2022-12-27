@@ -1,8 +1,8 @@
-import { v4 as uuidv4 } from 'uuid'
-
-import db, { storage, UploadTaskSnapshot } from './firebase'
-import { b64toBlob } from './libs/photos'
 import { Base64, Book, DbBook, Id } from './model/model'
+import db, { UploadTaskSnapshot, storage } from './firebase'
+
+import { b64toBlob } from './libs/photos'
+import { v4 as uuidv4 } from 'uuid'
 
 const booksCollection = db.collection('books');
 
@@ -63,6 +63,10 @@ export const deleteBookInDB = (id: Id) => {
 };
 
 export const updateBookInDB = (book: DbBook) => {
+	// firebase does not accept undefined values
+	if (book.read === undefined) {
+		delete book.read
+	}
 	return booksCollection.doc(book.id).set(book);
 };
 

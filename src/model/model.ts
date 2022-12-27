@@ -5,44 +5,45 @@ export type ErrorOrigin = 'ui' | 'db' | 'auth' | 'unknown'; // TODO: add types a
 export type HttpErrorCode = 400 | 401 | 403 | 404 | 405 | 408 | 500;
 
 export type UrlString = string;
-export interface BeError {
+export type BeError = {
 	message: string;
 	origin: ErrorOrigin;
 }
 
-export interface RecordedBeError extends BeError {
+export type RecordedBeError = BeError & {
 	id: string;
 }
 
-export interface UiError {
+export type UiError = {
 	message: string;
 	stack?: string;
 }
 
-export interface RecordedUiError extends UiError {
+export type RecordedUiError = UiError & {
 	id: string;
 }
 
-export interface Errors {
+export type Errors = {
 	http: RecordedBeError[];
 	ui: RecordedUiError[];
 }
 
-export interface Book {
+export type Book = {
 	id: Id;
 	author: string;
 	title: string;
 	location: string;
 	coverPath: string;
+	read?: boolean;
 }
 
-export interface DbBook extends Book {
+export type DbBook = Book & {
 	userId: Id;
 }
 
 export type NotificationType = 'success' | 'error' | 'info';
 
-export interface Notification {
+export type Notification = {
 	_id: Id;
 	type: NotificationType;
 	message: string;
@@ -52,11 +53,11 @@ export interface Notification {
 	messageIsLabelKey?: boolean;
 }
 
-export interface AuthState {
+export type AuthState = {
 	userId: Id;
 }
 
-export interface RootState {
+export type RootState = {
 	books: Book[];
 	notifications: Notification[];
 	photos: {
@@ -67,11 +68,14 @@ export interface RootState {
 	auth: AuthState;
 }
 
-export interface SearchCriteria {
+export type SearchCriteria = {
 	author: string;
 	title: string;
 	location: string;
+	read?: boolean;
 }
+
+export type SearchCriteriaForForm = Omit<SearchCriteria, 'read'> & { read: string }
 
 export type Base64 = string;
 

@@ -1,24 +1,23 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useSelector } from 'react-redux'
-import Autosizer from 'react-virtualized-auto-sizer'
-import { FixedSizeList as List } from 'react-window'
-import styled from 'styled-components'
+import { SearchCriteria, SortingOrder } from '../model/model'
+import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
+import { genCharArray, handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
 
+import Autosizer from 'react-virtualized-auto-sizer'
 import BackLink from '../components/BackLink'
 import BookCard from '../components/BookCard'
-import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
+import { FixedSizeList as List } from 'react-window'
 import SortingBar from '../components/SortingBar'
-import ViewAllLink from '../components/ViewAllLink'
-import history from '../history'
-import { useQuery } from '../hooks/useQuery'
-import { sort } from '../libs/search'
-import { pxToRem } from '../libs/styles'
-import { genCharArray, handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
-import { SearchCriteria, SortingOrder } from '../model/model'
-import { selectBooks } from '../store/books/selectors'
 import { Typography } from '../styleguide'
+import ViewAllLink from '../components/ViewAllLink'
+import { pxToRem } from '../libs/styles'
+import { selectBooks } from '../store/books/selectors'
+import { sort } from '../libs/search'
+import styled from 'styled-components'
 import theme from '../styleguide/theme'
+import { useQuery } from '../hooks/useQuery'
+import { useSelector } from 'react-redux'
+import { useTranslation } from 'react-i18next'
 
 const LettersAndList = styled.div`
 	display: flex;
@@ -81,7 +80,7 @@ const ViewAllPage: React.FC = () => {
 	const letters = genCharArray('A', 'Z');
 
 	useEffect(() => {
-		handleUrlQuery({key: sortingKey, order: sortingOrder, letter: selectedLetter})
+		handleUrlQuery({ key: sortingKey, order: sortingOrder, letter: selectedLetter })
 	}, [sortingKey, sortingOrder, selectedLetter]);
 
 	useLayoutEffect(() => {
@@ -108,10 +107,12 @@ const ViewAllPage: React.FC = () => {
 	});
 
 	useEffect(() => {
-		const itemIndex = booksToRender.findIndex(
-			book => book[sortingKey][0] >= selectedLetter,
-		);
-		listRef.current?.scrollToItem(itemIndex);
+		if (sortingKey !== 'read') {
+			const itemIndex = booksToRender.findIndex(
+				book => book[sortingKey][0] >= selectedLetter,
+			);
+			listRef.current?.scrollToItem(itemIndex);
+		}
 	}, [selectedLetter, booksToRender, sortingKey]);
 
 	return (

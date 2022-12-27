@@ -1,13 +1,13 @@
-import React from 'react'
-import { useDispatch } from 'react-redux'
-import styled from 'styled-components'
-
-import { Delete, Edit } from '@material-ui/icons'
+import { Cancel, CheckCircle, Delete, Edit } from '../styleguide/icons'
+import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '../styleguide'
 
 import { Book } from '../model/model'
-import booksActions from '../store/books/actions'
-import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '../styleguide'
 import { LinkNoStyle } from './CommonComponents'
+import React from 'react'
+import booksActions from '../store/books/actions'
+import styled from 'styled-components'
+import theme from '../styleguide/theme'
+import { useDispatch } from 'react-redux'
 
 const StyledCard = styled(Card)`
 	display: flex;
@@ -19,6 +19,13 @@ const BookInfo = styled.div`
 	max-width: 100%;
 `;
 
+const AuthorAndReadIcon = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: ${theme.palette.text.secondary};
+`
+
 const BookCardActions = styled(CardActions)`
 	padding: 0;
 `;
@@ -29,14 +36,17 @@ const BookCover = styled(CardMedia)`
 
 const BookCard: React.FC<{ book: Book }> = ({ book }) => {
 	const dispatch = useDispatch();
-	const { author, title, location, id, coverPath } = book;
+	const { author, title, location, id, coverPath, read } = book;
 	return (
 		<StyledCard variant="outlined" className="book-card">
 			<BookInfo>
 				<CardContent>
-					<Typography color="textSecondary" gutterBottom>
+					<AuthorAndReadIcon>
 						{author}
-					</Typography>
+
+						{read === false && <Cancel color="error" />}
+						{read === true && <CheckCircle color="primary" />}
+					</AuthorAndReadIcon>
 					<LinkNoStyle to={`/book/${id}`}>
 						<Typography variant="h5" component="h2" className="book-title">
 							{title}

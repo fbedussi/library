@@ -1,6 +1,6 @@
-import Fuse from 'fuse.js'
-
 import { Book, SearchCriteria } from '../model/model'
+
+import Fuse from 'fuse.js'
 
 const options = {
 	keys: ['title', 'author', 'location'],
@@ -10,12 +10,19 @@ const options = {
 
 let fuse: Fuse<Book> | undefined;
 
+let allBooks: Book[] = []
+
 export const initSearch = (books: Book[]) => {
 	const index = Fuse.createIndex(options.keys, books);
+	allBooks = books
 	fuse = new Fuse(books, options, index);
 };
 
-export const search = ({ author, title, location }: SearchCriteria) => {
+export const search = ({ author, title, location, read }: SearchCriteria) => {
+	if (!author && !title && !location) {
+		const result = allBooks.filter(book => !!book.read === read).map((book, refIndex) => ({ item: book, refIndex, score: 0 }))
+		return result
+	}
 	// TODO: why is not a { [field: string]: string }[]
 	const query: any[] = [{ author }, { title }, { location }]
 		.filter(obj => Object.values(obj).every(value => value))
@@ -27,7 +34,7 @@ export const search = ({ author, title, location }: SearchCriteria) => {
 	const result = fuse?.search({
 		$and: query,
 	});
-	return result;
+	return read === undefined ? result : result?.filter(result => result.item.read === read);
 };
 
 export const splitCode = (code: string): (string | number)[] => {
@@ -44,9 +51,9 @@ export const splitCode = (code: string): (string | number)[] => {
 	return parts;
 };
 
-export const sort = (cod1: string, cod2: string): number => {
-	const parts1 = splitCode(cod1);
-	const parts2 = splitCode(cod2);
+export const sort = (cod1: string | boolean | undefined, cod2: string | boolean | undefined): number => {
+	const parts1 = splitCode(cod1?.toString() || 'false');
+	const parts2 = splitCode(cod2?.toString() || 'false');
 	const firstDifferentPartIndex = parts1.findIndex(
 		(part, index) => part !== parts2[index],
 	);
@@ -62,3 +69,8 @@ export const sort = (cod1: string, cod2: string): number => {
 	const b = parts2[firstDifferentPartIndex];
 	return a < b ? -1 : a === b ? 0 : 1;
 };
+
+export const convertRead = <T>(values: T & { read: string }): T & { read?: boolean } => ({
+	...values,
+	read: (!!values.read.length || undefined) && values.read === 'true',
+})

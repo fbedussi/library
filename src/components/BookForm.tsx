@@ -1,13 +1,13 @@
+import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '../styleguide'
 import { Field, Form, Formik, FormikHelpers } from 'formik'
-import React from 'react'
-import { useTranslation } from 'react-i18next'
-import styled from 'styled-components'
 
-import { pxToRem } from '../libs/styles'
-import { SearchCriteria } from '../model/model'
-import { Button, TextField } from '../styleguide'
 import { Close } from '../styleguide/icons'
+import React from 'react'
+import { SearchCriteriaForForm } from '../model/model'
+import { pxToRem } from '../libs/styles'
+import styled from 'styled-components'
 import theme from '../styleguide/theme'
+import { useTranslation } from 'react-i18next'
 
 const InputWrapper = styled.div`
 	display: grid;
@@ -24,12 +24,12 @@ const ButtonsWrapper = styled.div`
 `;
 
 interface Props {
-	initialValues: SearchCriteria;
+	initialValues: SearchCriteriaForForm;
 	enableReinitialize?: boolean;
-	validate?: (values: SearchCriteria) => { [k: string]: string };
+	validate?: (values: SearchCriteriaForForm) => { [k: string]: string };
 	onSubmit: (
-		values: SearchCriteria,
-		formikHelpers: FormikHelpers<SearchCriteria>,
+		values: SearchCriteriaForForm,
+		formikHelpers: FormikHelpers<SearchCriteriaForForm>,
 	) => void;
 	PrimaryIcon: JSX.Element;
 	primaryLabel: string;
@@ -52,7 +52,7 @@ const BookForm: React.FC<Props> = ({
 			validate={validate}
 			onSubmit={onSubmit}
 		>
-			{({ errors, dirty }) => {
+			{({ handleChange, values, errors, dirty }) => {
 				return (
 					<Form name="book-form">
 						<InputWrapper>
@@ -83,6 +83,19 @@ const BookForm: React.FC<Props> = ({
 								error={!!errors.location}
 								helperText={errors.location}
 							/>
+							<FormControl>
+								<FormLabel>{t('app.read')}</FormLabel>
+								<RadioGroup
+									name="read"
+									onChange={handleChange}
+									value={values.read}
+									row
+								>
+									<FormControlLabel value="true" control={<Radio />} label={t('app.yes')} />
+									<FormControlLabel value="false" control={<Radio />} label={t('app.no')} />
+									<FormControlLabel value="" control={<Radio />} label={t('app.dontKnow')} />
+								</RadioGroup>
+							</FormControl>
 						</InputWrapper>
 						<ButtonsWrapper>
 							<Button

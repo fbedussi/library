@@ -1,12 +1,13 @@
-import history from '../history'
 import { SearchCriteria, SortingOrder } from '../model/model'
+
+import history from '../history'
 
 export const genCharArray = (firstChar: string, lastChar: string) => {
 	let arr = [];
-	let curentCharCode = firstChar.charCodeAt(0);
+	let currentCharCode = firstChar.charCodeAt(0);
 	const lastCharCode = lastChar.charCodeAt(0);
-	for (; curentCharCode <= lastCharCode; ++curentCharCode) {
-		arr.push(String.fromCharCode(curentCharCode));
+	for (; currentCharCode <= lastCharCode; ++currentCharCode) {
+		arr.push(String.fromCharCode(currentCharCode));
 	}
 	return arr;
 };
@@ -18,6 +19,7 @@ export const isSearchKey = (
 		'author',
 		'title',
 		'location',
+		'read',
 	];
 	return searchCriteriaKeys.includes(key as keyof SearchCriteria);
 };
@@ -27,11 +29,11 @@ export const isSortingOrder = (order: string | null): order is SortingOrder => {
 	return searchCriteriaKeys.includes(order as SortingOrder);
 };
 
-export const handleUrlQuery = (queryParams: Record<string, string>) => {
+export const handleUrlQuery = (queryParams: Record<string, string | boolean>) => {
 	const params = new URLSearchParams();
 	Object.entries(queryParams).forEach(([key, value]) => {
 		if (value) {
-			params.append(key, value);
+			params.append(key, value.toString());
 		} else {
 			params.delete(key);
 		}

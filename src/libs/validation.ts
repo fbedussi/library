@@ -1,12 +1,11 @@
+import { SearchCriteriaForForm } from '../model/model'
 import { TFunction } from 'i18next'
 
-import { SearchCriteria } from '../model/model'
-
 export const bookFormValidation = (t: TFunction) => (
-	values: SearchCriteria,
+	values: SearchCriteriaForForm,
 ) => {
 	return Object.entries(values).reduce((errors, [key, val]) => {
-		if (!val) {
+		if (key !== 'read' && !val) {
 			errors[key] = t('errors.mandatoryField');
 		}
 		return errors;

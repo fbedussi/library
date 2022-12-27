@@ -1,25 +1,25 @@
-import Fuse from 'fuse.js'
+import { Add, MoreVert, Search } from '../styleguide/icons'
+import { Book, SearchCriteria, SearchCriteriaForForm, SortingOrder } from '../model/model'
+import { CircularProgress, Fab, IconButton, Typography } from '../styleguide'
+import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
 import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { convertRead, search, sort } from '../libs/search'
+import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
 import { useDispatch, useSelector } from 'react-redux'
-import styled from 'styled-components'
 
 import BookCard from '../components/BookCard'
 import BookForm from '../components/BookForm'
-import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import Fuse from 'fuse.js'
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
-import history from '../history'
-import { useQuery } from '../hooks/useQuery'
-import { search, sort } from '../libs/search'
-import { pxToRem } from '../libs/styles'
-import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
-import { Book, SearchCriteria, SortingOrder } from '../model/model'
 import booksActions from '../store/books/actions'
+import history from '../history'
+import { pxToRem } from '../libs/styles'
 import { selectBooks } from '../store/books/selectors'
-import { CircularProgress, Fab, IconButton, Typography } from '../styleguide'
-import { Add, MoreVert, Search } from '../styleguide/icons'
+import styled from 'styled-components'
 import theme from '../styleguide/theme'
+import { useQuery } from '../hooks/useQuery'
+import { useTranslation } from 'react-i18next'
 
 const BooksList = styled.div`
 	flex: 1;
@@ -39,10 +39,12 @@ const FabLink = styled(LinkNoStyle)`
 
 const SearchPage: React.FC = () => {
 	const query = useQuery();
-	const initialValues = {
+	const readParam = query.get('read') || undefined
+	const initialValues: SearchCriteriaForForm = {
 		author: query.get('author') || '',
 		title: query.get('title') || '',
 		location: query.get('location') || '',
+		read: readParam || '',
 	};
 	const [searchCriteria, setSearchCriteria] = useState(initialValues);
 	const dispatch = useDispatch();
@@ -59,6 +61,7 @@ const SearchPage: React.FC = () => {
 	);
 	const queryScrollTop = query.get('scrollTop');
 	const defaultScrollTop = parseInt(queryScrollTop || '0');
+	const scrollTopAtLanding = useRef(defaultScrollTop)
 	const [scrollTop, setScrollTop] = useState(defaultScrollTop);
 	const scrollableContainerRef = useRef<HTMLDivElement>(null);
 	const [filteredBooks, setFilteredBooks] = useState<Fuse.FuseResult<Book>[]>();
@@ -66,7 +69,7 @@ const SearchPage: React.FC = () => {
 
 	useEffect(() => {
 		if (scrollableContainerRef.current && filteredBooks) {
-			scrollableContainerRef.current.scrollTop = scrollTop;
+			scrollableContainerRef.current.scrollTop = scrollTopAtLanding.current;
 		}
 	}, [filteredBooks]);
 
@@ -75,7 +78,7 @@ const SearchPage: React.FC = () => {
 			dispatch(booksActions.initSearchAction());
 			// trick to update state and rerender the component to apply seachCriteria to
 			// newly loaded books
-			setSearchCriteria({ ...searchCriteria });
+			setSearchCriteria(searchCriteria => ({ ...searchCriteria }));
 		}
 	}, [dispatch, books]);
 
@@ -84,12 +87,15 @@ const SearchPage: React.FC = () => {
 			key: sortingKey,
 			order: sortingOrder,
 			scrollTop: scrollTop.toString(),
-			...searchCriteria,
+			author: searchCriteria.author,
+			title: searchCriteria.title,
+			location: searchCriteria.location,
+			read: !!searchCriteria.read,
 		});
 	}, [sortingKey, sortingOrder, searchCriteria, scrollTop]);
 
 	useEffect(() => {
-		setFilteredBooks(search(searchCriteria));
+		setFilteredBooks(search(convertRead(searchCriteria)));
 	}, [searchCriteria]);
 
 	return (
@@ -127,7 +133,9 @@ const SearchPage: React.FC = () => {
 
 			<BooksList>
 				{filteredBooks
-					?.filter(({ score }) => score && score < 0.8)
+					?.filter(({ score }) => {
+						return score !== undefined && score < 0.8
+					})
 					.sort(
 						(res1, res2) =>
 							sort(res1.item[sortingKey], res2.item[sortingKey]) *
