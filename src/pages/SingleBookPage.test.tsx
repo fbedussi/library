@@ -1,17 +1,17 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 
-import { act, fireEvent, render, screen, waitFor } from '../test-utils'
+import { render } from '../test-utils'
 import SingleBookPage from './SingleBookPage'
 
 jest.mock('../data', () => ({}));
 
-test('renders correcly - no book', () => {
+test('renders correctly - no book', () => {
 	const page = render(<SingleBookPage />);
 	expect(page).toMatchSnapshot();
 });
 
-test('renders correcly - with book', () => {
+test('renders correctly - with book', () => {
 	const page = render(
 		<Route path="/edit/:bookId">
 			<SingleBookPage />

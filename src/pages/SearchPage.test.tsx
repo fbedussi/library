@@ -1,10 +1,9 @@
 import React from 'react'
 
-import { prettyDOM, waitForElement, waitForElementToBeRemoved } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import history from '../history'
-import { act, fireEvent, render, screen, waitFor } from '../test-utils'
+import { render, screen, waitFor } from '../test-utils'
 import SearchPage from './SearchPage'
 
 const books = [
