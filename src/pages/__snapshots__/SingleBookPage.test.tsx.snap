@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders correcly - no book 1`] = `
+exports[`renders correctly - no book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -61,7 +61,7 @@ Object {
 }
 `;
 
-exports[`renders correcly - with book 1`] = `
+exports[`renders correctly - with book 1`] = `
 Object {
   "asFragment": [Function],
   "baseElement": <body>
@@ -78,11 +78,11 @@ Object {
             <div
               class="MuiCardContent-root"
             >
-              <p
-                class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+              <div
+                class="sc-pFZIQ fVjtCJ"
               >
                 a
-              </p>
+              </div>
               <a
                 class="sc-hKgILt jIKHfn"
                 href="/book/B"
@@ -100,7 +100,7 @@ Object {
               </p>
             </div>
             <div
-              class="MuiCardActions-root sc-pFZIQ ijYCzV"
+              class="MuiCardActions-root sc-jrAGrp gmcrxp"
             >
               <button
                 class="MuiButtonBase-root MuiIconButton-root"
@@ -206,11 +206,11 @@ Object {
           <div
             class="MuiCardContent-root"
           >
-            <p
-              class="MuiTypography-root MuiTypography-body1 MuiTypography-colorTextSecondary MuiTypography-gutterBottom"
+            <div
+              class="sc-pFZIQ fVjtCJ"
             >
               a
-            </p>
+            </div>
             <a
               class="sc-hKgILt jIKHfn"
               href="/book/B"
@@ -228,7 +228,7 @@ Object {
             </p>
           </div>
           <div
-            class="MuiCardActions-root sc-pFZIQ ijYCzV"
+            class="MuiCardActions-root sc-jrAGrp gmcrxp"
           >
             <button
               class="MuiButtonBase-root MuiIconButton-root"

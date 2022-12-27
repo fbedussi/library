@@ -1,9 +1,8 @@
-import React from 'react'
-
-import userEvent from '@testing-library/user-event'
-
 import { render, screen } from '../test-utils'
+
+import React from 'react'
 import SortingBar from './SortingBar'
+import userEvent from '@testing-library/user-event'
 
 const setSortingKey = jest.fn();
 const setSortingOrder = jest.fn();
@@ -22,7 +21,7 @@ test('has all the controls', () => {
 	expect(authorRadio).toBeInTheDocument();
 	expect(authorRadio.checked).toBe(true);
 	expect(screen.getByLabelText('app.title')).toBeInTheDocument();
-	expect(screen.getByLabelText('app.location')).toBeInTheDocument();
+	expect(screen.getByLabelText('app.locationShort')).toBeInTheDocument();
 	expect(screen.getByTestId('sorting-btn')).toBeInTheDocument();
 });
 
@@ -48,6 +47,6 @@ test('change sorting key', () => {
 			setSortingKey={setSortingKey}
 		/>,
 	);
-	userEvent.click(screen.getByLabelText('app.location'));
+	userEvent.click(screen.getByLabelText('app.locationShort'));
 	expect(setSortingKey).toBeCalledWith('location');
 });
