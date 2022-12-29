@@ -1,6 +1,6 @@
-import { Book, SearchCriteria } from '../model/model'
-
 import Fuse from 'fuse.js'
+
+import { Book, SearchCriteria } from '../model/model'
 
 const options = {
 	keys: ['title', 'author', 'location'],
@@ -20,7 +20,7 @@ export const initSearch = (books: Book[]) => {
 
 export const search = ({ author, title, location, read }: SearchCriteria) => {
 	if (!author && !title && !location) {
-		const result = allBooks.filter(book => !!book.read === read).map((book, refIndex) => ({ item: book, refIndex, score: 0 }))
+		const result = allBooks.filter(book => book.read === read).map((book, refIndex) => ({ item: book, refIndex, score: 0 }))
 		return result
 	}
 	// TODO: why is not a { [field: string]: string }[]
