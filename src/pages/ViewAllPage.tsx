@@ -1,23 +1,29 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { SearchCriteria, SortingOrder } from '../model/model'
-import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
-import { genCharArray, handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
-
+import React, {
+  useEffect, useLayoutEffect, useRef,
+  useState
+} from 'react'
+import { useTranslation } from 'react-i18next'
+import { useSelector } from 'react-redux'
 import Autosizer from 'react-virtualized-auto-sizer'
+import { FixedSizeList as List } from 'react-window'
+import styled from 'styled-components'
+
 import BackLink from '../components/BackLink'
 import BookCard from '../components/BookCard'
-import { FixedSizeList as List } from 'react-window'
+import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
 import SortingBar from '../components/SortingBar'
-import { Typography } from '../styleguide'
 import ViewAllLink from '../components/ViewAllLink'
-import { pxToRem } from '../libs/styles'
-import { selectBooks } from '../store/books/selectors'
-import { sort } from '../libs/search'
-import styled from 'styled-components'
-import theme from '../styleguide/theme'
 import { useQuery } from '../hooks/useQuery'
-import { useSelector } from 'react-redux'
-import { useTranslation } from 'react-i18next'
+import { sort } from '../libs/search'
+import { pxToRem } from '../libs/styles'
+import {
+  genCharArray, handleUrlQuery, isSearchKey,
+  isSortingOrder
+} from '../libs/utils'
+import { SearchCriteria, SortingOrder } from '../model/model'
+import { selectBooks } from '../store/books/selectors'
+import { Typography } from '../styleguide'
+import theme from '../styleguide/theme'
 
 const LettersAndList = styled.div`
 	display: flex;
@@ -130,6 +136,7 @@ const ViewAllPage: React.FC = () => {
 				setSortingOrder={setSortingOrder}
 				sortingKey={sortingKey}
 				setSortingKey={setSortingKey}
+				foundNumber={booksToRender.length}
 			/>
 
 			<LettersAndList>

@@ -23,7 +23,8 @@
     "orderBy": "ordina per",
     "settings": "Impostazioni",
     "export": "esporta dati",
-    "logout": "logout"
+    "logout": "logout",
+    "resultsFound": "{{foundNumber}} risultati"
   },
   "errors": {
     "mandatoryField": "campo obbligatorio"

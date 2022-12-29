@@ -1,17 +1,14 @@
-import { ArrowDownward, ArrowUpward } from '../styleguide/icons'
-import {
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup
-} from '../styleguide'
-import { SearchCriteria, SortingOrder } from '../model/model'
-
 import React from 'react'
-import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
+import { SearchCriteria, SortingOrder } from '../model/model'
+import {
+  FormControl, FormControlLabel, FormLabel,
+  IconButton, Radio, RadioGroup,
+  Typography
+} from '../styleguide'
+import { ArrowDownward, ArrowUpward } from '../styleguide/icons'
 
 const SortControls = styled.div`
 	display: flex;
@@ -33,6 +30,7 @@ interface Props {
 	setSortingKey: (key: keyof SearchCriteria) => void;
 	sortingOrder: SortingOrder;
 	setSortingOrder: (order: SortingOrder) => void;
+	foundNumber: number
 }
 
 const SortingBar: React.FC<Props> = ({
@@ -40,12 +38,13 @@ const SortingBar: React.FC<Props> = ({
 	setSortingKey,
 	sortingOrder,
 	setSortingOrder,
+	foundNumber,
 }) => {
 	const { t } = useTranslation();
 
 	return (
 		<FormControl component="fieldset" name="sorting-bar">
-			<FormLabel component="legend">{t('app.orderBy')}</FormLabel>
+			<FormLabel component="legend">{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}</FormLabel>
 			<SortControls>
 				<SortingRadioGroup
 					name="sortingKey"

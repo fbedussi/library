@@ -1,25 +1,34 @@
-import { Add, MoreVert, Search } from '../styleguide/icons'
-import { Book, SearchCriteria, SearchCriteriaForForm, SortingOrder } from '../model/model'
-import { CircularProgress, Fab, IconButton, Typography } from '../styleguide'
-import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import Fuse from 'fuse.js'
 import React, { useEffect, useRef, useState } from 'react'
-import { convertRead, search, sort } from '../libs/search'
-import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import BookCard from '../components/BookCard'
 import BookForm from '../components/BookForm'
-import Fuse from 'fuse.js'
+import {
+  LinkNoStyle, PageWrapper, ToolbarStyled,
+  TopAppBar
+} from '../components/CommonComponents'
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
-import booksActions from '../store/books/actions'
 import history from '../history'
-import { pxToRem } from '../libs/styles'
-import { selectBooks } from '../store/books/selectors'
-import styled from 'styled-components'
-import theme from '../styleguide/theme'
 import { useQuery } from '../hooks/useQuery'
-import { useTranslation } from 'react-i18next'
+import { convertRead, search, sort } from '../libs/search'
+import { pxToRem } from '../libs/styles'
+import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
+import {
+  Book, SearchCriteria, SearchCriteriaForForm,
+  SortingOrder
+} from '../model/model'
+import booksActions from '../store/books/actions'
+import { selectBooks } from '../store/books/selectors'
+import {
+  CircularProgress, Fab, IconButton,
+  Typography
+} from '../styleguide'
+import { Add, MoreVert, Search } from '../styleguide/icons'
+import theme from '../styleguide/theme'
 
 const BooksList = styled.div`
 	flex: 1;
@@ -98,6 +107,11 @@ const SearchPage: React.FC = () => {
 		setFilteredBooks(search(convertRead(searchCriteria)));
 	}, [searchCriteria]);
 
+	const booksToShow = filteredBooks
+		?.filter(({ score }) => {
+			return score !== undefined && score < 0.8
+		}) || []
+
 	return (
 		<PageWrapper
 			ref={scrollableContainerRef}
@@ -129,13 +143,11 @@ const SearchPage: React.FC = () => {
 				setSortingOrder={setSortingOrder}
 				sortingKey={sortingKey}
 				setSortingKey={setSortingKey}
+				foundNumber={booksToShow.length}
 			/>
 
 			<BooksList>
-				{filteredBooks
-					?.filter(({ score }) => {
-						return score !== undefined && score < 0.8
-					})
+				{booksToShow
 					.sort(
 						(res1, res2) =>
 							sort(res1.item[sortingKey], res2.item[sortingKey]) *
