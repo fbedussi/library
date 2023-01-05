@@ -6,12 +6,7 @@ import { AppBar, Toolbar } from '../styleguide'
 import theme from '../styleguide/theme'
 
 export const PageWrapper = styled.div`
-	padding: 80px ${pxToRem(theme.spacing(2))}rem 80px;
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	overflow-y: auto;
+	padding: 80px ${pxToRem(theme.spacing(2))}rem 0;
 `;
 
 export const TopBarPageWrapper = styled(PageWrapper)`
@@ -35,6 +30,8 @@ export const BottomAppBar = styled(AppBar)`
 export const TopAppBar = styled(AppBar)`
 	top: 0;
 	bottom: auto;
+	left: 0;
+	width: min(100vw, 100%);
 `;
 
 export const ToolbarStyled = styled(Toolbar)`
