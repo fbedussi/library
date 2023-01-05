@@ -1,6 +1,5 @@
-import { SearchCriteria, SortingOrder } from '../model/model'
-
 import history from '../history'
+import { SearchCriteria, SortingOrder } from '../model/model'
 
 export const genCharArray = (firstChar: string, lastChar: string) => {
 	let arr = [];
@@ -38,5 +37,5 @@ export const handleUrlQuery = (queryParams: Record<string, string | boolean>) =>
 			params.delete(key);
 		}
 	});
-	history.push({ search: params.toString() });
+	history.replace({ search: params.toString() });
 };
