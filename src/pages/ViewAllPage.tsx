@@ -1,15 +1,11 @@
-import React, {
-  useEffect, useLayoutEffect, useRef,
-  useState
-} from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
 import Autosizer from 'react-virtualized-auto-sizer'
-import { FixedSizeList as List } from 'react-window'
 import styled from 'styled-components'
 
 import BackLink from '../components/BackLink'
-import BookCard from '../components/BookCard'
+import BooksList from '../components/BookList'
 import { ToolbarStyled, TopAppBar, TopBarPageWrapper } from '../components/CommonComponents'
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
@@ -49,7 +45,7 @@ const Letter = styled.button`
 	}
 `;
 
-const BooksList = styled.div`
+const BooksListWrapper = styled.div`
 	flex: 1;
 	overflow: auto;
 
@@ -59,9 +55,6 @@ const BooksList = styled.div`
 		text-overflow: ellipsis;
 	}
 `;
-
-const BookCardContainer = styled.div``;
-
 const ViewAllPage: React.FC = () => {
 	const query = useQuery();
 	const books = useSelector(selectBooks);
@@ -80,30 +73,15 @@ const ViewAllPage: React.FC = () => {
 		query.get('letter') || '',
 	);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const listRef = useRef<List>(null);
-	const initialCellHeight = 160;
-	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
 	const letters = genCharArray('A', 'Z');
 
 	useEffect(() => {
-		handleUrlQuery({ key: sortingKey, order: sortingOrder, letter: selectedLetter })
+		handleUrlQuery({
+			key: sortingKey,
+			order: sortingOrder,
+			letter: selectedLetter,
+		});
 	}, [sortingKey, sortingOrder, selectedLetter]);
-
-	useLayoutEffect(() => {
-		const setHeights = () => {
-			const cellHeight =
-				containerRef.current
-					?.querySelector('.book-card')
-					?.getBoundingClientRect()?.height || initialCellHeight;
-
-			const gellGap = 16;
-			_setCellHeight(Math.round(cellHeight) + gellGap);
-		};
-
-		setHeights();
-		window.addEventListener('resize', setHeights);
-		return window.removeEventListener('resize', setHeights);
-	}, []);
 
 	const booksToRender = books.slice().sort((res1, res2) => {
 		return (
@@ -111,15 +89,6 @@ const ViewAllPage: React.FC = () => {
 			(sortingOrder === 'asc' ? 1 : -1)
 		);
 	});
-
-	useEffect(() => {
-		if (sortingKey !== 'read') {
-			const itemIndex = booksToRender.findIndex(
-				book => book[sortingKey][0] >= selectedLetter,
-			);
-			listRef.current?.scrollToItem(itemIndex);
-		}
-	}, [selectedLetter, booksToRender, sortingKey]);
 
 	return (
 		<TopBarPageWrapper>
@@ -151,28 +120,19 @@ const ViewAllPage: React.FC = () => {
 						</Letter>
 					))}
 				</Letters>
-				<BooksList ref={containerRef}>
+				<BooksListWrapper ref={containerRef}>
 					<Autosizer>
 						{({ height, width }) => (
-							<List
-								ref={listRef}
-								height={height}
-								itemCount={booksToRender.length}
-								itemSize={cellHeight}
+							<BooksList
+								books={booksToRender}
+								sortingKey={sortingKey}
+								selectedLetter={selectedLetter}
 								width={width}
-							>
-								{({ index, style }: { index: number; style: Object }) => (
-									<BookCardContainer
-										style={style}
-										key={booksToRender[index].id}
-									>
-										<BookCard book={booksToRender[index]} />
-									</BookCardContainer>
-								)}
-							</List>
+								height={height}
+							/>
 						)}
 					</Autosizer>
-				</BooksList>
+				</BooksListWrapper>
 			</LettersAndList>
 		</TopBarPageWrapper>
 	);

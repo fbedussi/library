@@ -5,8 +5,7 @@ import styled from 'styled-components'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import {
   FormControl, FormControlLabel, FormLabel,
-  IconButton, Radio, RadioGroup,
-  Typography
+  IconButton, Radio, RadioGroup
 } from '../styleguide'
 import { ArrowDownward, ArrowUpward } from '../styleguide/icons'
 
@@ -30,7 +29,8 @@ interface Props {
 	setSortingKey: (key: keyof SearchCriteria) => void;
 	sortingOrder: SortingOrder;
 	setSortingOrder: (order: SortingOrder) => void;
-	foundNumber: number
+	foundNumber: number;
+	className?: string
 }
 
 const SortingBar: React.FC<Props> = ({
@@ -39,12 +39,15 @@ const SortingBar: React.FC<Props> = ({
 	sortingOrder,
 	setSortingOrder,
 	foundNumber,
+	className,
 }) => {
 	const { t } = useTranslation();
 
 	return (
-		<FormControl component="fieldset" name="sorting-bar">
-			<FormLabel component="legend">{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}</FormLabel>
+		<FormControl component="fieldset" name="sorting-bar" className={className}>
+			<FormLabel component="legend">
+				{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}
+			</FormLabel>
 			<SortControls>
 				<SortingRadioGroup
 					name="sortingKey"

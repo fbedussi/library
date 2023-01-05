@@ -1,13 +1,19 @@
-import { Cancel, CheckCircle, Delete, Edit } from '../styleguide/icons'
-import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '../styleguide'
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import styled from 'styled-components'
 
 import { Book } from '../model/model'
-import { LinkNoStyle } from './CommonComponents'
-import React from 'react'
 import booksActions from '../store/books/actions'
-import styled from 'styled-components'
+import {
+  Card, CardActions, CardContent,
+  CardMedia, IconButton, Typography
+} from '../styleguide'
+import {
+  Cancel, CheckCircle, Delete,
+  Edit
+} from '../styleguide/icons'
 import theme from '../styleguide/theme'
-import { useDispatch } from 'react-redux'
+import { LinkNoStyle } from './CommonComponents'
 
 const StyledCard = styled(Card)`
 	display: flex;
@@ -24,7 +30,7 @@ const AuthorAndReadIcon = styled.div`
 	justify-content: space-between;
 	align-items: center;
 	color: ${theme.palette.text.secondary};
-`
+`;
 
 const BookCardActions = styled(CardActions)`
 	padding: 0;
@@ -34,11 +40,14 @@ const BookCover = styled(CardMedia)`
 	width: 25%;
 `;
 
-const BookCard: React.FC<{ book: Book }> = ({ book }) => {
+const BookCard: React.FC<{ book: Book; style?: React.CSSProperties }> = ({
+	book,
+	style,
+}) => {
 	const dispatch = useDispatch();
 	const { author, title, location, id, coverPath, read } = book;
 	return (
-		<StyledCard variant="outlined" className="book-card">
+		<StyledCard variant="outlined" className="book-card" style={style}>
 			<BookInfo>
 				<CardContent>
 					<AuthorAndReadIcon>
