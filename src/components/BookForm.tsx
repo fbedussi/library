@@ -1,13 +1,20 @@
-import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, TextField } from '../styleguide'
-import { Field, Form, Formik, FormikHelpers } from 'formik'
-
-import { Close } from '../styleguide/icons'
+import {
+  Field, Form, Formik,
+  FormikHelpers
+} from 'formik'
 import React from 'react'
-import { SearchCriteriaForForm } from '../model/model'
-import { pxToRem } from '../libs/styles'
-import styled from 'styled-components'
-import theme from '../styleguide/theme'
 import { useTranslation } from 'react-i18next'
+import styled from 'styled-components'
+
+import { pxToRem } from '../libs/styles'
+import { SearchCriteriaForForm } from '../model/model'
+import {
+  Button, FormControl, FormControlLabel,
+  FormLabel, Radio, RadioGroup,
+  TextField
+} from '../styleguide'
+import { Close } from '../styleguide/icons'
+import theme from '../styleguide/theme'
 
 const InputWrapper = styled.div`
 	display: grid;
@@ -33,6 +40,7 @@ interface Props {
 	) => void;
 	PrimaryIcon: JSX.Element;
 	primaryLabel: string;
+	className?: string;
 }
 
 const BookForm: React.FC<Props> = ({
@@ -42,6 +50,7 @@ const BookForm: React.FC<Props> = ({
 	onSubmit,
 	PrimaryIcon,
 	primaryLabel,
+	className,
 }) => {
 	const { t } = useTranslation();
 
@@ -51,6 +60,7 @@ const BookForm: React.FC<Props> = ({
 			enableReinitialize={enableReinitialize}
 			validate={validate}
 			onSubmit={onSubmit}
+			className={className}
 		>
 			{({ handleChange, values, errors, dirty }) => {
 				return (
@@ -91,9 +101,21 @@ const BookForm: React.FC<Props> = ({
 									value={values.read}
 									row
 								>
-									<FormControlLabel value="true" control={<Radio />} label={t('app.yes')} />
-									<FormControlLabel value="false" control={<Radio />} label={t('app.no')} />
-									<FormControlLabel value="" control={<Radio />} label={t('app.dontKnow')} />
+									<FormControlLabel
+										value="true"
+										control={<Radio />}
+										label={t('app.yes')}
+									/>
+									<FormControlLabel
+										value="false"
+										control={<Radio />}
+										label={t('app.no')}
+									/>
+									<FormControlLabel
+										value=""
+										control={<Radio />}
+										label={t('app.dontKnow')}
+									/>
 								</RadioGroup>
 							</FormControl>
 						</InputWrapper>
@@ -104,7 +126,6 @@ const BookForm: React.FC<Props> = ({
 								size="large"
 								startIcon={PrimaryIcon}
 								type="submit"
-								disabled={!dirty}
 							>
 								{primaryLabel}
 							</Button>
@@ -114,7 +135,6 @@ const BookForm: React.FC<Props> = ({
 								size="large"
 								startIcon={<Close />}
 								type="reset"
-								disabled={!dirty}
 							>
 								{t('app.reset')}
 							</Button>
