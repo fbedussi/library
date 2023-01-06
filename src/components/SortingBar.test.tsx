@@ -1,8 +1,9 @@
-import { render, screen } from '../test-utils'
-
 import React from 'react'
-import SortingBar from './SortingBar'
+
 import userEvent from '@testing-library/user-event'
+
+import { render, screen } from '../test-utils'
+import SortingBar from './SortingBar'
 
 const setSortingKey = jest.fn();
 const setSortingOrder = jest.fn();
@@ -14,6 +15,7 @@ test('has all the controls', () => {
 			sortingOrder="asc"
 			setSortingOrder={setSortingOrder}
 			setSortingKey={setSortingKey}
+			foundNumber={2}
 		/>,
 	);
 
@@ -32,6 +34,7 @@ test('switch sorting order', () => {
 			sortingOrder="asc"
 			setSortingOrder={setSortingOrder}
 			setSortingKey={setSortingKey}
+			foundNumber={2}
 		/>,
 	);
 	userEvent.click(screen.getByTestId('sorting-btn'));
@@ -45,6 +48,7 @@ test('change sorting key', () => {
 			sortingOrder="asc"
 			setSortingOrder={setSortingOrder}
 			setSortingKey={setSortingKey}
+			foundNumber={2}
 		/>,
 	);
 	userEvent.click(screen.getByLabelText('app.locationShort'));
