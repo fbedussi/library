@@ -61,11 +61,9 @@ root.render(
 					<ErrorBoundary>
 						<Suspense fallback={<CircularProgress />}>
 							<FullHeightContainer maxWidth={false} disableGutters={true}>
-								<ErrorBoundary>
-									<Routes />
-									<NotificationArea />
-									{/* <DialogBox /> */}
-								</ErrorBoundary>
+								<Routes />
+								<NotificationArea />
+								{/* <DialogBox /> */}
 							</FullHeightContainer>
 						</Suspense>
 					</ErrorBoundary>
