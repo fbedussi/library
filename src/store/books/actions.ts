@@ -1,5 +1,6 @@
 import {
-  addBookInDB, deleteBookInDB, loadBooksFromDB, searchBooksInDB, updateBookInDB
+  addBookInDB, deleteBookInDB, loadBooksFromDB,
+  searchBooksInDB, updateBookInDB
 } from '../../data'
 import { initSearch } from '../../libs/search'
 import { Book, Id } from '../../model/model'
@@ -9,7 +10,7 @@ import errorsActions from '../errors/actions'
 import { selectBooks } from './selectors'
 import { slice } from './slice'
 
-const initSearchAction = (): AppThunk => (dipatch, getState) => {
+const initSearchAction = (): AppThunk => (dispatch, getState) => {
 	const updatedState = getState();
 	const books = selectBooks(updatedState);
 	initSearch(books);
@@ -36,7 +37,7 @@ const load = (): AppThunk => async (dispatch, getState) => {
 	};
 	try {
 		await loadBooksFromDB(handleUpdate, userId);
-	} catch (e) {
+	} catch (e: any) {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -55,7 +56,7 @@ const add = (book: Omit<Book, 'id'>): AppThunk => async (
 	try {
 		const newBook = await addBookInDB(book, userId);
 		dispatch(slice.actions._addBook(newBook));
-	} catch (e) {
+	} catch (e: any) {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -71,7 +72,7 @@ const update = (book: Book): AppThunk => async (dispatch, getState) => {
 	try {
 		await updateBookInDB({ ...book, userId });
 		dispatch(slice.actions._updateBook(book));
-	} catch (e) {
+	} catch (e: any) {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -85,7 +86,7 @@ const remove = (id: Id): AppThunk => async (dispatch, getState) => {
 	try {
 		await deleteBookInDB(id);
 		dispatch(slice.actions._removeBook(id));
-	} catch (e) {
+	} catch (e: any) {
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
