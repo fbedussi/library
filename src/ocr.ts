@@ -2,7 +2,7 @@ import { Base64 } from './model/model'
 
 export const extractTextFromImage = (base64: Base64) =>
 	fetch(
-		`https://vision.googleapis.com/v1/images:annotate?key=${process.env.REACT_APP_API_KEY}`,
+		`https://vision.googleapis.com/v1/images:annotate?key=${import.meta.env.VITE_APP_API_KEY}`,
 		{
 			method: 'POST',
 			headers: {
