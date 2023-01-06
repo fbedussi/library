@@ -7,6 +7,7 @@ import styled from 'styled-components'
 
 import { PageWrapper } from '../components/CommonComponents'
 import { pxToRem } from '../libs/styles'
+import { TDispatch } from '../model/types'
 import authActions from '../store/auth/actions'
 import { selectUserId } from '../store/auth/selectors'
 import { Button, FormControlLabel, Switch, TextField } from '../styleguide'
@@ -36,7 +37,7 @@ const ButtonWrapper = styled.div`
 const LoginPage: React.FC = () => {
 	const userId = useSelector(selectUserId);
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 
 	return userId ? (
 		<Redirect to="/search" />

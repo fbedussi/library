@@ -1,32 +1,31 @@
-import {
-	Button,
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup,
-	Typography
-} from '../styleguide'
-import { Camera, Close, Save } from '../styleguide/icons'
-import { LinkNoStyle, PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
 import React, { useState } from 'react'
-import { SearchCriteriaForForm, SelectedField } from '../model/model'
-import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
+import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import styled from 'styled-components'
 
 import BookForm from '../components/BookForm'
+import {
+  LinkNoStyle, PageWrapper, ToolbarStyled,
+  TopAppBar
+} from '../components/CommonComponents'
 import HomeLink from '../components/HomeLink'
 import ViewAllLink from '../components/ViewAllLink'
 import Word from '../components/Word'
-import { bookFormValidation } from '../libs/validation'
-import booksActions from '../store/books/actions'
 import { convertRead } from '../libs/search'
-import photosActions from '../store/photos/actions'
 import { pxToRem } from '../libs/styles'
-import styled from 'styled-components'
+import { bookFormValidation } from '../libs/validation'
+import { SearchCriteriaForForm, SelectedField } from '../model/model'
+import { TDispatch } from '../model/types'
+import booksActions from '../store/books/actions'
+import photosActions from '../store/photos/actions'
+import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors'
+import {
+  Button, FormControl, FormControlLabel,
+  FormLabel, IconButton, Radio,
+  RadioGroup, Typography
+} from '../styleguide'
+import { Camera, Close, Save } from '../styleguide/icons'
 import theme from '../styleguide/theme'
-import { useTranslation } from 'react-i18next'
 
 const CameraButtonWrapper = styled.div`
 	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
@@ -60,7 +59,7 @@ const Image = styled.img`
 
 const AddBookPage: React.FC = () => {
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 	const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
 	const blankInputs: SearchCriteriaForForm = {
 		author: '',
@@ -96,10 +95,14 @@ const AddBookPage: React.FC = () => {
 				enableReinitialize={true}
 				validate={bookFormValidation(t)}
 				onSubmit={(values, { resetForm }) => {
-					dispatch(booksActions.add(convertRead({
-						...values,
-						coverPath: currentPhotoUrl,
-					})));
+					dispatch(
+						booksActions.add(
+							convertRead({
+								...values,
+								coverPath: currentPhotoUrl,
+							}),
+						),
+					);
 					dispatch(photosActions.resetPhotoData());
 					resetForm();
 				}}

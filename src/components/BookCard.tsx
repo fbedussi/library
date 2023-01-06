@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import styled from 'styled-components'
 
 import { Book } from '../model/model'
+import { TDispatch } from '../model/types'
 import booksActions from '../store/books/actions'
 import {
   Card, CardActions, CardContent,
@@ -44,7 +45,7 @@ const BookCard: React.FC<{ book: Book; style?: React.CSSProperties }> = ({
 	book,
 	style,
 }) => {
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 	const { author, title, location, id, coverPath, read } = book;
 	return (
 		<StyledCard variant="outlined" className="book-card" style={style}>

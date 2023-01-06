@@ -1,22 +1,19 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import BackLink from '../components/BackLink';
+import React from 'react'
+import { useTranslation } from 'react-i18next'
+import { useDispatch, useSelector } from 'react-redux'
 
-import {
-	PageWrapper,
-	ToolbarStyled,
-	TopAppBar,
-} from '../components/CommonComponents';
-import authActions from '../store/auth/actions';
-import { selectBooks } from '../store/books/selectors';
-import { Button, MenuItem, Typography } from '../styleguide';
-import { ExitToApp, GetApp } from '../styleguide/icons';
+import BackLink from '../components/BackLink'
+import { PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import { TDispatch } from '../model/types'
+import authActions from '../store/auth/actions'
+import { selectBooks } from '../store/books/selectors'
+import { Button, MenuItem, Typography } from '../styleguide'
+import { ExitToApp, GetApp } from '../styleguide/icons'
 
 const SettingsPage: React.FC = () => {
 	const books = useSelector(selectBooks);
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 
 	const csv = ['"Author";"Title";"Location"']
 		.concat(

@@ -2,15 +2,16 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
 
+import { TDispatch } from '../../model/types'
 import { IconButton, Snackbar } from '../../styleguide'
 import { Close } from '../../styleguide/icons'
 import notificationsActions from './actions'
 import { selectNotifications } from './selectors'
 
 const NotificationArea = () => {
-	const { t } = useTranslation()
-	const notifications = useSelector(selectNotifications)
-	const dispatch = useDispatch()
+	const { t } = useTranslation();
+	const notifications = useSelector(selectNotifications);
+	const dispatch: TDispatch = useDispatch();
 	return (
 		<>
 			{notifications.map(({ message, messageIsLabelKey, _id }) => (
@@ -21,7 +22,7 @@ const NotificationArea = () => {
 					action={
 						<React.Fragment>
 							<IconButton
-								size="small"	
+								size="small"
 								aria-label="close"
 								data-testid="close-button"
 								color="inherit"
@@ -36,7 +37,7 @@ const NotificationArea = () => {
 				/>
 			))}
 		</>
-	)
-}
+	);
+};
 
-export default NotificationArea
+export default NotificationArea;

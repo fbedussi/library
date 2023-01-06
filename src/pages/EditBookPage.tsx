@@ -7,6 +7,7 @@ import BookForm from '../components/BookForm'
 import React from 'react'
 import { Save } from '../styleguide/icons'
 import { bookFormValidation } from '../libs/validation'
+import { TDispatch } from '../model/types'
 import booksActions from '../store/books/actions'
 import { convertRead } from '../libs/search'
 import { selectBook } from '../store/books/selectors'
@@ -16,7 +17,7 @@ import { useTranslation } from 'react-i18next'
 const EditBookPage: React.FC = () => {
 	const { bookId } = useParams<{ bookId: Id }>();
 	const { t } = useTranslation();
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 	const book = useSelector(selectBook(bookId));
 
 	if (!book) {
