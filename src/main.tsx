@@ -1,17 +1,22 @@
-import './i18n'
-
 import React, { Suspense } from 'react'
 import ReactDOM from 'react-dom'
+import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
 import styled, { createGlobalStyle } from 'styled-components'
 
+import { initI18n } from './i18n'
 import reportWebVitals from './reportWebVitals'
 import Routes from './Routes'
 import store from './store'
 import ErrorBoundary from './store/errors/ErrorBoundary'
 import NotificationArea from './store/notifications/NotificationArea'
-import { CircularProgress, Container, StylesProvider, ThemeProvider } from './styleguide'
+import {
+  CacheProvider, CircularProgress, Container,
+  createCache, ThemeProvider
+} from './styleguide'
 import theme from './styleguide/theme'
+
+initI18n();
 
 const GlobalStyle = createGlobalStyle`
     html,
@@ -39,26 +44,35 @@ const FullHeightContainer = styled(Container)`
 	height: 100%;
 `;
 
-ReactDOM.render(
+const cache = createCache({
+	key: 'my-prefix-key',
+	nonce: 'nonce',
+	prepend: true,
+});
+
+const container = document.getElementById('root');
+const root = createRoot(container!);
+root.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<ThemeProvider theme={theme}>
-				<StylesProvider injectFirst>
+				<CacheProvider value={cache}>
 					<GlobalStyle />
 					<ErrorBoundary>
 						<Suspense fallback={<CircularProgress />}>
 							<FullHeightContainer maxWidth={false} disableGutters={true}>
-								<Routes />
-								<NotificationArea />
-								{/* <DialogBox /> */}
+								<ErrorBoundary>
+									<Routes />
+									<NotificationArea />
+									{/* <DialogBox /> */}
+								</ErrorBoundary>
 							</FullHeightContainer>
 						</Suspense>
 					</ErrorBoundary>
-				</StylesProvider>
+				</CacheProvider>
 			</ThemeProvider>
 		</Provider>
 	</React.StrictMode>,
-	document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
