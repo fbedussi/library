@@ -6,7 +6,7 @@ const tMock: TFunction = (x: string) => x;
 
 test('bookFormValidation', () => {
 	expect(
-		bookFormValidation(tMock)({ author: '', location: '', title: '' }),
+		bookFormValidation(tMock)({ author: '', location: '', title: '', read: '' }),
 	).toEqual({
 		author: 'errors.mandatoryField',
 		location: 'errors.mandatoryField',

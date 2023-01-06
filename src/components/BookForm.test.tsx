@@ -13,6 +13,7 @@ const initialValues = {
 	title: 'title',
 	author: 'author',
 	location: 'location',
+	read: '',
 };
 
 const onSubmit = jest.fn();
