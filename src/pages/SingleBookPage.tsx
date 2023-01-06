@@ -10,7 +10,7 @@ import { selectBook } from '../store/books/selectors'
 
 const SingleBookPage: React.FC = () => {
 	const { bookId } = useParams<{ bookId: Id }>();
-	const book = useSelector(selectBook(bookId));
+	const book = useSelector(selectBook(bookId || ''));
 
 	if (!book) {
 		return null;
