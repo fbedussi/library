@@ -1,21 +1,19 @@
-import 'react-html5-camera-photo/build/css/index.css';
+import 'react-html5-camera-photo/build/css/index.css'
 
-import React from 'react';
-import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
-import { useDispatch } from 'react-redux';
+import React from 'react'
+import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import BackLink from '../components/BackLink';
-import {
-	PageWrapper,
-	ToolbarStyled,
-	TopAppBar,
-} from '../components/CommonComponents';
-import history from '../history';
-import { TDispatch } from '../model/types';
-import photosActions from '../store/photos/actions';
+import BackLink from '../components/BackLink'
+import { PageWrapper, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
+import { TDispatch } from '../model/types'
+import photosActions from '../store/photos/actions'
 
 const CameraPage: React.FC = () => {
 	const dispatch: TDispatch = useDispatch();
+
+	const navigate = useNavigate();
 
 	return (
 		<PageWrapper>
@@ -27,7 +25,7 @@ const CameraPage: React.FC = () => {
 			<Camera
 				onTakePhoto={dataUri => {
 					dispatch(photosActions.uploadPhoto(dataUri)).then(() =>
-						history.push('/add'),
+						navigate('/add'),
 					);
 				}}
 				idealFacingMode={FACING_MODES.ENVIRONMENT}

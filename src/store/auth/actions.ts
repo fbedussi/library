@@ -1,5 +1,6 @@
+import { NavigateFunction } from 'react-router'
+
 import { firebaseLogin, firebaseLogout } from '../../firebase'
-import history from '../../history'
 import { AppThunk } from '../../model/types'
 import { deletePersistedtUserId, persistUserId } from '../../persistance'
 import booksActions from '../books/actions'
@@ -14,7 +15,7 @@ const login = ({
 	username: string;
 	password: string;
 	rememberMe: boolean;
-}): AppThunk => dispatch => {
+}, navigate: NavigateFunction): AppThunk => dispatch => {
 	firebaseLogin(username, password)
 		.then(({ user }) => {
 			if (!user) {
@@ -32,7 +33,7 @@ const login = ({
 			if (rememberMe) {
 				persistUserId(user.uid);
 			}
-			history.push('/search');
+			navigate('/search');
 		})
 		.catch(error =>
 			dispatch(

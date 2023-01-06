@@ -5,6 +5,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import BookForm from '../components/BookForm'
@@ -12,7 +13,6 @@ import BooksList from '../components/BookList'
 import { LinkNoStyle, ToolbarStyled, TopAppBar } from '../components/CommonComponents'
 import SortingBar from '../components/SortingBar'
 import ViewAllLink from '../components/ViewAllLink'
-import history from '../history'
 import { useQuery } from '../hooks/useQuery'
 import { convertRead, search, sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
@@ -21,6 +21,7 @@ import {
   Book, SearchCriteria, SearchCriteriaForForm,
   SortingOrder
 } from '../model/model'
+import { TDispatch } from '../model/types'
 import booksActions from '../store/books/actions'
 import { selectBooks } from '../store/books/selectors'
 import {
@@ -59,7 +60,7 @@ const SearchPage: React.FC = () => {
 		read: readParam || '',
 	};
 	const [searchCriteria, setSearchCriteria] = useState(initialValues);
-	const dispatch = useDispatch();
+	const dispatch: TDispatch = useDispatch();
 	const books = useSelector(selectBooks);
 	const queryKey = query.get('key');
 	const defaultSortingKey: keyof SearchCriteria = 'author';
@@ -125,6 +126,8 @@ const SearchPage: React.FC = () => {
 		return books.map(({ item }) => item);
 	}, [filteredBooks, sortingKey, sortingOrder]);
 
+	const navigate = useNavigate();
+
 	return (
 		<Wrapper
 			ref={scrollableContainerRef}
@@ -134,7 +137,7 @@ const SearchPage: React.FC = () => {
 		>
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
-					<IconButton color="inherit" onClick={() => history.push('/settings')}>
+					<IconButton color="inherit" onClick={() => navigate('/settings')}>
 						<MoreVert />
 					</IconButton>
 					{!books.length ? <CircularProgress color="secondary" /> : null}

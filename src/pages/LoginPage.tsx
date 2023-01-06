@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 
 import { PageWrapper } from '../components/CommonComponents'
@@ -10,7 +10,10 @@ import { pxToRem } from '../libs/styles'
 import { TDispatch } from '../model/types'
 import authActions from '../store/auth/actions'
 import { selectUserId } from '../store/auth/selectors'
-import { Button, FormControlLabel, Switch, TextField } from '../styleguide'
+import {
+  Button, FormControlLabel, Switch,
+  TextField
+} from '../styleguide'
 import theme from '../styleguide/theme'
 
 const LoginPageWrapper = styled(PageWrapper)`
@@ -39,8 +42,10 @@ const LoginPage: React.FC = () => {
 	const { t } = useTranslation();
 	const dispatch: TDispatch = useDispatch();
 
+	const navigate = useNavigate();
+
 	return userId ? (
-		<Redirect to="/search" />
+		<Navigate to="/search" />
 	) : (
 		<LoginPageWrapper>
 			<Formik
@@ -50,7 +55,7 @@ const LoginPage: React.FC = () => {
 					rememberMe: false,
 				}}
 				onSubmit={values => {
-					dispatch(authActions.login(values));
+					dispatch(authActions.login(values, navigate));
 				}}
 			>
 				{() => {

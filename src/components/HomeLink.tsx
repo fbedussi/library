@@ -1,16 +1,17 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
-import history from '../history'
 import { IconButton } from '../styleguide'
 import { Search } from '../styleguide/icons'
 
 const HomeLink = () => {
+	const navigate = useNavigate();
 	return (
 		<IconButton
 			edge="start"
 			color="inherit"
 			aria-label="open drawer"
-			onClick={() => history.push('/')}
+			onClick={() => navigate('/')}
 		>
 			<Search />
 		</IconButton>
