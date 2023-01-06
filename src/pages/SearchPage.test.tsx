@@ -1,10 +1,21 @@
 import React from 'react'
+import * as router from 'react-router-dom'
 
 import userEvent from '@testing-library/user-event'
 
-import history from '../history'
 import { render, screen, waitFor } from '../test-utils'
 import SearchPage from './SearchPage'
+
+jest.mock('react-router-dom', () => ({
+	...(jest.requireActual('react-router-dom') as any),
+	useNavigate: jest.fn(),
+}));
+
+beforeEach(() => {
+	(router.useNavigate as any).mockImplementation(
+		jest.requireActual('react-router-dom').useNavigate,
+	);
+});
 
 const books = [
 	{
@@ -59,7 +70,8 @@ test('displays search results', async () => {
 });
 
 test('persist search params in the query string', async () => {
-	history.push = jest.fn();
+	const navigate = jest.spyOn(router, 'useNavigate');
+
 	render(<SearchPage />, {
 		initialState: {
 			books,
@@ -71,14 +83,13 @@ test('persist search params in the query string', async () => {
 	);
 	userEvent.click(screen.getByRole('button', { name: /app.search/i }));
 	await waitFor(() => {
-		expect(history.push).toHaveBeenLastCalledWith({
+		expect(navigate).toHaveBeenLastCalledWith({
 			search: expect.stringMatching(/author=camilleri/),
 		});
 	});
 });
 
 test('applys search params in the query string', () => {
-	history.push = jest.fn();
 	render(<SearchPage />, {
 		initialState: {
 			books,
