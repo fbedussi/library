@@ -21,8 +21,8 @@ jest.mock('react-redux', () => {
 booksActions.add = (x: any) => ({ ...x, type: 'add' });
 photosActions.resetPhotoData = ((x: any) => ({
 	...x,
-	type: 'resetPhoto',
-})) as ActionCreatorWithoutPayload<string>;
+	type: 'photos/resetPhotoData',
+})) as ActionCreatorWithoutPayload<'photos/resetPhotoData'>;
 
 test('renders correcly', () => {
 	const page = render(<AddBookPage />);
@@ -86,7 +86,7 @@ test('submits correctly', async () => {
 			type: 'add',
 		});
 		expect(mockDispatch).toBeCalledWith({
-			type: 'resetPhoto',
+			type: 'photos/resetPhotoData',
 		});
 	});
 });
@@ -117,7 +117,7 @@ test('reset photo data', () => {
 	});
 	userEvent.click(screen.getByTestId('reset-photo-data-btn'));
 	expect(mockDispatch).toBeCalledWith({
-		type: 'resetPhoto',
+		type: 'photos/resetPhotoData',
 	});
 });
 
