@@ -1,4 +1,4 @@
 {
 	"typescript.tsdk": "node_modules/typescript/lib",
-	"cSpell.words": ["formik", "styleguide"]
+	"cSpell.words": ["formik", "styleguide", "testid"]
 }
