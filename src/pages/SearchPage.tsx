@@ -75,12 +75,14 @@ const SearchPage: React.FC = () => {
 	const defaultScrollTop = parseInt(queryScrollTop || '0');
 	const scrollTopAtLanding = useRef(defaultScrollTop);
 	const scrollableContainerRef = useRef<HTMLDivElement>(null);
+	const [searchReady, setSearchReady] = useState(false);
 
 	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (books.length) {
 			dispatch(booksActions.initSearchAction());
+			setSearchReady(true);
 		}
 	}, [dispatch, books]);
 
@@ -131,6 +133,9 @@ const SearchPage: React.FC = () => {
 	};
 
 	const booksToShow = useMemo(() => {
+		if (!searchReady) {
+			return [];
+		}
 		const filteredBooks: Fuse.FuseResult<Book>[] | undefined = search(
 			convertRead(searchCriteria),
 		);
@@ -146,7 +151,7 @@ const SearchPage: React.FC = () => {
 		);
 
 		return books.map(({ item }) => item);
-	}, [searchCriteria, sortingKey, sortingOrder]);
+	}, [searchReady, searchCriteria, sortingKey, sortingOrder]);
 
 	useEffect(() => {
 		if (scrollableContainerRef.current && booksToShow.length) {
@@ -159,7 +164,7 @@ const SearchPage: React.FC = () => {
 	return (
 		<Wrapper
 			// trick to rerender the component to apply searchCriteria to newly loaded books
-			key={(!!books.length).toString()}
+			key={searchReady.toString()}
 			data-testid="search-page"
 			ref={scrollableContainerRef}
 			onScroll={e => {
