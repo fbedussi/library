@@ -1,6 +1,6 @@
 import React from 'react'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import { MemoryRouter } from 'react-router-dom'
 
 import {
   ByRoleMatcher, ByRoleOptions, render as rtlRender,
@@ -28,7 +28,7 @@ function render(
 	const Wrapper: React.FC<{ children?: JSX.Element }> = ({ children }) => {
 		return (
 			<Provider store={dispatch ? { ...store, dispatch } : store}>
-				<BrowserRouter>{children}</BrowserRouter>
+				<MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>
 			</Provider>
 		);
 	};
@@ -40,8 +40,7 @@ const screen = {
 	getByRole: <T extends HTMLElement>(
 		text: ByRoleMatcher,
 		options?: ByRoleOptions | undefined,
-		waitForElementOptions?: unknown,
-	) => rtlScreen.getByRole(text, options, waitForElementOptions) as T,
+	) => rtlScreen.getByRole(text, options) as T,
 };
 
 // re-export everything
