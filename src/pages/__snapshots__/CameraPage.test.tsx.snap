@@ -1,41 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`CameraPage renders correcly 1`] = `
-Object {
+{
   "asFragment": [Function],
   "baseElement": <body>
     <div>
       <div
-        class="sc-bdfBwQ eJvVid"
+        class="sc-bcXHqe iftGwK"
       >
         <header
-          class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary sc-jSgupP cfyQgS mui-fixed MuiPaper-elevation4"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER drgprI mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-regular sc-gKsewC bvkgnn MuiToolbar-gutters"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg kakIna css-hyum1k-MuiToolbar-root"
           >
             <button
               aria-label="open drawer"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="button"
             >
-              <span
-                class="MuiIconButton-label"
+              <svg
+                aria-hidden="true"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                data-testid="ChevronLeftIcon"
+                focusable="false"
+                viewBox="0 0 24 24"
               >
-                <svg
-                  aria-hidden="true"
-                  class="MuiSvgIcon-root"
-                  focusable="false"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                  />
-                </svg>
-              </span>
+                <path
+                  d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+                />
+              </svg>
               <span
-                class="MuiTouchRipple-root"
+                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
               />
             </button>
           </div>
@@ -75,36 +72,33 @@ Object {
   </body>,
   "container": <div>
     <div
-      class="sc-bdfBwQ eJvVid"
+      class="sc-bcXHqe iftGwK"
     >
       <header
-        class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary sc-jSgupP cfyQgS mui-fixed MuiPaper-elevation4"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER drgprI mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-regular sc-gKsewC bvkgnn MuiToolbar-gutters"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg kakIna css-hyum1k-MuiToolbar-root"
         >
           <button
             aria-label="open drawer"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
-            <span
-              class="MuiIconButton-label"
+            <svg
+              aria-hidden="true"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              data-testid="ChevronLeftIcon"
+              focusable="false"
+              viewBox="0 0 24 24"
             >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                />
-              </svg>
-            </span>
+              <path
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
+              />
+            </svg>
             <span
-              class="MuiTouchRipple-root"
+              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
             />
           </button>
         </div>
