@@ -1,10 +1,12 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
 
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { render } from '../test-utils'
 import LoginPage from './LoginPage'
+import SearchPage from './SearchPage'
 
 jest.mock('../store/auth/actions', () => {
 	return {
@@ -18,17 +20,22 @@ test('renders', () => {
 });
 
 test('submits', async () => {
-	render(<LoginPage />);
-	userEvent.type(screen.getByLabelText(/app.username/), 'foo');
-	userEvent.type(screen.getByLabelText(/app.password/), 'baz');
-	userEvent.click(screen.getByLabelText(/app.rememberMe/));
-	userEvent.click(screen.getByRole('button', { name: /app.login/ }));
-	await waitFor(() => {
-		expect(mockDispatch).toBeCalledWith({
-			username: 'foo',
-			password: 'baz',
-			rememberMe: true,
-			type: 'login',
-		});
+	const user = userEvent.setup();
+
+	const dispatch = jest.fn();
+
+	render(<LoginPage />, { dispatch });
+
+	await user.type(screen.getByLabelText(/app.username/), 'foo');
+	await user.type(screen.getByLabelText(/app.password/), 'baz');
+	await user.click(screen.getByLabelText(/app.rememberMe/));
+	await user.click(screen.getByRole('button', { name: /app.login/ }));
+
+	await waitFor(() => {});
+	expect(dispatch).toBeCalledWith({
+		username: 'foo',
+		password: 'baz',
+		rememberMe: true,
+		type: 'login',
 	});
 });

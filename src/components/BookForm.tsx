@@ -38,6 +38,7 @@ interface Props {
 		values: SearchCriteriaForForm,
 		formikHelpers: FormikHelpers<SearchCriteriaForForm>,
 	) => void;
+	onReset?: () => void;
 	PrimaryIcon: JSX.Element;
 	primaryLabel: string;
 	className?: string;
@@ -48,6 +49,7 @@ const BookForm: React.FC<Props> = ({
 	enableReinitialize,
 	validate,
 	onSubmit,
+	onReset,
 	PrimaryIcon,
 	primaryLabel,
 	className,
@@ -60,9 +62,10 @@ const BookForm: React.FC<Props> = ({
 			enableReinitialize={enableReinitialize}
 			validate={validate}
 			onSubmit={onSubmit}
+			onReset={onReset}
 			className={className}
 		>
-			{({ handleChange, values, errors, dirty }) => {
+			{({ handleChange, values, errors, handleReset, resetForm }) => {
 				return (
 					<Form name="book-form">
 						<InputWrapper>
@@ -135,6 +138,10 @@ const BookForm: React.FC<Props> = ({
 								size="large"
 								startIcon={<Close />}
 								type="reset"
+								onClick={() => {
+									resetForm();
+									handleReset();
+								}}
 							>
 								{t('app.reset')}
 							</Button>

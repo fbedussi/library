@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import { render } from '../test-utils'
 import SingleBookPage from './SingleBookPage'
@@ -13,9 +13,9 @@ test('renders correctly - no book', () => {
 
 test('renders correctly - with book', () => {
 	const page = render(
-		<Route path="/edit/:bookId">
-			<SingleBookPage />
-		</Route>,
+		<Routes>
+			<Route path="/edit/:bookId" element={<SingleBookPage />} />
+		</Routes>,
 		{
 			initialState: {
 				books: [

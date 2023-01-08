@@ -17,10 +17,13 @@ beforeEach(() => {
 	);
 });
 
-test('triggers history.push on click', () => {
-	const navigate = jest.spyOn(router, 'useNavigate');
+test('triggers history.push on click', async () => {
+	const user = userEvent.setup();
+
+	const mockedNavigate = jest.fn();
+	(router.useNavigate as any).mockReturnValue(mockedNavigate);
 
 	render(<HomeLink />);
-	userEvent.click(screen.getByRole('button'));
-	expect(navigate).toBeCalledWith('/');
+	await user.click(screen.getByRole('button'));
+	expect(mockedNavigate).toBeCalledWith('/');
 });

@@ -27,7 +27,8 @@ test('has all the controls', () => {
 	expect(screen.getByTestId('sorting-btn')).toBeInTheDocument();
 });
 
-test('switch sorting order', () => {
+test('switch sorting order', async () => {
+	const user = userEvent.setup();
 	render(
 		<SortingBar
 			sortingKey="author"
@@ -37,11 +38,13 @@ test('switch sorting order', () => {
 			foundNumber={2}
 		/>,
 	);
-	userEvent.click(screen.getByTestId('sorting-btn'));
+	await user.click(screen.getByTestId('sorting-btn'));
 	expect(setSortingOrder).toBeCalledWith('desc');
 });
 
-test('change sorting key', () => {
+test('change sorting key', async () => {
+	const user = userEvent.setup();
+
 	render(
 		<SortingBar
 			sortingKey="author"
@@ -51,6 +54,7 @@ test('change sorting key', () => {
 			foundNumber={2}
 		/>,
 	);
-	userEvent.click(screen.getByLabelText('app.locationShort'));
+
+	await user.click(screen.getByLabelText('app.locationShort'));
 	expect(setSortingKey).toBeCalledWith('location');
 });

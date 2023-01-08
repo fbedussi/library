@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 
 import userEvent from '@testing-library/user-event'
 
@@ -7,27 +7,18 @@ import booksActions from '../store/books/actions'
 import { render, screen, waitFor } from '../test-utils'
 import EditBookPage from './EditBookPage'
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-	const originalModule = jest.requireActual('react-redux');
-	return {
-		...originalModule,
-		useDispatch: () => mockDispatch,
-	};
-});
-
 booksActions.update = (x: any) => ({ ...x, type: 'update' });
 
-test('renders correcly - no book', () => {
+test('renders correctly - no book', () => {
 	const page = render(<EditBookPage />);
 	expect(page).toMatchSnapshot();
 });
 
-test('renders correcly - with book', () => {
+test('renders correctly - with book', () => {
 	const page = render(
-		<Route path="/edit/:bookId">
-			<EditBookPage />
-		</Route>,
+		<Routes>
+			<Route path="/edit/:bookId" element={<EditBookPage />} />
+		</Routes>,
 		{
 			initialState: {
 				books: [
@@ -41,34 +32,39 @@ test('renders correcly - with book', () => {
 });
 
 test('submits correctly', async () => {
+	const dispatch = jest.fn();
 	render(
-		<Route path="/edit/:bookId">
-			<EditBookPage />
-		</Route>,
+		<Routes>
+			<Route path="/edit/:bookId" element={<EditBookPage />} />
+		</Routes>,
 		{
 			initialState: {
 				books: [
 					{ id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
 				],
 			},
+			dispatch,
 			route: '/edit/B',
 		},
 	);
 	const authorInput = screen.getByLabelText(/app.author/i);
-	userEvent.clear(authorInput);
-	userEvent.type(authorInput, 'author');
+	const user = userEvent.setup();
+
+	expect(authorInput).toBeInTheDocument();
+	await user.clear(authorInput);
+	await user.type(authorInput, 'author');
 	const titleInput = screen.getByLabelText(/app.title/i);
-	userEvent.clear(titleInput);
-	userEvent.type(titleInput, 'title');
+	await user.clear(titleInput);
+	await user.type(titleInput, 'title');
 	const locationInput = screen.getByLabelText(/app.location/i);
-	userEvent.clear(locationInput);
-	userEvent.type(locationInput, 'location');
+	await user.clear(locationInput);
+	await user.type(locationInput, 'location');
 	const submitBtn = screen.getByRole('button', {
 		name: /app.save/i,
 	});
-	userEvent.click(submitBtn);
+	await user.click(submitBtn);
 	await waitFor(() => {
-		expect(mockDispatch).toBeCalledWith({
+		expect(dispatch).toBeCalledWith({
 			author: 'author',
 			title: 'title',
 			location: 'location',

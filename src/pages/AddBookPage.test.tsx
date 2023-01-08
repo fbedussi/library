@@ -9,12 +9,17 @@ import photosActions from '../store/photos/actions'
 import { render, screen } from '../test-utils'
 import AddBookPage from './AddBookPage'
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-	const originalModule = jest.requireActual('react-redux');
+jest.mock('../config', () => {
 	return {
-		...originalModule,
-		useDispatch: () => mockDispatch,
+		firebase: {
+			apiKey: 'apiKey',
+			authDomain: 'authDomain',
+			databaseURL: 'databaseURL',
+			projectId: 'projectId',
+			storageBucket: 'storageBucket',
+			messagingSenderId: 'messagingSenderId',
+			appId: 'appId',
+		},
 	};
 });
 
@@ -24,7 +29,7 @@ photosActions.resetPhotoData = ((x: any) => ({
 	type: 'photos/resetPhotoData',
 })) as ActionCreatorWithoutPayload<'photos/resetPhotoData'>;
 
-test('renders correcly', () => {
+test('renders correctly', () => {
 	const page = render(<AddBookPage />);
 	expect(page).toMatchSnapshot();
 });
@@ -53,39 +58,43 @@ test('currentPhotoUrl', () => {
 });
 
 test('validates', async () => {
+	const user = userEvent.setup();
+
 	render(<AddBookPage />);
 
-	userEvent.type(screen.getByLabelText(/app.author/i), 'author');
+	await user.type(screen.getByLabelText(/app.author/i), 'author');
 
-	userEvent.type(screen.getByLabelText(/app.title/i), 'title');
+	await user.type(screen.getByLabelText(/app.title/i), 'title');
 	const submitBtn = screen.getByRole('button', {
 		name: /app.save/i,
 	});
-	userEvent.click(submitBtn);
+	await user.click(submitBtn);
 	await waitFor(() => {
 		expect(screen.queryByText(/errors.mandatoryField/i)).toBeInTheDocument();
 	});
 });
 
 test('submits correctly', async () => {
-	render(<AddBookPage />);
+	const user = userEvent.setup();
+	const dispatch = jest.fn();
+	render(<AddBookPage />, { dispatch });
 
-	userEvent.type(screen.getByLabelText(/app.author/i), 'author');
-	userEvent.type(screen.getByLabelText(/app.title/i), 'title');
-	userEvent.type(screen.getByLabelText(/app.location/i), 'location');
+	await user.type(screen.getByLabelText(/app.author/i), 'author');
+	await user.type(screen.getByLabelText(/app.title/i), 'title');
+	await user.type(screen.getByLabelText(/app.location/i), 'location');
 	const submitBtn = screen.getByRole('button', {
 		name: /app.save/i,
 	});
-	userEvent.click(submitBtn);
+	await user.click(submitBtn);
 	await waitFor(() => {
-		expect(mockDispatch).toBeCalledWith({
+		expect(dispatch).toBeCalledWith({
 			author: 'author',
 			title: 'title',
 			location: 'location',
 			coverPath: '',
 			type: 'add',
 		});
-		expect(mockDispatch).toBeCalledWith({
+		expect(dispatch).toBeCalledWith({
 			type: 'photos/resetPhotoData',
 		});
 	});
@@ -109,27 +118,33 @@ test('displays words', () => {
 	expect(screen.getByText(/word2/i)).toBeInTheDocument();
 });
 
-test('reset photo data', () => {
+test('reset photo data', async () => {
+	const user = userEvent.setup();
+
+	const dispatch = jest.fn();
 	render(<AddBookPage />, {
+		dispatch,
 		initialState: {
 			photos: { words: ['word1', 'word2'], currentPhotoPath: 'path' },
 		},
 	});
-	userEvent.click(screen.getByTestId('reset-photo-data-btn'));
-	expect(mockDispatch).toBeCalledWith({
+	await user.click(screen.getByTestId('reset-photo-data-btn'));
+	expect(dispatch).toBeCalledWith({
 		type: 'photos/resetPhotoData',
 	});
 });
 
-test('insert word', () => {
+test('insert word', async () => {
+	const user = userEvent.setup();
+
 	render(<AddBookPage />, {
 		initialState: {
 			photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
 		},
 	});
-	userEvent.click(screen.getByText(/word1/i));
-	userEvent.click(screen.getByRole('radio', { name: /app.title/i }));
-	userEvent.click(screen.getByText(/word2/i));
+	await user.click(screen.getByText(/word1/i));
+	await user.click(screen.getByRole('radio', { name: /app.title/i }));
+	await user.click(screen.getByText(/word2/i));
 	expect(
 		screen.getByRole<HTMLInputElement>('textbox', { name: /app.author/i })
 			.value,

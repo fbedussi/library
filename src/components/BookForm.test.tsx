@@ -59,25 +59,8 @@ test('displays the buttons', () => {
 	expect(resetBtn.type).toBe('reset');
 });
 
-test('save is disabled if not dirty', () => {
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-		/>,
-	);
-	const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
-		name: 'submit',
-	});
-	expect(submitBtn.disabled).toBe(true);
-
-	userEvent.type(screen.getByLabelText(/app.author/i), 'author2');
-	expect(submitBtn.disabled).toBe(false);
-});
-
 test('displays error', async () => {
+	const user = userEvent.setup();
 	render(
 		<BookForm
 			initialValues={initialValues}
@@ -91,19 +74,20 @@ test('displays error', async () => {
 			})}
 		/>,
 	);
-	userEvent.type(screen.getByLabelText(/app.author/i), 'author2');
+	await user.type(screen.getByLabelText(/app.author/i), 'author2');
 	const submitBtn = screen.getByRole('button', {
 		name: 'submit',
 	}) as HTMLButtonElement;
-	userEvent.click(submitBtn);
+	await user.click(submitBtn);
 	expect(onSubmit).not.toBeCalled();
 	expect(await screen.findByText(/errTitle/i)).toBeInTheDocument();
 	expect(await screen.findByText(/errAuthor/i)).toBeInTheDocument();
 	expect(await screen.findByText(/errLocation/i)).toBeInTheDocument();
 });
 
-test('calls onSubmit', () => {
+test('calls onSubmit', async () => {
 	const onSubmit = jest.fn();
+	const user = userEvent.setup();
 
 	render(
 		<BookForm
@@ -113,12 +97,12 @@ test('calls onSubmit', () => {
 			PrimaryIcon={<span></span>}
 		/>,
 	);
-	userEvent.type(screen.getByLabelText(/app.author/i), 'author2');
+	await user.type(screen.getByLabelText(/app.author/i), 'author2');
 	const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
 		name: 'submit',
 	});
 	expect(submitBtn.disabled).toBe(false);
-	userEvent.click(submitBtn);
+	await user.click(submitBtn);
 	waitFor(() => {
 		expect(onSubmit).toBeCalled();
 	});

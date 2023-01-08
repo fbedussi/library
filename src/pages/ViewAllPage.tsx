@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSelector } from 'react-redux'
+import { useSearchParams } from 'react-router-dom'
 import Autosizer from 'react-virtualized-auto-sizer'
 import styled from 'styled-components'
 
@@ -12,10 +13,7 @@ import ViewAllLink from '../components/ViewAllLink'
 import { useQuery } from '../hooks/useQuery'
 import { sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import {
-  genCharArray, handleUrlQuery, isSearchKey,
-  isSortingOrder
-} from '../libs/utils'
+import { genCharArray, isSearchKey, isSortingOrder } from '../libs/utils'
 import { SearchCriteria, SortingOrder } from '../model/model'
 import { selectBooks } from '../store/books/selectors'
 import { Typography } from '../styleguide'
@@ -56,31 +54,31 @@ const BooksListWrapper = styled.div`
 	}
 `;
 const ViewAllPage: React.FC = () => {
-	const query = useQuery();
+	const [searchParams, setSearchParams] = useSearchParams();
 	const books = useSelector(selectBooks);
 	const { t } = useTranslation();
-	const queryKey = query.get('key');
+	const queryKey = searchParams.get('key');
 	const defaultSortingKey: keyof SearchCriteria = 'author';
 	const [sortingKey, setSortingKey] = useState(
 		isSearchKey(queryKey) ? queryKey : defaultSortingKey,
 	);
-	const queryOrder = query.get('order');
+	const queryOrder = searchParams.get('order');
 	const defaultSortingOrder: SortingOrder = 'asc';
 	const [sortingOrder, setSortingOrder] = useState(
 		isSortingOrder(queryOrder) ? queryOrder : defaultSortingOrder,
 	);
 	const [selectedLetter, setSelectedLetter] = useState(
-		query.get('letter') || '',
+		searchParams.get('letter') || '',
 	);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const letters = genCharArray('A', 'Z');
 
 	useEffect(() => {
-		handleUrlQuery({
-			key: sortingKey,
-			order: sortingOrder,
-			letter: selectedLetter,
-		});
+		const searchParams = new URLSearchParams();
+		searchParams.set('key', sortingKey);
+		searchParams.set('order', sortingOrder);
+		searchParams.set('letter', selectedLetter);
+		setSearchParams(searchParams, { replace: true });
 	}, [sortingKey, sortingOrder, selectedLetter]);
 
 	const booksToRender = books.slice().sort((res1, res2) => {

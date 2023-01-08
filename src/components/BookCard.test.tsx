@@ -42,11 +42,12 @@ test('display data no image', () => {
 	expect(img).not.toBeInTheDocument();
 });
 
-test('delete book', () => {
+test('delete book', async () => {
+	const user = userEvent.setup();
 	const dispatch = jest.fn();
 	render(<BookCard book={book} />, { dispatch });
 	const deleteBtn = screen.getByTestId('delete-btn');
 	expect(deleteBtn).toBeInTheDocument();
-	userEvent.click(deleteBtn);
+	await user.click(deleteBtn);
 	expect(dispatch).toBeCalledWith(book.id);
 });

@@ -3,7 +3,11 @@ import * as router from 'react-router-dom'
 
 import userEvent from '@testing-library/user-event'
 
-import { render, screen, waitFor } from '../test-utils'
+import { initSearch } from '../libs/search'
+import {
+  act, render, screen,
+  waitFor
+} from '../test-utils'
 import SearchPage from './SearchPage'
 
 jest.mock('react-router-dom', () => ({
@@ -54,42 +58,24 @@ test('hides circular progress when books are loaded', () => {
 });
 
 test('displays search results', async () => {
+	const user = userEvent.setup();
+
 	render(<SearchPage />, {
 		initialState: {
 			books,
 		},
 	});
-	userEvent.type(
+	await user.type(
 		screen.getByRole('textbox', { name: /app.author/i }),
 		'camilleri',
 	);
-	userEvent.click(screen.getByRole('button', { name: /app.search/i }));
+	await user.click(screen.getByRole('button', { name: /app.search/i }));
 	expect(
 		await screen.findByText('Gli arancini di Montalbano'),
 	).toBeInTheDocument();
 });
 
-test('persist search params in the query string', async () => {
-	const navigate = jest.spyOn(router, 'useNavigate');
-
-	render(<SearchPage />, {
-		initialState: {
-			books,
-		},
-	});
-	userEvent.type(
-		screen.getByRole('textbox', { name: /app.author/i }),
-		'camilleri',
-	);
-	userEvent.click(screen.getByRole('button', { name: /app.search/i }));
-	await waitFor(() => {
-		expect(navigate).toHaveBeenLastCalledWith({
-			search: expect.stringMatching(/author=camilleri/),
-		});
-	});
-});
-
-test('applys search params in the query string', () => {
+test('apply search params in the query string', () => {
 	render(<SearchPage />, {
 		initialState: {
 			books,
@@ -102,19 +88,28 @@ test('applys search params in the query string', () => {
 });
 
 test('toggle order', async () => {
+	const user = userEvent.setup();
+
+	initSearch(books);
+
 	render(<SearchPage />, {
 		initialState: {
 			books,
 		},
-		route: '?author=camilleri&key=location',
+		route: '?author=camilleri&key=location&order=asc',
 	});
+
 	expect(screen.getAllByText(/A2|B2/).map(el => el.textContent)).toEqual([
 		'A2',
 		'B2',
 	]);
-	userEvent.click(screen.getByTestId('sorting-btn'));
-	expect(screen.getAllByText(/B2|A2/).map(el => el.textContent)).toEqual([
-		'B2',
-		'A2',
-	]);
+
+	await user.click(screen.getByTestId('sorting-btn'));
+
+	await waitFor(() => {
+		expect(screen.getAllByText(/B2|A2/).map(el => el.textContent)).toEqual([
+			'B2',
+			'A2',
+		]);
+	});
 });

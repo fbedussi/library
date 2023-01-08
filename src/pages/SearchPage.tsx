@@ -5,7 +5,7 @@ import React, {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 import styled from 'styled-components'
 
 import BookForm from '../components/BookForm'
@@ -16,7 +16,7 @@ import ViewAllLink from '../components/ViewAllLink'
 import { useQuery } from '../hooks/useQuery'
 import { convertRead, search, sort } from '../libs/search'
 import { pxToRem } from '../libs/styles'
-import { handleUrlQuery, isSearchKey, isSortingOrder } from '../libs/utils'
+import { isSearchKey, isSortingOrder } from '../libs/utils'
 import {
   Book, SearchCriteria, SearchCriteriaForForm,
   SortingOrder
@@ -51,67 +51,89 @@ const FabLink = styled(LinkNoStyle)`
 `;
 
 const SearchPage: React.FC = () => {
-	const query = useQuery();
-	const readParam = query.get('read') || undefined;
-	const initialValues: SearchCriteriaForForm = {
-		author: query.get('author') || '',
-		title: query.get('title') || '',
-		location: query.get('location') || '',
-		read: readParam || '',
-	};
-	const [searchCriteria, setSearchCriteria] = useState(initialValues);
+	const [searchParams, setSearchParams] = useSearchParams();
+
+	const author = searchParams.get('author') || '';
+	const title = searchParams.get('title') || '';
+	const location = searchParams.get('location') || '';
+	const read = searchParams.get('read') || '';
+	const searchCriteria: SearchCriteriaForForm = useMemo(
+		() => ({
+			author,
+			title,
+			location,
+			read,
+		}),
+		[author, title, location, read],
+	);
+
 	const dispatch: TDispatch = useDispatch();
+
 	const books = useSelector(selectBooks);
-	const queryKey = query.get('key');
-	const defaultSortingKey: keyof SearchCriteria = 'author';
-	const [sortingKey, setSortingKey] = useState(
-		isSearchKey(queryKey) ? queryKey : defaultSortingKey,
-	);
-	const queryOrder = query.get('order');
-	const defaultSortingOrder: SortingOrder = 'asc';
-	const [sortingOrder, setSortingOrder] = useState(
-		isSortingOrder(queryOrder) ? queryOrder : defaultSortingOrder,
-	);
-	const queryScrollTop = query.get('scrollTop');
+
+	const queryScrollTop = searchParams.get('scrollTop');
 	const defaultScrollTop = parseInt(queryScrollTop || '0');
 	const scrollTopAtLanding = useRef(defaultScrollTop);
-	const [scrollTop, setScrollTop] = useState(defaultScrollTop);
 	const scrollableContainerRef = useRef<HTMLDivElement>(null);
-	const [filteredBooks, setFilteredBooks] = useState<Fuse.FuseResult<Book>[]>();
-	const { t } = useTranslation();
 
-	useEffect(() => {
-		if (scrollableContainerRef.current && filteredBooks) {
-			scrollableContainerRef.current.scrollTop = scrollTopAtLanding.current;
-		}
-	}, [filteredBooks]);
+	const { t } = useTranslation();
 
 	useEffect(() => {
 		if (books.length) {
 			dispatch(booksActions.initSearchAction());
-			// trick to update state and rerender the component to apply seachCriteria to
-			// newly loaded books
-			setSearchCriteria(searchCriteria => ({ ...searchCriteria }));
 		}
 	}, [dispatch, books]);
 
-	useEffect(() => {
-		handleUrlQuery({
-			key: sortingKey,
-			order: sortingOrder,
-			scrollTop: scrollTop.toString(),
-			author: searchCriteria.author,
-			title: searchCriteria.title,
-			location: searchCriteria.location,
-			read: !!searchCriteria.read,
-		});
-	}, [sortingKey, sortingOrder, searchCriteria, scrollTop]);
+	const setSearchCriteria = (values: SearchCriteriaForForm) => {
+		const searchParams = new URLSearchParams(window.location.search);
 
-	useEffect(() => {
-		setFilteredBooks(search(convertRead(searchCriteria)));
-	}, [searchCriteria]);
+		if (values.author === '') {
+			searchParams.delete('author');
+		} else {
+			searchParams.set('author', values.author);
+		}
+
+		if (values.title === '') {
+			searchParams.delete('title');
+		} else {
+			searchParams.set('title', values.title);
+		}
+
+		if (values.location === '') {
+			searchParams.delete('location');
+		} else {
+			searchParams.set('location', values.location);
+		}
+
+		if (values.read === '') {
+			searchParams.delete('read');
+		} else {
+			searchParams.set('read', values.read);
+		}
+
+		setSearchParams(searchParams, { replace: true });
+	};
+
+	const sortingKey = (searchParams.get('key') ||
+		'author') as keyof SearchCriteria;
+
+	const setSortingKey = (sortingKey: keyof SearchCriteria) => {
+		const searchParams = new URLSearchParams(window.location.search);
+		searchParams.set('key', sortingKey);
+		setSearchParams(searchParams, { replace: true });
+	};
+
+	const sortingOrder = (searchParams.get('order') || 'asc') as SortingOrder;
+
+	const setSortingOrder = (sortingOrder: SortingOrder) => {
+		searchParams.set('order', sortingOrder);
+		setSearchParams(searchParams, { replace: true });
+	};
 
 	const booksToShow = useMemo(() => {
+		const filteredBooks: Fuse.FuseResult<Book>[] | undefined = search(
+			convertRead(searchCriteria),
+		);
 		const books =
 			filteredBooks?.filter(({ score }) => {
 				return score !== undefined && score < 0.8;
@@ -124,15 +146,27 @@ const SearchPage: React.FC = () => {
 		);
 
 		return books.map(({ item }) => item);
-	}, [filteredBooks, sortingKey, sortingOrder]);
+	}, [searchCriteria, sortingKey, sortingOrder]);
+
+	useEffect(() => {
+		if (scrollableContainerRef.current && booksToShow.length) {
+			scrollableContainerRef.current.scrollTop = scrollTopAtLanding.current;
+		}
+	}, [booksToShow]);
 
 	const navigate = useNavigate();
 
 	return (
 		<Wrapper
+			// trick to rerender the component to apply searchCriteria to newly loaded books
+			key={(!!books.length).toString()}
+			data-testid="search-page"
 			ref={scrollableContainerRef}
 			onScroll={e => {
-				setScrollTop(e.currentTarget.scrollTop);
+				const searchParams = new URLSearchParams();
+
+				searchParams.set('scrollTop', e.currentTarget.scrollTop.toString());
+				setSearchParams(searchParams, { replace: true });
 			}}
 		>
 			<TopAppBar position="fixed" color="primary">
@@ -147,9 +181,16 @@ const SearchPage: React.FC = () => {
 			</TopAppBar>
 			<BookFormAndSortingBar>
 				<BookForm
-					initialValues={initialValues}
+					initialValues={searchCriteria}
 					onSubmit={values => {
 						setSearchCriteria(values);
+					}}
+					onReset={() => {
+						searchParams.delete('author');
+						searchParams.delete('title');
+						searchParams.delete('location');
+						searchParams.delete('read');
+						setSearchParams(searchParams);
 					}}
 					PrimaryIcon={<Search />}
 					primaryLabel={t('app.search')}
