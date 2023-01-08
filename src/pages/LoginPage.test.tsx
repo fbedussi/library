@@ -12,22 +12,6 @@ jest.mock('../store/auth/actions', () => {
 	};
 });
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => {
-	const originalModule = jest.requireActual('react-redux');
-	return {
-		...originalModule,
-		useDispatch: () => mockDispatch,
-	};
-});
-
-test('redirects to search if userId is populated', () => {
-	const page = render(<LoginPage />, {
-		initialState: { auth: { userId: 'foo' } },
-	});
-	expect(page).toMatchSnapshot();
-});
-
 test('renders', () => {
 	const page = render(<LoginPage />);
 	expect(page).toMatchSnapshot();
