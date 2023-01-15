@@ -1,7 +1,7 @@
-import { slice } from './slice'
+import { slice } from './slice';
 
 const errorsActions = {
-	...slice.actions,
-}
+  ...slice.actions,
+};
 
-export default errorsActions
+export default errorsActions;

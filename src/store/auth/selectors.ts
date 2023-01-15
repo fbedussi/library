@@ -1,3 +1,3 @@
-import { RootState } from '../../model/model'
+import { RootState } from '../../model/model';
 
-export const selectUserId = (state: RootState) => state.auth.userId
+export const selectUserId = (state: RootState) => state.auth.userId;

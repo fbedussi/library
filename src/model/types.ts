@@ -1,26 +1,26 @@
-import { Action } from 'redux'
-import { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { Action } from 'redux';
+import { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { RootState } from './model'
+import { RootState } from './model';
 
-export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>
+export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
 
 export type AppThunkPromise<R = void> = ThunkAction<
-	Promise<R>,
-	RootState,
-	unknown,
-	Action<string>
->
+  Promise<R>,
+  RootState,
+  unknown,
+  Action<string>
+>;
 
-export type TDispatch = ThunkDispatch<RootState, unknown, Action<string>>
+export type TDispatch = ThunkDispatch<RootState, unknown, Action<string>>;
 
 export interface WithDispatch {
-	dispatch: TDispatch
+  dispatch: TDispatch;
 }
 
 export interface SvgProps {
-	fill?: string
-	fontSize?: string
-	flip?: boolean
-	className?: string
+  fill?: string;
+  fontSize?: string;
+  flip?: boolean;
+  className?: string;
 }
