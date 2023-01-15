@@ -79,6 +79,10 @@ const SearchPage: React.FC = () => {
 
 	const { t } = useTranslation();
 
+	useEffect(() => {
+		dispatch(booksActions.initSearchAction());
+	}, [dispatch]);
+
 	const setSearchCriteria = (values: FormData) => {
 		const searchParams = new URLSearchParams(window.location.search);
 
