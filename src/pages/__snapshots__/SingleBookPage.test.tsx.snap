@@ -67,7 +67,7 @@ exports[`renders correctly - with book 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe sc-dkrFOg iftGwK kEeWmS"
+        class="sc-bcXHqe sc-dkrFOg ljvCyv iSRPqL"
       >
         <div
           class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iBYQkv ezoZbp book-card css-1v5z4dq-MuiPaper-root-MuiCard-root"
@@ -84,7 +84,7 @@ exports[`renders correctly - with book 1`] = `
                 a
               </div>
               <a
-                class="sc-hLBbgP ipCBTn"
+                class="sc-hLBbgP fLjBEz"
                 href="/book/B"
               >
                 <h2
@@ -124,7 +124,7 @@ exports[`renders correctly - with book 1`] = `
                 />
               </button>
               <a
-                class="sc-hLBbgP ipCBTn"
+                class="sc-hLBbgP fLjBEz"
                 data-testid="edit-link"
                 href="/edit/B"
               >
@@ -153,10 +153,10 @@ exports[`renders correctly - with book 1`] = `
           </div>
         </div>
         <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe jFVaMM mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe fBfpnQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg kakIna css-hyum1k-MuiToolbar-root"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
           >
             <button
               aria-label="open drawer"
@@ -186,7 +186,7 @@ exports[`renders correctly - with book 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe sc-dkrFOg iftGwK kEeWmS"
+      class="sc-bcXHqe sc-dkrFOg ljvCyv iSRPqL"
     >
       <div
         class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iBYQkv ezoZbp book-card css-1v5z4dq-MuiPaper-root-MuiCard-root"
@@ -203,7 +203,7 @@ exports[`renders correctly - with book 1`] = `
               a
             </div>
             <a
-              class="sc-hLBbgP ipCBTn"
+              class="sc-hLBbgP fLjBEz"
               href="/book/B"
             >
               <h2
@@ -243,7 +243,7 @@ exports[`renders correctly - with book 1`] = `
               />
             </button>
             <a
-              class="sc-hLBbgP ipCBTn"
+              class="sc-hLBbgP fLjBEz"
               data-testid="edit-link"
               href="/edit/B"
             >
@@ -272,10 +272,10 @@ exports[`renders correctly - with book 1`] = `
         </div>
       </div>
       <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe jFVaMM mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe fBfpnQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg kakIna css-hyum1k-MuiToolbar-root"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
         >
           <button
             aria-label="open drawer"

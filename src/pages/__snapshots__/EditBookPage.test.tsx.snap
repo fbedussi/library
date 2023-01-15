@@ -67,7 +67,7 @@ exports[`renders correctly - with book 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-dkrFOg sc-eDvSVe kRLIqQ fInOuO"
+        class="sc-dkrFOg sc-eDvSVe koIlhh hlhqsP"
       >
         <form
           action="#"
@@ -400,10 +400,10 @@ exports[`renders correctly - with book 1`] = `
           </div>
         </form>
         <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-gKPRtg fYOYzG mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-gKPRtg fCqoee mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK brlebr css-hyum1k-MuiToolbar-root"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK kbOkvi css-hyum1k-MuiToolbar-root"
           >
             <button
               aria-label="open drawer"
@@ -433,7 +433,7 @@ exports[`renders correctly - with book 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-dkrFOg sc-eDvSVe kRLIqQ fInOuO"
+      class="sc-dkrFOg sc-eDvSVe koIlhh hlhqsP"
     >
       <form
         action="#"
@@ -766,10 +766,10 @@ exports[`renders correctly - with book 1`] = `
         </div>
       </form>
       <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-gKPRtg fYOYzG mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-gKPRtg fCqoee mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK brlebr css-hyum1k-MuiToolbar-root"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK kbOkvi css-hyum1k-MuiToolbar-root"
         >
           <button
             aria-label="open drawer"

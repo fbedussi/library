@@ -6,13 +6,13 @@ exports[`renders correctly 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-dkrFOg kRLIqQ"
+        class="sc-bcXHqe ljvCyv"
       >
         <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-iBYQkv cLhCjL mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER gZJVVQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK brlebr css-hyum1k-MuiToolbar-root"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
           >
             <button
               aria-label="open drawer"
@@ -41,7 +41,7 @@ exports[`renders correctly 1`] = `
               app.insert
             </h6>
             <a
-              class="sc-jSUZER eIbnmt"
+              class="sc-hLBbgP fLjBEz"
               href="/view-all"
             >
               <button
@@ -75,15 +75,15 @@ exports[`renders correctly 1`] = `
           </div>
         </header>
         <div
-          class="sc-jrcTuL jiPDbc"
+          class="sc-bqWxrE tJRaR"
         >
           <p
-            class="sc-kDvujY hjdGzh"
+            class="sc-ksBlkl bGHVuv"
           >
             app.cameraInstructions
           </p>
           <a
-            class="sc-jSUZER eIbnmt"
+            class="sc-hLBbgP fLjBEz"
             href="/camera"
           >
             <button
@@ -118,7 +118,7 @@ exports[`renders correctly 1`] = `
           name="book-form"
         >
           <div
-            class="sc-bcXHqe jvgwgz"
+            class="sc-ipEyDJ ksTpap"
           >
             <div
               class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -389,7 +389,7 @@ exports[`renders correctly 1`] = `
             </div>
           </div>
           <div
-            class="sc-gswNZR doPbUe"
+            class="sc-csuSiG eILcVL"
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge css-jh47zj-MuiButtonBase-root-MuiButton-root"
@@ -448,13 +448,13 @@ exports[`renders correctly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-dkrFOg kRLIqQ"
+      class="sc-bcXHqe ljvCyv"
     >
       <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-iBYQkv cLhCjL mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER gZJVVQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-ftTHYK brlebr css-hyum1k-MuiToolbar-root"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
         >
           <button
             aria-label="open drawer"
@@ -483,7 +483,7 @@ exports[`renders correctly 1`] = `
             app.insert
           </h6>
           <a
-            class="sc-jSUZER eIbnmt"
+            class="sc-hLBbgP fLjBEz"
             href="/view-all"
           >
             <button
@@ -517,15 +517,15 @@ exports[`renders correctly 1`] = `
         </div>
       </header>
       <div
-        class="sc-jrcTuL jiPDbc"
+        class="sc-bqWxrE tJRaR"
       >
         <p
-          class="sc-kDvujY hjdGzh"
+          class="sc-ksBlkl bGHVuv"
         >
           app.cameraInstructions
         </p>
         <a
-          class="sc-jSUZER eIbnmt"
+          class="sc-hLBbgP fLjBEz"
           href="/camera"
         >
           <button
@@ -560,7 +560,7 @@ exports[`renders correctly 1`] = `
         name="book-form"
       >
         <div
-          class="sc-bcXHqe jvgwgz"
+          class="sc-ipEyDJ ksTpap"
         >
           <div
             class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -831,7 +831,7 @@ exports[`renders correctly 1`] = `
           </div>
         </div>
         <div
-          class="sc-gswNZR doPbUe"
+          class="sc-csuSiG eILcVL"
         >
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeLarge MuiButton-containedSizeLarge css-jh47zj-MuiButtonBase-root-MuiButton-root"

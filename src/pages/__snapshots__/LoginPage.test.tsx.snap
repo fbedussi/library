@@ -6,11 +6,11 @@ exports[`renders 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe sc-iBYQkv iftGwK kuQvMN"
+        class="sc-bcXHqe sc-iBYQkv ljvCyv eqvGvc"
       >
         <form
           action="#"
-          class="sc-ftTHYK llUqhA"
+          class="sc-ftTHYK gngptd"
         >
           <div
             class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -117,7 +117,7 @@ exports[`renders 1`] = `
             </span>
           </label>
           <div
-            class="sc-pyfCe bHSOfG"
+            class="sc-pyfCe hRSUzW"
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
@@ -136,11 +136,11 @@ exports[`renders 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe sc-iBYQkv iftGwK kuQvMN"
+      class="sc-bcXHqe sc-iBYQkv ljvCyv eqvGvc"
     >
       <form
         action="#"
-        class="sc-ftTHYK llUqhA"
+        class="sc-ftTHYK gngptd"
       >
         <div
           class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
@@ -247,7 +247,7 @@ exports[`renders 1`] = `
           </span>
         </label>
         <div
-          class="sc-pyfCe bHSOfG"
+          class="sc-pyfCe hRSUzW"
         >
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"

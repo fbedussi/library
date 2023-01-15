@@ -49,7 +49,7 @@ test('edit variant displays the read field', () => {
 		/>,
 	);
 
-	expect(screen.getByLabelText(/app.read/i)).toBeInTheDocument();
+	expect(screen.getByText(/app.read/i)).toBeInTheDocument();
 });
 
 test('search variant displays the showOnlyNotRead field', () => {
@@ -59,11 +59,11 @@ test('search variant displays the showOnlyNotRead field', () => {
 			onSubmit={onSubmit}
 			primaryLabel="submit"
 			PrimaryIcon={<span></span>}
-			variant="edit"
+			variant="search"
 		/>,
 	);
 
-	expect(screen.getByLabelText(/app.showOnlyNotRead/i)).toBeInTheDocument();
+	expect(screen.getByLabelText(/app.notRead/i)).toBeInTheDocument();
 });
 
 test('displays the buttons', () => {
