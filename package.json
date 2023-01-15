@@ -37,6 +37,7 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "format": "prettier --write \"{,!(node_modules)/**/}*.{ts,tsx}\"",
+    "type-check": "tsc --noEmit",
     "test": "jest",
     "test:watch": "jest --watchAll=true"
   },
