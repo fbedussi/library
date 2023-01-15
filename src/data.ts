@@ -53,6 +53,10 @@ export const addBookInDB = (
 	book: Omit<Book, 'id'>,
 	userId: Id,
 ): Promise<Book> => {
+	if (book.read === undefined) {
+		// no undefined are allowed on firebase
+		delete book.read;
+	}
 	return booksCollection.add({ ...book, userId }).then(doc => {
 		return { ...book, id: doc.id };
 	});
