@@ -158,7 +158,9 @@ const BookForm: React.FC<Props> = ({
 								startIcon={<Close />}
 								type="reset"
 								onClick={() => {
-									resetForm();
+									resetForm({
+										values: { author: '', title: '', location: '' },
+									});
 									handleReset();
 								}}
 							>

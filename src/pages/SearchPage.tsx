@@ -184,11 +184,11 @@ const SearchPage: React.FC = () => {
 						setSearchCriteria(values);
 					}}
 					onReset={() => {
-						searchParams.delete('author');
-						searchParams.delete('title');
-						searchParams.delete('location');
-						searchParams.delete('showOnlyNotRead');
-						setSearchParams(searchParams);
+						setSearchCriteria({
+							title: '',
+							author: '',
+							location: '',
+						});
 					}}
 					PrimaryIcon={<Search />}
 					primaryLabel={t('app.search')}
