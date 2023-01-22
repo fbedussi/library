@@ -66,7 +66,14 @@ const BookForm: React.FC<Props> = ({
 			onReset={onReset}
 			className={className}
 		>
-			{({ handleChange, values, errors, handleReset, resetForm }) => {
+			{({
+				handleChange,
+				values,
+				errors,
+				handleReset,
+				resetForm,
+				setFieldValue,
+			}) => {
 				return (
 					<Form name="book-form">
 						<InputWrapper>
@@ -105,7 +112,9 @@ const BookForm: React.FC<Props> = ({
 									control={
 										<Checkbox
 											name="showOnlyNotRead"
-											onChange={handleChange}
+											onChange={(_, checked) => {
+												setFieldValue('showOnlyNotRead', checked);
+											}}
 											checked={values.showOnlyNotRead}
 										/>
 									}
