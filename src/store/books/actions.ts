@@ -38,10 +38,12 @@ const load = (): AppThunk => async (dispatch, getState) => {
 	const userId = selectUserId(state);
 	const handleUpdate = (books: Book[]) => {
 		dispatch(slice.actions._loadBooks(books));
+		dispatch(initSearchAction());
 	};
 	try {
 		await loadBooksFromDB(handleUpdate, userId);
-	} catch (e) {
+	} catch (err) {
+		const e: any = err;
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -66,7 +68,8 @@ const add = (
 		dispatch(slice.actions._addBook(newBook));
 		dispatch(initSearchAction());
 		return newBook;
-	} catch (e) {
+	} catch (err) {
+		const e: any = err;
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -84,7 +87,8 @@ const update = (book: Book): AppThunk => async (dispatch, getState) => {
 		await updateBookInDB({ ...book, userId });
 		dispatch(slice.actions._updateBook(book));
 		dispatch(initSearchAction());
-	} catch (e) {
+	} catch (err) {
+		const e: any = err;
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,
@@ -99,7 +103,8 @@ const remove = (id: Id): AppThunk => async (dispatch, getState) => {
 		await deleteBookInDB(id);
 		dispatch(slice.actions._removeBook(id));
 		dispatch(initSearchAction());
-	} catch (e) {
+	} catch (err) {
+		const e: any = err;
 		dispatch(
 			errorsActions.setHttpError({
 				message: e.message,

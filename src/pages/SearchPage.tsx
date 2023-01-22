@@ -1,7 +1,7 @@
 import Fuse from 'fuse.js';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -14,19 +14,9 @@ import {
 } from '../components/CommonComponents';
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
-import { useQuery } from '../hooks/useQuery';
 import { convertRead, search, sort } from '../libs/search';
 import { pxToRem } from '../libs/styles';
-import { isSearchKey, isSortingOrder } from '../libs/utils';
-import {
-	Book,
-	SearchCriteria,
-	FormData,
-	SortingOrder,
-	SortingKey,
-} from '../model/model';
-import { TDispatch } from '../model/types';
-import booksActions from '../store/books/actions';
+import { Book, FormData, SortingOrder, SortingKey } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
 import { CircularProgress, Fab, IconButton, Typography } from '../styleguide';
 import { Add, MoreVert, Search } from '../styleguide/icons';
@@ -68,8 +58,6 @@ const SearchPage: React.FC = () => {
 		[author, title, location, showOnlyNotRead],
 	);
 
-	const dispatch: TDispatch = useDispatch();
-
 	const books = useSelector(selectBooks);
 
 	const queryScrollTop = searchParams.get('scrollTop');
@@ -78,10 +66,6 @@ const SearchPage: React.FC = () => {
 	const scrollableContainerRef = useRef<HTMLDivElement>(null);
 
 	const { t } = useTranslation();
-
-	useEffect(() => {
-		dispatch(booksActions.initSearchAction());
-	}, [dispatch]);
 
 	const setSearchCriteria = (values: FormData) => {
 		const searchParams = new URLSearchParams(window.location.search);
