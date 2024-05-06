@@ -48,7 +48,7 @@ const BookCard: React.FC<{
 	style?: React.CSSProperties;
 }> = ({ book, style, onDelete }) => {
 	const dispatch: TDispatch = useDispatch();
-	const { author, title, location, id, coverPath, read } = book;
+	const { author, title, location, category, id, coverPath, read } = book;
 	return (
 		<StyledCard variant="outlined" className="book-card" style={style}>
 			<BookInfo>
@@ -65,6 +65,7 @@ const BookCard: React.FC<{
 						</Typography>
 					</LinkNoStyle>
 					<Typography color="textSecondary">{location}</Typography>
+					<Typography color="textSecondary">{category}</Typography>
 				</CardContent>
 				<BookCardActions disableSpacing>
 					<IconButton

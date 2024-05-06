@@ -76,6 +76,7 @@ const AddBookPage: React.FC = () => {
 		author: '',
 		title: '',
 		location: '',
+		category: '',
 		read: '',
 	};
 	const [initialValues, setInitialValues] = useState({ ...blankInputs });

@@ -3,6 +3,7 @@
     "title": "titolo",
     "author": "autore",
     "location": "collocazione",
+    "category": "categoria",
     "locationShort": "coll.",
     "read": "letto",
     "notRead": "non letto",

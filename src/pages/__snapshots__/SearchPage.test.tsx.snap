@@ -6,7 +6,7 @@ exports[`renders 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hBxehG bLYZoX"
+        class="sc-hBxehG dJrszf"
         data-testid="search-page"
       >
         <header
@@ -94,7 +94,7 @@ exports[`renders 1`] = `
           </div>
         </header>
         <div
-          class="sc-fnGiBr jLkmxa"
+          class="sc-fnGiBr epQFxj"
         >
           <form
             action="#"
@@ -206,6 +206,42 @@ exports[`renders 1`] = `
                     >
                       <span>
                         app.location
+                      </span>
+                    </legend>
+                  </fieldset>
+                </div>
+              </div>
+              <div
+                class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+              >
+                <label
+                  class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                  data-shrink="false"
+                  for="category"
+                  id="category-label"
+                >
+                  app.category
+                </label>
+                <div
+                  class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+                >
+                  <input
+                    aria-invalid="false"
+                    class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                    id="category"
+                    name="category"
+                    type="text"
+                    value=""
+                  />
+                  <fieldset
+                    aria-hidden="true"
+                    class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                  >
+                    <legend
+                      class="css-yjsfm1"
+                    >
+                      <span>
+                        app.category
                       </span>
                     </legend>
                   </fieldset>
@@ -496,7 +532,7 @@ exports[`renders 1`] = `
           />
         </div>
         <a
-          class="sc-jSUZER sc-fEXmlR eSQyvp gitnCH"
+          class="sc-jSUZER sc-fEXmlR eSQyvp eCYtFf"
           href="/add"
         >
           <button
@@ -526,7 +562,7 @@ exports[`renders 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hBxehG bLYZoX"
+      class="sc-hBxehG dJrszf"
       data-testid="search-page"
     >
       <header
@@ -614,7 +650,7 @@ exports[`renders 1`] = `
         </div>
       </header>
       <div
-        class="sc-fnGiBr jLkmxa"
+        class="sc-fnGiBr epQFxj"
       >
         <form
           action="#"
@@ -726,6 +762,42 @@ exports[`renders 1`] = `
                   >
                     <span>
                       app.location
+                    </span>
+                  </legend>
+                </fieldset>
+              </div>
+            </div>
+            <div
+              class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+            >
+              <label
+                class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
+                data-shrink="false"
+                for="category"
+                id="category-label"
+              >
+                app.category
+              </label>
+              <div
+                class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
+              >
+                <input
+                  aria-invalid="false"
+                  class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
+                  id="category"
+                  name="category"
+                  type="text"
+                  value=""
+                />
+                <fieldset
+                  aria-hidden="true"
+                  class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
+                >
+                  <legend
+                    class="css-yjsfm1"
+                  >
+                    <span>
+                      app.category
                     </span>
                   </legend>
                 </fieldset>
@@ -1016,7 +1088,7 @@ exports[`renders 1`] = `
         />
       </div>
       <a
-        class="sc-jSUZER sc-fEXmlR eSQyvp gitnCH"
+        class="sc-jSUZER sc-fEXmlR eSQyvp eCYtFf"
         href="/add"
       >
         <button

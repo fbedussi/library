@@ -28,12 +28,13 @@ const EditBookPage: React.FC = () => {
 		return null;
 	}
 
-	const { author, title, location, read } = book;
+	const { author, title, location, read, category, } = book;
 	const initialValues: FormData = {
 		author,
 		title,
 		location,
 		read: read?.toString() || '',
+		category: category || '',
 	};
 
 	return (

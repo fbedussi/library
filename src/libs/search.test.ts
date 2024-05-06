@@ -2,13 +2,14 @@ import { initSearch, search, sort, splitCode } from './search';
 
 it('search', () => {
   initSearch([
-    { id: '1', author: 'a', title: 't', location: 'l', coverPath: '' },
-    { id: '2', author: 'b', title: 't', location: 'l2', coverPath: '' },
+    { id: '1', author: 'a', title: 't', location: 'l', category: 'saggi', coverPath: '' },
+    { id: '2', author: 'b', title: 't', location: 'l2', category: 'narrativa', coverPath: '' },
   ]);
-  expect(search({ author: 'a', title: '', location: '' })).toEqual([
+  expect(search({ author: 'a', title: '', location: '', category: '' })).toEqual([
     {
       item: {
         author: 'a',
+        category: 'saggi',
         coverPath: '',
         id: '1',
         location: 'l',
@@ -18,10 +19,11 @@ it('search', () => {
       score: expect.any(Number),
     },
   ]);
-  expect(search({ author: '', title: '', location: 'l' })).toEqual([
+  expect(search({ author: '', title: '', location: 'l', category: '' })).toEqual([
     {
       item: {
         author: 'a',
+        category: 'saggi',
         coverPath: '',
         id: '1',
         location: 'l',
@@ -33,6 +35,21 @@ it('search', () => {
     {
       item: {
         author: 'b',
+        category: 'narrativa',
+        coverPath: '',
+        id: '2',
+        location: 'l2',
+        title: 't',
+      },
+      refIndex: 1,
+      score: expect.any(Number),
+    },
+  ]);
+  expect(search({ author: '', title: '', location: '', category: 'narrativa' })).toEqual([
+    {
+      item: {
+         author: 'b',
+        category: 'narrativa',
         coverPath: '',
         id: '2',
         location: 'l2',

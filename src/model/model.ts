@@ -35,6 +35,7 @@ export type Book = {
 	location: string;
 	coverPath: string;
 	read?: boolean;
+	category?: string;
 };
 
 export type DbBook = Book & {
@@ -72,6 +73,7 @@ export type SearchCriteria = {
 	author: string;
 	title: string;
 	location: string;
+	category?: string;
 	showOnlyNotRead?: boolean;
 };
 

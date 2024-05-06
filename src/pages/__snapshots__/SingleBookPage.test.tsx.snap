@@ -98,6 +98,9 @@ exports[`renders correctly - with book 1`] = `
               >
                 l
               </p>
+              <p
+                class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+              />
             </div>
             <div
               class="MuiCardActions-root sc-jrcTuL NOxoF css-1rwjz6-MuiCardActions-root"
@@ -217,6 +220,9 @@ exports[`renders correctly - with book 1`] = `
             >
               l
             </p>
+            <p
+              class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+            />
           </div>
           <div
             class="MuiCardActions-root sc-jrcTuL NOxoF css-1rwjz6-MuiCardActions-root"

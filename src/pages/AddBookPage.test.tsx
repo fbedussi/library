@@ -82,6 +82,7 @@ test('submits correctly', async () => {
 	await user.type(screen.getByLabelText(/app.author/i), 'author');
 	await user.type(screen.getByLabelText(/app.title/i), 'title');
 	await user.type(screen.getByLabelText(/app.location/i), 'location');
+	await user.type(screen.getByLabelText(/app.category/i), 'category');
 	const submitBtn = screen.getByRole('button', {
 		name: /app.save/i,
 	});
@@ -93,6 +94,7 @@ test('submits correctly', async () => {
 			location: 'location',
 			coverPath: '',
 			type: 'add',
+			category: 'category',
 		});
 		expect(dispatch).toBeCalledWith({
 			type: 'photos/resetPhotoData',

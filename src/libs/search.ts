@@ -3,7 +3,7 @@ import Fuse from 'fuse.js';
 import { Book, SearchCriteria } from '../model/model';
 
 const options = {
-	keys: ['title', 'author', 'location'],
+	keys: ['title', 'author', 'location', 'category'],
 	includeScore: true,
 	useExtendedSearch: true,
 };
@@ -22,16 +22,17 @@ export const search = ({
 	author,
 	title,
 	location,
+	category,
 	showOnlyNotRead,
 }: SearchCriteria) => {
-	if (!author && !title && !location && showOnlyNotRead) {
+	if (!author && !title && !location && !category && showOnlyNotRead) {
 		const result = allBooks
 			.filter(book => book.read === false)
 			.map((book, refIndex) => ({ item: book, refIndex, score: 0 }));
 		return result;
 	}
 	// TODO: why is not a { [field: string]: string }[]
-	const query: any[] = [{ author }, { title }, { location }]
+	const query: any[] = [{ author }, { title }, { location }, {category}]
 		.filter(obj => Object.values(obj).every(value => value))
 		.map(field =>
 			Object.keys(field)[0] === 'location'

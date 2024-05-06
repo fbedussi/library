@@ -22,7 +22,7 @@ test('renders correctly - with book', () => {
     {
       initialState: {
         books: [
-          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
+          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '', category: 'cat' },
         ],
       },
       route: '/edit/B',
@@ -40,7 +40,7 @@ test('submits correctly', async () => {
     {
       initialState: {
         books: [
-          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '' },
+          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '', category: 'cay' },
         ],
       },
       dispatch,
@@ -59,6 +59,9 @@ test('submits correctly', async () => {
   const locationInput = screen.getByLabelText(/app.location/i);
   await user.clear(locationInput);
   await user.type(locationInput, 'location');
+  const categoryInput = screen.getByLabelText(/app.category/i)
+  await user.clear(categoryInput)
+  await user.type(categoryInput, 'category');
   const submitBtn = screen.getByRole('button', {
     name: /app.save/i,
   });
@@ -68,6 +71,7 @@ test('submits correctly', async () => {
       author: 'author',
       title: 'title',
       location: 'location',
+      category: 'category',
       coverPath: '',
       id: 'B',
       type: 'update',

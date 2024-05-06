@@ -3,7 +3,7 @@ import { TFunction } from 'i18next';
 
 export const bookFormValidation = (t: TFunction) => (values: FormData) => {
 	return Object.entries(values).reduce((errors, [key, val]) => {
-		if (key !== 'read' && !val) {
+		if (!['read', 'category'].includes(key) && !val) {
 			errors[key] = t('errors.mandatoryField');
 		}
 		return errors;

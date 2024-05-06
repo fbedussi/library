@@ -15,6 +15,7 @@ const book: Book = {
   title: 'title',
   author: 'author',
   location: 'L',
+  category: 'category',
   coverPath: 'path',
 };
 
@@ -27,6 +28,7 @@ test('display data and image', () => {
   expect(bookLink.href.includes(`/book/${book.id}`)).toBe(true);
   expect(screen.getByText(book.author)).toBeInTheDocument();
   expect(screen.getByText(book.location)).toBeInTheDocument();
+  expect(screen.getByText(book.category!)).toBeInTheDocument();
   expect(screen.getByTestId('edit-link')).toBeInTheDocument();
   const img = screen.getByTestId('book-cover');
   expect(img).toBeInTheDocument();

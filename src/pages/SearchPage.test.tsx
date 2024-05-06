@@ -24,6 +24,7 @@ const books = [
 		author: 'Andrea Camilleri',
 		title: 'Gli arancini di Montalbano',
 		location: 'A2',
+		category: 'narrativa',
 		coverPath: '',
 	},
 	{
@@ -31,6 +32,7 @@ const books = [
 		author: 'Andrea Camilleri',
 		title: 'La pensione eva',
 		location: 'B2',
+		category: 'narrativa',
 		coverPath: '',
 	},
 ];
@@ -56,6 +58,8 @@ test('hides circular progress when books are loaded', () => {
 
 test('displays search results', async () => {
 	const user = userEvent.setup();
+
+	initSearch(books);
 
 	render(<SearchPage />, {
 		initialState: {

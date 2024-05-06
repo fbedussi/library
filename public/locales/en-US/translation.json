@@ -3,6 +3,7 @@
     "title": "title",
     "author": "author",
     "location": "location",
+    "category": "category",
     "search": "Search",
     "reset": "reset",
     "save": "save",

@@ -8,9 +8,9 @@ import styled from 'styled-components';
 import BookForm from '../components/BookForm';
 import BooksList from '../components/BookList';
 import {
-	LinkNoStyle,
-	ToolbarStyled,
-	TopAppBar,
+  LinkNoStyle,
+  ToolbarStyled,
+  TopAppBar,
 } from '../components/CommonComponents';
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
@@ -23,184 +23,193 @@ import { Add, MoreVert, Search } from '../styleguide/icons';
 import theme from '../styleguide/theme';
 
 const Wrapper = styled.div`
-	.book-card-container {
-		padding: 0 1rem;
-	}
+  .book-card-container {
+    padding: 0 1rem;
+  }
 `;
 
 const BookFormAndSortingBar = styled.div`
-	padding: 80px 1rem 0;
+  padding: 80px 1rem 0;
 `;
 
 const FabLink = styled(LinkNoStyle)`
-	position: fixed;
-	z-index: 1;
-	bottom: ${pxToRem(theme.spacing(2))}rem;
-	right: ${pxToRem(theme.spacing(2))}rem;
-	margin: 0 auto;
-	width: ${theme.spacing(7)}px;
+  position: fixed;
+  z-index: 1;
+  bottom: ${pxToRem(theme.spacing(2))}rem;
+  right: ${pxToRem(theme.spacing(2))}rem;
+  margin: 0 auto;
+  width: ${theme.spacing(7)}px;
 `;
 
 const SearchPage: React.FC = () => {
-	const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-	const author = searchParams.get('author') || '';
-	const title = searchParams.get('title') || '';
-	const location = searchParams.get('location') || '';
-	const showOnlyNotRead = searchParams.get('showOnlyNotRead') || '';
-	const searchCriteria: FormData = useMemo(
-		() => ({
-			author,
-			title,
-			location,
-			showOnlyNotRead: showOnlyNotRead === 'true',
-		}),
-		[author, title, location, showOnlyNotRead],
-	);
+  const author = searchParams.get('author') || '';
+  const title = searchParams.get('title') || '';
+  const location = searchParams.get('location') || '';
+  const category = searchParams.get('category') || '';
+  const showOnlyNotRead = searchParams.get('showOnlyNotRead') || '';
+  const searchCriteria: FormData = useMemo(
+    () => ({
+      author,
+      title,
+      location,
+      category,
+      showOnlyNotRead: showOnlyNotRead === 'true',
+    }),
+    [author, title, location, category, showOnlyNotRead],
+  );
 
-	const books = useSelector(selectBooks);
+  const books = useSelector(selectBooks);
 
-	const queryScrollTop = searchParams.get('scrollTop');
-	const defaultScrollTop = parseInt(queryScrollTop || '0');
-	const scrollTopAtLanding = useRef(defaultScrollTop);
-	const scrollableContainerRef = useRef<HTMLDivElement>(null);
+  const queryScrollTop = searchParams.get('scrollTop');
+  const defaultScrollTop = parseInt(queryScrollTop || '0');
+  const scrollTopAtLanding = useRef(defaultScrollTop);
+  const scrollableContainerRef = useRef<HTMLDivElement>(null);
 
-	const { t } = useTranslation();
+  const { t } = useTranslation();
 
-	const setSearchCriteria = (values: FormData) => {
-		const searchParams = new URLSearchParams(window.location.search);
+  const setSearchCriteria = (values: FormData) => {
+    const searchParams = new URLSearchParams(window.location.search);
 
-		if (values.author === '') {
-			searchParams.delete('author');
-		} else {
-			searchParams.set('author', values.author);
-		}
+    if (values.author === '') {
+      searchParams.delete('author');
+    } else {
+      searchParams.set('author', values.author);
+    }
 
-		if (values.title === '') {
-			searchParams.delete('title');
-		} else {
-			searchParams.set('title', values.title);
-		}
+    if (values.title === '') {
+      searchParams.delete('title');
+    } else {
+      searchParams.set('title', values.title);
+    }
 
-		if (values.location === '') {
-			searchParams.delete('location');
-		} else {
-			searchParams.set('location', values.location);
-		}
+    if (values.location === '') {
+      searchParams.delete('location');
+    } else {
+      searchParams.set('location', values.location);
+    }
 
-		if (!values.showOnlyNotRead) {
-			searchParams.delete('showOnlyNotRead');
-		} else {
-			searchParams.set('showOnlyNotRead', 'true');
-		}
+    if (!values.category) {
+      searchParams.delete('category');
+    } else {
+      searchParams.set('category', values.category);
+    }
 
-		setSearchParams(searchParams, { replace: true });
-	};
+    if (!values.showOnlyNotRead) {
+      searchParams.delete('showOnlyNotRead');
+    } else {
+      searchParams.set('showOnlyNotRead', 'true');
+    }
 
-	const sortingKey = (searchParams.get('key') || 'author') as SortingKey;
+    setSearchParams(searchParams, { replace: true });
+  };
 
-	const setSortingKey = (sortingKey: SortingKey) => {
-		const searchParams = new URLSearchParams(window.location.search);
-		searchParams.set('key', sortingKey);
-		setSearchParams(searchParams, { replace: true });
-	};
+  const sortingKey = (searchParams.get('key') || 'author') as SortingKey;
 
-	const sortingOrder = (searchParams.get('order') || 'asc') as SortingOrder;
+  const setSortingKey = (sortingKey: SortingKey) => {
+    const searchParams = new URLSearchParams(window.location.search);
+    searchParams.set('key', sortingKey);
+    setSearchParams(searchParams, { replace: true });
+  };
 
-	const setSortingOrder = (sortingOrder: SortingOrder) => {
-		searchParams.set('order', sortingOrder);
-		setSearchParams(searchParams, { replace: true });
-	};
+  const sortingOrder = (searchParams.get('order') || 'asc') as SortingOrder;
 
-	const booksToShow = useMemo(() => {
-		const filteredBooks: Fuse.FuseResult<Book>[] | undefined = search(
-			convertRead(searchCriteria),
-		);
-		const books =
-			filteredBooks?.filter(({ score }) => {
-				return score !== undefined && score < 0.8;
-			}) || [];
+  const setSortingOrder = (sortingOrder: SortingOrder) => {
+    searchParams.set('order', sortingOrder);
+    setSearchParams(searchParams, { replace: true });
+  };
 
-		books.sort(
-			(res1, res2) =>
-				sort(res1.item[sortingKey], res2.item[sortingKey]) *
-				(sortingOrder === 'asc' ? 1 : -1),
-		);
+  const booksToShow = useMemo(() => {
+    const filteredBooks: Fuse.FuseResult<Book>[] | undefined = search(
+      convertRead(searchCriteria),
+    );
+    const books =
+      filteredBooks?.filter(({ score }) => {
+        return score !== undefined && score < 0.8;
+      }) || [];
 
-		return books.map(({ item }) => item);
-	}, [searchCriteria, sortingKey, sortingOrder, books]);
+    books.sort(
+      (res1, res2) =>
+        sort(res1.item[sortingKey], res2.item[sortingKey]) *
+        (sortingOrder === 'asc' ? 1 : -1),
+    );
 
-	useEffect(() => {
-		if (scrollableContainerRef.current && booksToShow.length) {
-			scrollableContainerRef.current.scrollTop = scrollTopAtLanding.current;
-		}
-	}, [booksToShow]);
+    return books.map(({ item }) => item);
+  }, [searchCriteria, sortingKey, sortingOrder, books]);
 
-	const navigate = useNavigate();
+  useEffect(() => {
+    if (scrollableContainerRef.current && booksToShow.length) {
+      scrollableContainerRef.current.scrollTop = scrollTopAtLanding.current;
+    }
+  }, [booksToShow]);
 
-	return (
-		<Wrapper
-			// trick to rerender the component to apply searchCriteria to newly loaded books
-			key={books.length.toString()}
-			data-testid="search-page"
-			ref={scrollableContainerRef}
-			onScroll={e => {
-				const searchParams = new URLSearchParams();
+  const navigate = useNavigate();
 
-				searchParams.set('scrollTop', e.currentTarget.scrollTop.toString());
-				setSearchParams(searchParams, { replace: true });
-			}}
-		>
-			<TopAppBar position="fixed" color="primary">
-				<ToolbarStyled>
-					<IconButton color="inherit" onClick={() => navigate('/settings')}>
-						<MoreVert />
-					</IconButton>
-					{!books.length ? <CircularProgress color="secondary" /> : null}
-					<Typography variant="h6">{t('app.search')}</Typography>
-					<ViewAllLink />
-				</ToolbarStyled>
-			</TopAppBar>
-			<BookFormAndSortingBar>
-				<BookForm
-					initialValues={searchCriteria}
-					onSubmit={values => {
-						setSearchCriteria(values);
-					}}
-					onReset={() => {
-						setSearchCriteria({
-							title: '',
-							author: '',
-							location: '',
-						});
-					}}
-					PrimaryIcon={<Search />}
-					primaryLabel={t('app.search')}
-					variant="search"
-				/>
+  return (
+    <Wrapper
+      // trick to rerender the component to apply searchCriteria to newly loaded books
+      key={books.length.toString()}
+      data-testid="search-page"
+      ref={scrollableContainerRef}
+      onScroll={e => {
+        const searchParams = new URLSearchParams();
 
-				<SortingBar
-					sortingOrder={sortingOrder}
-					setSortingOrder={setSortingOrder}
-					sortingKey={sortingKey}
-					setSortingKey={setSortingKey}
-					foundNumber={booksToShow.length}
-				/>
-			</BookFormAndSortingBar>
+        searchParams.set('scrollTop', e.currentTarget.scrollTop.toString());
+        setSearchParams(searchParams, { replace: true });
+      }}
+    >
+      <TopAppBar position="fixed" color="primary">
+        <ToolbarStyled>
+          <IconButton color="inherit" onClick={() => navigate('/settings')}>
+            <MoreVert />
+          </IconButton>
+          {!books.length ? <CircularProgress color="secondary" /> : null}
+          <Typography variant="h6">{t('app.search')}</Typography>
+          <ViewAllLink />
+        </ToolbarStyled>
+      </TopAppBar>
+      <BookFormAndSortingBar>
+        <BookForm
+          initialValues={searchCriteria}
+          onSubmit={values => {
+            setSearchCriteria(values);
+          }}
+          onReset={() => {
+            setSearchCriteria({
+              title: '',
+              author: '',
+              location: '',
+              category: '',
+            });
+          }}
+          PrimaryIcon={<Search />}
+          primaryLabel={t('app.search')}
+          variant="search"
+        />
 
-			<BooksList
-				books={booksToShow}
-				width={window.innerWidth}
-				height={window.innerHeight}
-			/>
+        <SortingBar
+          sortingOrder={sortingOrder}
+          setSortingOrder={setSortingOrder}
+          sortingKey={sortingKey}
+          setSortingKey={setSortingKey}
+          foundNumber={booksToShow.length}
+        />
+      </BookFormAndSortingBar>
 
-			<FabLink to="/add">
-				<Fab color="secondary" aria-label="add">
-					<Add />
-				</Fab>
-			</FabLink>
-		</Wrapper>
-	);
+      <BooksList
+        books={booksToShow}
+        width={window.innerWidth}
+        height={window.innerHeight}
+      />
+
+      <FabLink to="/add">
+        <Fab color="secondary" aria-label="add">
+          <Add />
+        </Fab>
+      </FabLink>
+    </Wrapper>
+  );
 };
 
 export default SearchPage;

@@ -107,6 +107,14 @@ const BookForm: React.FC<Props> = ({
 								helperText={errors.location}
 							/>
 
+							<Field
+								id="category"
+								name="category"
+								as={TextField}
+								variant="outlined"
+								label={t('app.category')}
+							/>
+
 							{variant === 'search' && (
 								<FormControlLabel
 									control={
@@ -115,7 +123,7 @@ const BookForm: React.FC<Props> = ({
 											onChange={(_, checked) => {
 												setFieldValue('showOnlyNotRead', checked);
 											}}
-											checked={values.showOnlyNotRead}
+											checked={!!values.showOnlyNotRead}
 										/>
 									}
 									label={t('app.notRead')}
@@ -168,7 +176,7 @@ const BookForm: React.FC<Props> = ({
 								type="reset"
 								onClick={() => {
 									resetForm({
-										values: { author: '', title: '', location: '' },
+										values: { author: '', title: '', location: '', category: '' },
 									});
 									handleReset();
 								}}

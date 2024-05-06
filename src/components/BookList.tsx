@@ -28,7 +28,11 @@ const BooksList: React.FC<{
 
 		if (sortingKey !== 'showOnlyNotRead') {
 			const itemIndex = books.findIndex(
-				book => !sortingKey || book[sortingKey][0] >= selectedLetter,
+				book => {
+					const field = book[sortingKey]
+					const firstLetter = field ? field[0] : undefined
+					return !sortingKey || (firstLetter && (firstLetter >= selectedLetter))
+				},
 			);
 			listRef.current?.scrollToItem(itemIndex);
 		}
