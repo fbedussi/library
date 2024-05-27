@@ -73,6 +73,11 @@ const SortingBar: React.FC<Props> = ({
 						control={<Radio />}
 						label={t('app.locationShort')}
 					/>
+					<FormControlLabel
+						value="category"
+						control={<Radio />}
+						label={t('app.categoryShort')}
+					/>
 				</SortingRadioGroup>
 				<IconButton
 					data-testid="sorting-btn"

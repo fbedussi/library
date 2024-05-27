@@ -5,6 +5,7 @@
     "location": "collocazione",
     "category": "categoria",
     "locationShort": "coll.",
+    "categoryShort": "cat.",
     "read": "letto",
     "notRead": "non letto",
     "yes": "sì",

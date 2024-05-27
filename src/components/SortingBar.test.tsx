@@ -24,6 +24,7 @@ test('has all the controls', () => {
   expect(authorRadio.checked).toBe(true);
   expect(screen.getByLabelText('app.title')).toBeInTheDocument();
   expect(screen.getByLabelText('app.locationShort')).toBeInTheDocument();
+  expect(screen.getByLabelText('app.categoryShort')).toBeInTheDocument();
   expect(screen.getByTestId('sorting-btn')).toBeInTheDocument();
 });
 
@@ -42,7 +43,7 @@ test('switch sorting order', async () => {
   expect(setSortingOrder).toBeCalledWith('desc');
 });
 
-test('change sorting key', async () => {
+test('sort by location', async () => {
   const user = userEvent.setup();
 
   render(
@@ -57,4 +58,21 @@ test('change sorting key', async () => {
 
   await user.click(screen.getByLabelText('app.locationShort'));
   expect(setSortingKey).toBeCalledWith('location');
+});
+
+test('sort by category', async () => {
+  const user = userEvent.setup();
+
+  render(
+    <SortingBar
+      sortingKey="author"
+      sortingOrder="asc"
+      setSortingOrder={setSortingOrder}
+      setSortingKey={setSortingKey}
+      foundNumber={2}
+    />,
+  );
+
+  await user.click(screen.getByLabelText('app.categoryShort'));
+  expect(setSortingKey).toBeCalledWith('category');
 });

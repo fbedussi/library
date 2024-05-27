@@ -14,11 +14,10 @@ import {
 } from '../components/CommonComponents';
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
-import { useQuery } from '../hooks/useQuery';
 import { sort } from '../libs/search';
 import { pxToRem } from '../libs/styles';
-import { genCharArray, isSearchKey, isSortingOrder } from '../libs/utils';
-import { SearchCriteria, SortingKey, SortingOrder } from '../model/model';
+import { genCharArray, isSortingOrder } from '../libs/utils';
+import { SortingKey, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
 import { Typography } from '../styleguide';
 import theme from '../styleguide/theme';
