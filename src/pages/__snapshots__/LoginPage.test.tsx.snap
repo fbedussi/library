@@ -6,11 +6,11 @@ exports[`renders 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bdDsCe sc-iCECmn fFUQrG cHIjPd"
+        class="page-wrapper login-page-wrapper"
       >
         <form
           action="#"
-          class="sc-fuztkK bjYStE"
+          class="login-form"
         >
           <div
             class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
@@ -115,7 +115,7 @@ exports[`renders 1`] = `
             </span>
           </label>
           <div
-            class="sc-qdQOe iflthx"
+            class="button-wrapper"
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
@@ -131,11 +131,11 @@ exports[`renders 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bdDsCe sc-iCECmn fFUQrG cHIjPd"
+      class="page-wrapper login-page-wrapper"
     >
       <form
         action="#"
-        class="sc-fuztkK bjYStE"
+        class="login-form"
       >
         <div
           class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
@@ -240,7 +240,7 @@ exports[`renders 1`] = `
           </span>
         </label>
         <div
-          class="sc-qdQOe iflthx"
+          class="button-wrapper"
         >
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"

@@ -1,39 +1,36 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
 
-import { pxToRem } from '../libs/styles';
 import { AppBar, Toolbar } from '../styleguide';
-import theme from '../styleguide/theme';
+import styles from './commonComponents.module.css';
 
-export const PageWrapper = styled.div`
-  padding: 80px ${pxToRem(theme.spacing(2))}rem 0;
-`;
+export const PageWrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
+  <div {...props} className={`${styles['page-wrapper']}${className ? ` ${className}` : ''}`} />
+);
 
-export const TopBarPageWrapper = styled(PageWrapper)`
-  padding-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
+export const TopBarPageWrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
+  <div {...props} className={`${styles['top-bar-page-wrapper']}${className ? ` ${className}` : ''}`} />
+);
 
-export const BottomBarPageWrapper = styled(PageWrapper)`
-  padding-top: ${pxToRem(theme.spacing(2))}rem;
-`;
+export const BottomBarPageWrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({ className, ...props }) => (
+  <div {...props} className={`${styles['bottom-bar-page-wrapper']}${className ? ` ${className}` : ''}`} />
+);
 
-export const LinkNoStyle = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-`;
+export const LinkNoStyle = React.forwardRef<HTMLAnchorElement, React.ComponentProps<typeof Link>>(
+  ({ className, ...props }, ref) => (
+    <Link ref={ref} {...props} className={`${styles['link-no-style']}${className ? ` ${className}` : ''}`} />
+  ),
+);
+LinkNoStyle.displayName = 'LinkNoStyle';
 
-export const BottomAppBar = styled(AppBar)`
-  top: auto;
-  bottom: 0;
-`;
+export const BottomAppBar: React.FC<React.ComponentProps<typeof AppBar>> = ({ className, ...props }) => (
+  <AppBar {...props} className={`${styles['bottom-app-bar']}${className ? ` ${className}` : ''}`} />
+);
 
-export const TopAppBar = styled(AppBar)`
-  top: 0;
-  bottom: auto;
-  left: 0;
-  width: min(100vw, 100%);
-`;
+export const TopAppBar: React.FC<React.ComponentProps<typeof AppBar>> = ({ className, ...props }) => (
+  <AppBar {...props} className={`${styles['top-app-bar']}${className ? ` ${className}` : ''}`} />
+);
 
-export const ToolbarStyled = styled(Toolbar)`
-  justify-content: space-between;
-`;
+export const ToolbarStyled: React.FC<React.ComponentProps<typeof Toolbar>> = ({ className, ...props }) => (
+  <Toolbar {...props} className={`${styles['toolbar-styled']}${className ? ` ${className}` : ''}`} />
+);

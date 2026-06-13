@@ -6,15 +6,15 @@ exports[`renders 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-hCcPtG iStVEY"
+        class="wrapper"
         data-testid="search-page"
       >
         <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-iCECmn bjYCLu mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed top-app-bar mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
           style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-fuztkK jjWeAv css-1ygil4i-MuiToolbar-root"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular toolbar-styled css-1ygil4i-MuiToolbar-root"
           >
             <button
               class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
@@ -58,7 +58,7 @@ exports[`renders 1`] = `
               app.search
             </h6>
             <a
-              class="sc-jSppWd oDBGy"
+              class="link-no-style"
               href="/view-all"
             >
               <button
@@ -91,14 +91,14 @@ exports[`renders 1`] = `
           </div>
         </header>
         <div
-          class="sc-folSZX fBRXIF"
+          class="book-form-and-sorting-bar"
         >
           <form
             action="#"
             name="book-form"
           >
             <div
-              class="sc-bdDsCe kNOeEF"
+              class="input-wrapper"
             >
               <div
                 class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
@@ -276,7 +276,7 @@ exports[`renders 1`] = `
               </label>
             </div>
             <div
-              class="sc-gtcBCx DRVie"
+              class="buttons-wrapper"
             >
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorPrimary css-79zo2g-MuiButtonBase-root-MuiButton-root"
@@ -336,10 +336,10 @@ exports[`renders 1`] = `
               app.orderBy
             </legend>
             <div
-              class="sc-bqqMSY goHida"
+              class="sort-controls"
             >
               <div
-                class="MuiFormGroup-root MuiRadioGroup-root sc-krVzYl gziyfm css-1mac7pt-MuiFormGroup-root"
+                class="MuiFormGroup-root MuiRadioGroup-root sorting-radio-group css-1mac7pt-MuiFormGroup-root"
                 role="radiogroup"
               >
                 <label
@@ -555,7 +555,7 @@ exports[`renders 1`] = `
           />
         </div>
         <a
-          class="sc-jSppWd sc-fFCZOx oDBGy cmYykO"
+          class="link-no-style fab-link"
           href="/add"
         >
           <button
@@ -582,15 +582,15 @@ exports[`renders 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-hCcPtG iStVEY"
+      class="wrapper"
       data-testid="search-page"
     >
       <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-iCECmn bjYCLu mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed top-app-bar mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
         style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-fuztkK jjWeAv css-1ygil4i-MuiToolbar-root"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular toolbar-styled css-1ygil4i-MuiToolbar-root"
         >
           <button
             class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-sizeMedium css-h7cjts-MuiButtonBase-root-MuiIconButton-root"
@@ -634,7 +634,7 @@ exports[`renders 1`] = `
             app.search
           </h6>
           <a
-            class="sc-jSppWd oDBGy"
+            class="link-no-style"
             href="/view-all"
           >
             <button
@@ -667,14 +667,14 @@ exports[`renders 1`] = `
         </div>
       </header>
       <div
-        class="sc-folSZX fBRXIF"
+        class="book-form-and-sorting-bar"
       >
         <form
           action="#"
           name="book-form"
         >
           <div
-            class="sc-bdDsCe kNOeEF"
+            class="input-wrapper"
           >
             <div
               class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
@@ -852,7 +852,7 @@ exports[`renders 1`] = `
             </label>
           </div>
           <div
-            class="sc-gtcBCx DRVie"
+            class="buttons-wrapper"
           >
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeLarge MuiButton-colorPrimary css-79zo2g-MuiButtonBase-root-MuiButton-root"
@@ -912,10 +912,10 @@ exports[`renders 1`] = `
             app.orderBy
           </legend>
           <div
-            class="sc-bqqMSY goHida"
+            class="sort-controls"
           >
             <div
-              class="MuiFormGroup-root MuiRadioGroup-root sc-krVzYl gziyfm css-1mac7pt-MuiFormGroup-root"
+              class="MuiFormGroup-root MuiRadioGroup-root sorting-radio-group css-1mac7pt-MuiFormGroup-root"
               role="radiogroup"
             >
               <label
@@ -1131,7 +1131,7 @@ exports[`renders 1`] = `
         />
       </div>
       <a
-        class="sc-jSppWd sc-fFCZOx oDBGy cmYykO"
+        class="link-no-style fab-link"
         href="/add"
       >
         <button

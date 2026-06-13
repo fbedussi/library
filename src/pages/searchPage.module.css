@@ -1,0 +1,16 @@
+.wrapper :global(.book-card-container) {
+    padding: 0.5rem 1rem;
+}
+
+.book-form-and-sorting-bar {
+    padding: 80px 1rem 0;
+}
+
+.fab-link {
+    position: fixed;
+    z-index: 1;
+    bottom: 1rem;
+    right: 1rem;
+    margin: 0 auto;
+    width: 56px;
+}

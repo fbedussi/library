@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import BackLink from '../components/BackLink';
 import BooksList from '../components/BookList';
@@ -14,47 +13,12 @@ import {
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
 import { sort } from '../libs/search';
-import { pxToRem } from '../libs/styles';
 import { genCharArray, isSortingOrder } from '../libs/utils';
 import { SortingKey, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
 import { Typography } from '../styleguide';
-import theme from '../styleguide/theme';
+import styles from './viewAllPage.module.css';
 
-const LettersAndList = styled.div`
-	display: flex;
-	width: 100%;
-	flex: 1;
-	overflow: hidden;
-`;
-
-const Letters = styled.div`
-	display: flex;
-	flex-direction: column;
-	height: 100%;
-	padding-right: ${pxToRem(theme.spacing(2))}rem;
-	overflow-y: auto;
-`;
-
-const Letter = styled.button`
-	padding: ${pxToRem(theme.spacing(1))}rem 0;
-
-	&.active {
-		color: ${theme.palette.secondary.main};
-		font-weight: bold;
-	}
-`;
-
-const BooksListWrapper = styled.div`
-	flex: 1;
-	overflow: auto;
-
-	.book-title {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-`;
 const ViewAllPage: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const books = useSelector(selectBooks);
@@ -106,26 +70,26 @@ const ViewAllPage: React.FC = () => {
 				foundNumber={booksToRender.length}
 			/>
 
-			<LettersAndList>
-				<Letters>
+			<div className={styles['letters-and-list']}>
+				<div className={styles.letters}>
 					{letters.map(letter => (
-						<Letter
+						<button
 							key={letter}
-							className={selectedLetter === letter ? 'active' : ''}
+							className={`${styles.letter}${selectedLetter === letter ? ` ${styles.active}` : ''}`}
 							onClick={() => setSelectedLetter(letter)}
 						>
 							{letter}
-						</Letter>
+						</button>
 					))}
-				</Letters>
-				<BooksListWrapper ref={containerRef}>
+				</div>
+				<div className={styles['books-list-wrapper']} ref={containerRef}>
 					<BooksList
 						books={booksToRender}
 						sortingKey={sortingKey}
 						selectedLetter={selectedLetter}
 					/>
-				</BooksListWrapper>
-			</LettersAndList>
+				</div>
+			</div>
 		</TopBarPageWrapper>
 	);
 };

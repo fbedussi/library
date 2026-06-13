@@ -3,36 +3,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
 
 import { PageWrapper } from '../components/CommonComponents';
-import { pxToRem } from '../libs/styles';
 import { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectUserId } from '../store/auth/selectors';
 import { Button, FormControlLabel, Switch, TextField } from '../styleguide';
-import theme from '../styleguide/theme';
-
-const LoginPageWrapper = styled(PageWrapper)`
-  justify-content: center;
-`;
-
-const LoginForm = styled(Form)`
-  margin: 0 auto;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-
-  > * {
-    margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  width: 100%;
-`;
+import styles from './loginPage.module.css';
 
 const LoginPage: React.FC = () => {
   const userId = useSelector(selectUserId);
@@ -44,7 +21,7 @@ const LoginPage: React.FC = () => {
   return userId ? (
     <Navigate to="/search" />
   ) : (
-    <LoginPageWrapper>
+    <PageWrapper className={styles['login-page-wrapper']}>
       <Formik
         initialValues={{
           username: '',
@@ -57,7 +34,7 @@ const LoginPage: React.FC = () => {
       >
         {() => {
           return (
-            <LoginForm>
+            <Form className={styles['login-form']}>
               <Field
                 as={TextField}
                 name="username"
@@ -77,16 +54,16 @@ const LoginPage: React.FC = () => {
                 control={<Field as={Switch} name="rememberMe" />}
                 label={t('app.rememberMe')}
               />
-              <ButtonWrapper>
+              <div className={styles['button-wrapper']}>
                 <Button type="submit" color="primary" variant="contained">
                   {t('app.login')}
                 </Button>
-              </ButtonWrapper>
-            </LoginForm>
+              </div>
+            </Form>
           );
         }}
       </Formik>
-    </LoginPageWrapper>
+    </PageWrapper>
   );
 };
 

@@ -1,0 +1,29 @@
+.camera-button-wrapper {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.instructions {
+    margin-bottom: 1rem;
+}
+
+.reset-image-button-wrapper {
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.field-selection {
+    flex-direction: row;
+}
+
+.word-container {
+    margin-bottom: 1rem;
+}
+
+.image {
+    width: 50vmin;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+}

@@ -1,0 +1,29 @@
+:root {
+    --color-secondary: #9c27b0;
+    --color-success: #2e7d32;
+    --color-text-secondary: rgba(0, 0, 0, 0.6);
+}
+
+html,
+body,
+#root {
+    height: 100%;
+    font-family: Avenir, Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: transparent;
+    border: none;
+    appearance: none;
+    font: inherit;
+}
+
+.full-height-container {
+    height: 100%;
+}

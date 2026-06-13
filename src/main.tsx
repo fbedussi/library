@@ -1,9 +1,8 @@
 import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
-import styled, { createGlobalStyle } from 'styled-components';
 
+import './global.css';
 import { initI18n } from './i18n';
 import Routes from './Routes';
 import store from './store';
@@ -14,41 +13,12 @@ import {
   CircularProgress,
   Container,
   createCache,
-  ThemeProvider,
 } from './styleguide';
-import theme from './styleguide/theme';
 
 initI18n();
 
-const GlobalStyle = createGlobalStyle`
-    html,
-    body,
-    #root {
-        height: 100%;
-				font-family: Avenir, Arial, sans-serif;
-    }
-
-    * {
-        margin: 0;
-        padding: 0;
-				box-sizing: border-box;
-    }
-
-    button {
-      background-color: transparent;
-      border: none;
-      appearance: none;
-      font: inherit;
-    }
-`;
-
-const FullHeightContainer = styled(Container)`
-  height: 100%;
-`;
-
 const cache = createCache({
-  key: 'my-prefix-key',
-  nonce: 'nonce',
+  key: 'library',
   prepend: true,
 });
 
@@ -57,20 +27,17 @@ const root = createRoot(container!);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CacheProvider value={cache}>
-          <GlobalStyle />
-          <ErrorBoundary>
-            <Suspense fallback={<CircularProgress />}>
-              <FullHeightContainer maxWidth={false} disableGutters={true}>
-                <Routes />
-                <NotificationArea />
-                {/* <DialogBox /> */}
-              </FullHeightContainer>
-            </Suspense>
-          </ErrorBoundary>
-        </CacheProvider>
-      </ThemeProvider>
+      <CacheProvider value={cache}>
+        <ErrorBoundary>
+          <Suspense fallback={<CircularProgress />}>
+            <Container className="full-height-container" maxWidth={false} disableGutters={true}>
+              <Routes />
+              <NotificationArea />
+              {/* <DialogBox /> */}
+            </Container>
+          </Suspense>
+        </ErrorBoundary>
+      </CacheProvider>
     </Provider>
   </React.StrictMode>,
 );

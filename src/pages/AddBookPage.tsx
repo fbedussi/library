@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import BookCard from '../components/BookCard';
 
 import BookForm from '../components/BookForm';
@@ -15,7 +14,6 @@ import HomeLink from '../components/HomeLink';
 import ViewAllLink from '../components/ViewAllLink';
 import Word from '../components/Word';
 import { convertRead } from '../libs/search';
-import { pxToRem } from '../libs/styles';
 import { bookFormValidation } from '../libs/validation';
 import { Book, FormData, SelectedField } from '../model/model';
 import { TDispatch } from '../model/types';
@@ -33,37 +31,7 @@ import {
 	Typography,
 } from '../styleguide';
 import { Camera, Close, Save } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-
-const CameraButtonWrapper = styled.div`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-	text-align: center;
-`;
-
-const Instructions = styled.p`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
-
-const ResetImageButtonWrapper = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: flex-end;
-`;
-
-const FieldSelection = styled(RadioGroup)`
-	flex-direction: row;
-`;
-
-const WordContainer = styled.div`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
-
-const Image = styled.img`
-	width: 50vmin;
-	max-width: 300px;
-	height: auto;
-	margin: 0 auto;
-`;
+import styles from './addBookPage.module.css';
 
 const AddBookPage: React.FC = () => {
 	const { t } = useTranslation();
@@ -97,14 +65,14 @@ const AddBookPage: React.FC = () => {
 				</ToolbarStyled>
 			</TopAppBar>
 			{!currentPhotoUrl && (
-				<CameraButtonWrapper>
-					<Instructions>{t('app.cameraInstructions')}</Instructions>
+				<div className={styles['camera-button-wrapper']}>
+					<p className={styles.instructions}>{t('app.cameraInstructions')}</p>
 					<LinkNoStyle to="/camera">
 						<Button variant="contained" color="primary" startIcon={<Camera />}>
 							{t('app.takePhoto')}
 						</Button>
 					</LinkNoStyle>
-				</CameraButtonWrapper>
+				</div>
 			)}
 
 			<BookForm
@@ -129,7 +97,7 @@ const AddBookPage: React.FC = () => {
 
 			{!!words.length && (
 				<div>
-					<ResetImageButtonWrapper>
+					<div className={styles['reset-image-button-wrapper']}>
 						<IconButton
 							data-testid="reset-photo-data-btn"
 							onClick={() => {
@@ -138,12 +106,13 @@ const AddBookPage: React.FC = () => {
 						>
 							<Close />
 						</IconButton>
-					</ResetImageButtonWrapper>
+					</div>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">
 							{t('app.autocompleteInstructions')}
 						</FormLabel>
-						<FieldSelection
+						<RadioGroup
+							className={styles['field-selection']}
 							name="selectedField"
 							value={selectedField}
 							onChange={e => setSelectedField(e.target.value as SelectedField)}
@@ -158,9 +127,9 @@ const AddBookPage: React.FC = () => {
 								control={<Radio />}
 								label={t('app.title')}
 							/>
-						</FieldSelection>
+						</RadioGroup>
 					</FormControl>
-					<WordContainer>
+					<div className={styles['word-container']}>
 						{words.map((word, index) => (
 							<Word
 								key={`${word}_${index}`}
@@ -175,11 +144,11 @@ const AddBookPage: React.FC = () => {
 								}}
 							/>
 						))}
-					</WordContainer>
+					</div>
 				</div>
 			)}
 
-			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="bookCover" />}
+			{currentPhotoUrl && <img className={styles.image} src={currentPhotoUrl} alt="bookCover" />}
 
 			{lastAddedBook && (
 				<BookCard

@@ -1,9 +1,7 @@
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
-import { pxToRem } from '../libs/styles';
 import { FormData } from '../model/model';
 import {
 	Button,
@@ -16,21 +14,7 @@ import {
 	TextField,
 } from '../styleguide';
 import { Close } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-
-const InputWrapper = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-`;
-
-const ButtonsWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
+import styles from './bookForm.module.css';
 
 interface Props {
 	initialValues: FormData;
@@ -76,7 +60,7 @@ const BookForm: React.FC<Props> = ({
 			}) => {
 				return (
 					<Form name="book-form">
-						<InputWrapper>
+						<div className={styles['input-wrapper']}>
 							<Field
 								id="author"
 								name="author"
@@ -157,8 +141,8 @@ const BookForm: React.FC<Props> = ({
 									</RadioGroup>
 								</FormControl>
 							)}
-						</InputWrapper>
-						<ButtonsWrapper>
+						</div>
+						<div className={styles['buttons-wrapper']}>
 							<Button
 								variant="contained"
 								color="primary"
@@ -183,7 +167,7 @@ const BookForm: React.FC<Props> = ({
 							>
 								{t('app.reset')}
 							</Button>
-						</ButtonsWrapper>
+						</div>
 					</Form>
 				);
 			}}

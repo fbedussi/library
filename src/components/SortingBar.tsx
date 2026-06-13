@@ -1,6 +1,5 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 
 import { SortingKey, SortingOrder } from '../model/model';
 import {
@@ -12,21 +11,7 @@ import {
 	RadioGroup,
 } from '../styleguide';
 import { ArrowDownward, ArrowUpward } from '../styleguide/icons';
-
-const SortControls = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-`;
-
-const SortingRadioGroup = styled(RadioGroup)`
-	flex-direction: row;
-	.MuiFormControlLabel-label {
-		font-size: 0.8rem;
-		font-size: 0.8rem;
-	}
-`;
+import styles from './sortingBar.module.css';
 
 interface Props {
 	sortingKey: SortingKey;
@@ -52,8 +37,9 @@ const SortingBar: React.FC<Props> = ({
 			<FormLabel component="legend">
 				{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}
 			</FormLabel>
-			<SortControls>
-				<SortingRadioGroup
+			<div className={styles['sort-controls']}>
+				<RadioGroup
+					className={styles['sorting-radio-group']}
 					name="sortingKey"
 					value={sortingKey}
 					onChange={(e, value) => setSortingKey(value as SortingKey)}
@@ -78,7 +64,7 @@ const SortingBar: React.FC<Props> = ({
 						control={<Radio />}
 						label={t('app.categoryShort')}
 					/>
-				</SortingRadioGroup>
+				</RadioGroup>
 				<IconButton
 					data-testid="sorting-btn"
 					onClick={() =>
@@ -87,7 +73,7 @@ const SortingBar: React.FC<Props> = ({
 				>
 					{sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
 				</IconButton>
-			</SortControls>
+			</div>
 		</FormControl>
 	);
 };

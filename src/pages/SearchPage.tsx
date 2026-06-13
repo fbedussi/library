@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import styled from 'styled-components';
 
 import BookForm from '../components/BookForm';
 import BooksList from '../components/BookList';
@@ -15,31 +14,11 @@ import {
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
 import { convertRead, search, sort } from '../libs/search';
-import { pxToRem } from '../libs/styles';
 import { Book, FormData, SortingOrder, SortingKey } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
 import { CircularProgress, Fab, IconButton, Typography } from '../styleguide';
 import { Add, MoreVert, Search } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-
-const Wrapper = styled.div`
-  .book-card-container {
-    padding: 0.5rem 1rem;
-  }
-`;
-
-const BookFormAndSortingBar = styled.div`
-  padding: 80px 1rem 0;
-`;
-
-const FabLink = styled(LinkNoStyle)`
-  position: fixed;
-  z-index: 1;
-  bottom: ${pxToRem(theme.spacing(2))}rem;
-  right: ${pxToRem(theme.spacing(2))}rem;
-  margin: 0 auto;
-  width: ${theme.spacing(7)}px;
-`;
+import styles from './searchPage.module.css';
 
 const SearchPage: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -147,7 +126,8 @@ const SearchPage: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <Wrapper
+    <div
+      className={styles.wrapper}
       // trick to rerender the component to apply searchCriteria to newly loaded books
       key={books.length.toString()}
       data-testid="search-page"
@@ -169,7 +149,7 @@ const SearchPage: React.FC = () => {
           <ViewAllLink />
         </ToolbarStyled>
       </TopAppBar>
-      <BookFormAndSortingBar>
+      <div className={styles['book-form-and-sorting-bar']}>
         <BookForm
           initialValues={searchCriteria}
           onSubmit={values => {
@@ -195,18 +175,18 @@ const SearchPage: React.FC = () => {
           setSortingKey={setSortingKey}
           foundNumber={booksToShow.length}
         />
-      </BookFormAndSortingBar>
+      </div>
 
       <BooksList
         books={booksToShow}
       />
 
-      <FabLink to="/add">
+      <LinkNoStyle to="/add" className={styles['fab-link']}>
         <Fab color="secondary" aria-label="add">
           <Add />
         </Fab>
-      </FabLink>
-    </Wrapper>
+      </LinkNoStyle>
+    </div>
   );
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
 
 import { Book } from '../model/model';
 import { TDispatch } from '../model/types';
@@ -14,34 +13,8 @@ import {
 	Typography,
 } from '../styleguide';
 import { Cancel, CheckCircle, Delete, Edit } from '../styleguide/icons';
-import theme from '../styleguide/theme';
 import { LinkNoStyle } from './CommonComponents';
-
-const StyledCard = styled(Card)`
-	display: flex;
-	width: 100%;
-	height: 100%;
-`;
-
-const BookInfo = styled.div`
-	flex: 1;
-	max-width: 100%;
-`;
-
-const AuthorAndReadIcon = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	color: ${theme.palette.text.secondary};
-`;
-
-const BookCardActions = styled(CardActions)`
-	padding: 0;
-`;
-
-const BookCover = styled(CardMedia)`
-	width: 25%;
-`;
+import styles from './bookCard.module.css'
 
 const BookCard: React.FC<{
 	book: Book;
@@ -51,15 +24,15 @@ const BookCard: React.FC<{
 	const dispatch: TDispatch = useDispatch();
 	const { author, title, location, category, id, coverPath, read } = book;
 	return (
-		<StyledCard variant="outlined" className="book-card" style={style}>
-			<BookInfo>
+		<Card variant="outlined" className={`book-card ${styles.card}`} style={style}>
+			<div className={styles['book-info']}>
 				<CardContent>
-					<AuthorAndReadIcon>
+					<div className={styles['author-and-read-icon']}>
 						{author}
 
 						{read === false && <Cancel color="error" />}
 						{read === true && <CheckCircle color="primary" />}
-					</AuthorAndReadIcon>
+					</div>
 					<LinkNoStyle to={`/book/${id}`}>
 						<Typography variant="h5" component="h2" className="book-title">
 							{title}
@@ -68,7 +41,7 @@ const BookCard: React.FC<{
 					<Typography color="textSecondary">{location}</Typography>
 					<Typography color="textSecondary">{category}</Typography>
 				</CardContent>
-				<BookCardActions disableSpacing>
+				<CardActions className={styles.actions} disableSpacing>
 					<IconButton
 						data-testid="delete-btn"
 						onClick={() => {
@@ -83,10 +56,10 @@ const BookCard: React.FC<{
 							<Edit />
 						</IconButton>
 					</LinkNoStyle>
-				</BookCardActions>
-			</BookInfo>
-			{!!coverPath && <BookCover data-testid="book-cover" image={coverPath} />}
-		</StyledCard>
+				</CardActions>
+			</div>
+			{!!coverPath && <CardMedia className={styles['book-cover']} data-testid="book-cover" image={coverPath} />}
+		</Card>
 	);
 };
 

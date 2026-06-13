@@ -1,11 +1,8 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { List, RowComponentProps, useListRef } from 'react-window';
-import styled from 'styled-components';
 
 import { Book, SearchCriteria } from '../model/model';
 import BookCard from './BookCard';
-
-const BookCardContainer = styled.div``;
 
 const BooksList: React.FC<{
 	books: Book[];
@@ -38,13 +35,13 @@ const BooksList: React.FC<{
 			rowCount={books.length}
 			rowProps={{}}
 			rowComponent={({ index, style }: RowComponentProps) => (
-				<BookCardContainer
+				<div
 					className="book-card-container"
 					style={style}
 					key={books[index].id}
 				>
 					<BookCard book={books[index]} />
-				</BookCardContainer>
+				</div>
 			)}
 		/>
 	);
