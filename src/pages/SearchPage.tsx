@@ -152,7 +152,7 @@ const SearchPage: React.FC = () => {
       <div className={styles['book-form-and-sorting-bar']}>
         <BookForm
           initialValues={searchCriteria}
-          onSubmit={values => {
+          onSubmit={(values, reset) => {
             setSearchCriteria(values);
           }}
           onReset={() => {

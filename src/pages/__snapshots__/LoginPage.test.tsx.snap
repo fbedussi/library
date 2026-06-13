@@ -9,7 +9,7 @@ exports[`renders 1`] = `
         class="page-wrapper login-page-wrapper"
       >
         <form
-          action="#"
+          action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
           class="login-form"
         >
           <div
@@ -32,7 +32,6 @@ exports[`renders 1`] = `
                 id="username"
                 name="username"
                 type="text"
-                value=""
               />
               <fieldset
                 aria-hidden="true"
@@ -68,7 +67,6 @@ exports[`renders 1`] = `
                 id="password"
                 name="password"
                 type="password"
-                value=""
               />
               <fieldset
                 aria-hidden="true"
@@ -98,7 +96,6 @@ exports[`renders 1`] = `
                   name="rememberMe"
                   role="switch"
                   type="checkbox"
-                  value="false"
                 />
                 <span
                   class="MuiSwitch-thumb css-1mw77bv-MuiSwitch-thumb"
@@ -134,7 +131,7 @@ exports[`renders 1`] = `
       class="page-wrapper login-page-wrapper"
     >
       <form
-        action="#"
+        action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
         class="login-form"
       >
         <div
@@ -157,7 +154,6 @@ exports[`renders 1`] = `
               id="username"
               name="username"
               type="text"
-              value=""
             />
             <fieldset
               aria-hidden="true"
@@ -193,7 +189,6 @@ exports[`renders 1`] = `
               id="password"
               name="password"
               type="password"
-              value=""
             />
             <fieldset
               aria-hidden="true"
@@ -223,7 +218,6 @@ exports[`renders 1`] = `
                 name="rememberMe"
                 role="switch"
                 type="checkbox"
-                value="false"
               />
               <span
                 class="MuiSwitch-thumb css-1mw77bv-MuiSwitch-thumb"

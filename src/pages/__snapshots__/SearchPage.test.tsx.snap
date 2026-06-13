@@ -94,7 +94,7 @@ exports[`renders 1`] = `
           class="book-form-and-sorting-bar"
         >
           <form
-            action="#"
+            action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
             name="book-form"
           >
             <div
@@ -670,7 +670,7 @@ exports[`renders 1`] = `
         class="book-form-and-sorting-bar"
       >
         <form
-          action="#"
+          action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
           name="book-form"
         >
           <div

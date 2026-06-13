@@ -1,4 +1,3 @@
-import { Field, Form, Formik } from 'formik';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,54 +14,45 @@ const LoginPage: React.FC = () => {
   const userId = useSelector(selectUserId);
   const { t } = useTranslation();
   const dispatch: TDispatch = useDispatch();
-
   const navigate = useNavigate();
 
   return userId ? (
     <Navigate to="/search" />
   ) : (
     <PageWrapper className={styles['login-page-wrapper']}>
-      <Formik
-        initialValues={{
-          username: '',
-          password: '',
-          rememberMe: false,
-        }}
-        onSubmit={values => {
-          dispatch(authActions.login(values, navigate));
+      <form
+        className={styles['login-form']}
+        action={(formData: FormData) => {
+          dispatch(authActions.login({
+            username: formData.get('username') as string,
+            password: formData.get('password') as string,
+            rememberMe: formData.get('rememberMe') === 'on',
+          }, navigate));
         }}
       >
-        {() => {
-          return (
-            <Form className={styles['login-form']}>
-              <Field
-                as={TextField}
-                name="username"
-                id="username"
-                label={t('app.username')}
-                variant="outlined"
-              />
-              <Field
-                as={TextField}
-                name="password"
-                id="password"
-                type="password"
-                label={t('app.password')}
-                variant="outlined"
-              />
-              <FormControlLabel
-                control={<Field as={Switch} name="rememberMe" />}
-                label={t('app.rememberMe')}
-              />
-              <div className={styles['button-wrapper']}>
-                <Button type="submit" color="primary" variant="contained">
-                  {t('app.login')}
-                </Button>
-              </div>
-            </Form>
-          );
-        }}
-      </Formik>
+        <TextField
+          name="username"
+          id="username"
+          label={t('app.username')}
+          variant="outlined"
+        />
+        <TextField
+          name="password"
+          id="password"
+          type="password"
+          label={t('app.password')}
+          variant="outlined"
+        />
+        <FormControlLabel
+          control={<Switch name="rememberMe" />}
+          label={t('app.rememberMe')}
+        />
+        <div className={styles['button-wrapper']}>
+          <Button type="submit" color="primary" variant="contained">
+            {t('app.login')}
+          </Button>
+        </div>
+      </form>
     </PageWrapper>
   );
 };

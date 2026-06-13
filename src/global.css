@@ -27,3 +27,7 @@ button {
 .full-height-container {
     height: 100%;
 }
+
+.book-card-container {
+    padding: 0.5rem 1rem;
+}

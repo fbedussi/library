@@ -6,6 +6,7 @@ const options = {
 	keys: ['title', 'author', 'location', 'category'],
 	includeScore: true,
 	useExtendedSearch: true,
+	ignoreFieldNorm: true,
 };
 
 let fuse: Fuse<Book> | undefined;
@@ -32,7 +33,7 @@ export const search = ({
 		return result;
 	}
 	// TODO: why is not a { [field: string]: string }[]
-	const query: any[] = [{ author }, { title }, { location }, {category}]
+	const query: any[] = [{ author }, { title }, { location }, { category }]
 		.filter(obj => Object.values(obj).every(value => value))
 		.map(field =>
 			Object.keys(field)[0] === 'location'

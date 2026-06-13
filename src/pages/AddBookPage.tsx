@@ -79,7 +79,7 @@ const AddBookPage: React.FC = () => {
 				initialValues={initialValues}
 				enableReinitialize={true}
 				validate={bookFormValidation(t)}
-				onSubmit={(values, { resetForm }) => {
+				onSubmit={(values, reset) => {
 					const book = convertRead({
 						...values,
 						coverPath: currentPhotoUrl,
@@ -88,7 +88,7 @@ const AddBookPage: React.FC = () => {
 						newBook => newBook && setLastAddedBook(newBook),
 					);
 					dispatch(photosActions.resetPhotoData());
-					resetForm();
+					reset();
 				}}
 				PrimaryIcon={<Save />}
 				primaryLabel={t('app.save')}

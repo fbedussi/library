@@ -11,7 +11,7 @@ import {
 import { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectBooks } from '../store/books/selectors';
-import { Button, MenuItem, Typography } from '../styleguide';
+import { Button, MenuItem, MenuList, Typography } from '../styleguide';
 import { ExitToApp, GetApp } from '../styleguide/icons';
 
 const SettingsPage: React.FC = () => {
@@ -39,22 +39,24 @@ const SettingsPage: React.FC = () => {
         </ToolbarStyled>
       </TopAppBar>
 
-      <MenuItem>
-        <a href={href} download="library.csv" target="_blank" rel="noreferrer">
-          <Button variant="contained" startIcon={<GetApp />}>
-            {t('app.export')}
+      <MenuList>
+        <MenuItem>
+          <a href={href} download="library.csv" target="_blank" rel="noreferrer">
+            <Button variant="contained" startIcon={<GetApp />}>
+              {t('app.export')}
+            </Button>
+          </a>
+        </MenuItem>
+        <MenuItem>
+          <Button
+            variant="contained"
+            startIcon={<ExitToApp />}
+            onClick={() => dispatch(authActions.logout())}
+          >
+            {t('app.logout')}
           </Button>
-        </a>
-      </MenuItem>
-      <MenuItem>
-        <Button
-          variant="contained"
-          startIcon={<ExitToApp />}
-          onClick={() => dispatch(authActions.logout())}
-        >
-          {t('app.logout')}
-        </Button>
-      </MenuItem>
+        </MenuItem>
+      </MenuList>
     </PageWrapper>
   );
 };
