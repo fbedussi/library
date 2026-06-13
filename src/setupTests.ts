@@ -6,8 +6,4 @@ window.ResizeObserver = class ResizeObserver {
   disconnect() { }
 };
 
-jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: (str: string) => str }),
-}));
-
 jest.mock('./data', () => ({}));

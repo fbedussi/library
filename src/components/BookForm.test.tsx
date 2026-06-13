@@ -29,9 +29,9 @@ test('displays the fields with initial values', () => {
 		/>,
 	);
 
-	expect(screen.getByLabelText(/app.author/i)).toBeInTheDocument();
-	expect(screen.getByLabelText(/app.title/i)).toBeInTheDocument();
-	expect(screen.getByLabelText(/app.location/i)).toBeInTheDocument();
+	expect(screen.getByLabelText(/autore/i)).toBeInTheDocument();
+	expect(screen.getByLabelText(/titolo/i)).toBeInTheDocument();
+	expect(screen.getByLabelText(/collocazione/i)).toBeInTheDocument();
 
 	expect(screen.getByDisplayValue('author')).toBeInTheDocument();
 	expect(screen.getByDisplayValue('title')).toBeInTheDocument();
@@ -49,7 +49,7 @@ test('edit variant displays the read field', () => {
 		/>,
 	);
 
-	expect(screen.getByText(/app.read/i)).toBeInTheDocument();
+	expect(screen.getByText(/letto/i)).toBeInTheDocument();
 });
 
 test('search variant displays the showOnlyNotRead field', () => {
@@ -63,7 +63,7 @@ test('search variant displays the showOnlyNotRead field', () => {
 		/>,
 	);
 
-	expect(screen.getByLabelText(/app.notRead/i)).toBeInTheDocument();
+	expect(screen.getByLabelText(/non letto/i)).toBeInTheDocument();
 });
 
 test('displays the buttons', () => {
@@ -83,7 +83,7 @@ test('displays the buttons', () => {
 	expect(submitBtn).toBeInTheDocument();
 	expect(submitBtn.type).toBe('submit');
 	const resetBtn = screen.getByRole('button', {
-		name: 'app.reset',
+		name: 'reset',
 	}) as HTMLButtonElement;
 	expect(resetBtn).toBeInTheDocument();
 	expect(resetBtn.type).toBe('reset');
@@ -105,7 +105,7 @@ test('displays error', async () => {
 			variant="edit"
 		/>,
 	);
-	await user.type(screen.getByLabelText(/app.author/i), 'author2');
+	await user.type(screen.getByLabelText(/autore/i), 'author2');
 	const submitBtn = screen.getByRole('button', {
 		name: 'submit',
 	}) as HTMLButtonElement;
@@ -129,7 +129,7 @@ test('calls onSubmit', async () => {
 			variant="edit"
 		/>,
 	);
-	await user.type(screen.getByLabelText(/app.author/i), 'author2');
+	await user.type(screen.getByLabelText(/autore/i), 'author2');
 	const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
 		name: 'submit',
 	});

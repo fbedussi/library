@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import BookCard from '../components/BookCard';
 
@@ -34,8 +33,6 @@ import { Camera, Close, Save } from '../styleguide/icons';
 import styles from './addBookPage.module.css';
 
 const AddBookPage: React.FC = () => {
-	const { t } = useTranslation();
-
 	const dispatch: TDispatch = useDispatch();
 
 	const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
@@ -60,16 +57,16 @@ const AddBookPage: React.FC = () => {
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
 					<HomeLink />
-					<Typography variant="h6">{t('app.insert')}</Typography>
+					<Typography variant="h6">Inserimento</Typography>
 					<ViewAllLink />
 				</ToolbarStyled>
 			</TopAppBar>
 			{!currentPhotoUrl && (
 				<div className={styles['camera-button-wrapper']}>
-					<p className={styles.instructions}>{t('app.cameraInstructions')}</p>
+					<p className={styles.instructions}>Se vuoi puoi fotografare la copertina, questo consentirà anche di estrarre automaticamente il titolo e l'autore (se presenti in copertina)</p>
 					<LinkNoStyle to="/camera">
 						<Button variant="contained" color="primary" startIcon={<Camera />}>
-							{t('app.takePhoto')}
+							fotografa la copertina
 						</Button>
 					</LinkNoStyle>
 				</div>
@@ -78,7 +75,7 @@ const AddBookPage: React.FC = () => {
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
-				validate={bookFormValidation(t)}
+				validate={bookFormValidation()}
 				onSubmit={(values, reset) => {
 					const book = convertRead({
 						...values,
@@ -91,7 +88,7 @@ const AddBookPage: React.FC = () => {
 					reset();
 				}}
 				PrimaryIcon={<Save />}
-				primaryLabel={t('app.save')}
+				primaryLabel="salva"
 				variant="edit"
 			/>
 
@@ -109,7 +106,7 @@ const AddBookPage: React.FC = () => {
 					</div>
 					<FormControl component="fieldset">
 						<FormLabel component="legend">
-							{t('app.autocompleteInstructions')}
+							Seleziona il campo e clicca sulle parole per aggiungerle al campo selezionato
 						</FormLabel>
 						<RadioGroup
 							className={styles['field-selection']}
@@ -120,12 +117,12 @@ const AddBookPage: React.FC = () => {
 							<FormControlLabel
 								value="author"
 								control={<Radio />}
-								label={t('app.author')}
+								label="autore"
 							/>
 							<FormControlLabel
 								value="title"
 								control={<Radio />}
-								label={t('app.title')}
+								label="titolo"
 							/>
 						</RadioGroup>
 					</FormControl>

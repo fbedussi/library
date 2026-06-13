@@ -9,10 +9,6 @@ jest.mock('./actions', () => {
 	};
 });
 
-jest.mock('react-i18next', () => ({
-	useTranslation: () => ({ t: key => key }),
-}));
-
 test('Renders the notification', () => {
 	render(<NotificationArea />, {
 		initialState: {

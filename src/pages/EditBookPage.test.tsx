@@ -47,23 +47,23 @@ test('submits correctly', async () => {
       route: '/edit/B',
     },
   );
-  const authorInput = screen.getByLabelText(/app.author/i);
+  const authorInput = screen.getByLabelText(/autore/i);
   const user = userEvent.setup();
 
   expect(authorInput).toBeInTheDocument();
   await user.clear(authorInput);
   await user.type(authorInput, 'author');
-  const titleInput = screen.getByLabelText(/app.title/i);
+  const titleInput = screen.getByLabelText(/titolo/i);
   await user.clear(titleInput);
   await user.type(titleInput, 'title');
-  const locationInput = screen.getByLabelText(/app.location/i);
+  const locationInput = screen.getByLabelText(/collocazione/i);
   await user.clear(locationInput);
   await user.type(locationInput, 'location');
-  const categoryInput = screen.getByLabelText(/app.category/i)
+  const categoryInput = screen.getByLabelText(/categoria/i)
   await user.clear(categoryInput)
   await user.type(categoryInput, 'category');
   const submitBtn = screen.getByRole('button', {
-    name: /app.save/i,
+    name: /salva/i,
   });
   await user.click(submitBtn);
   await waitFor(() => {

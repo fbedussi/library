@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import BackLink from '../components/BackLink';
@@ -16,7 +15,6 @@ import { ExitToApp, GetApp } from '../styleguide/icons';
 
 const SettingsPage: React.FC = () => {
   const books = useSelector(selectBooks);
-  const { t } = useTranslation();
   const dispatch: TDispatch = useDispatch();
 
   const csv = ['"Author";"Title";"Location"']
@@ -34,7 +32,7 @@ const SettingsPage: React.FC = () => {
       <TopAppBar position="fixed" color="primary">
         <ToolbarStyled>
           <BackLink />
-          <Typography variant="h6">{t('app.settings')}</Typography>
+          <Typography variant="h6">Impostazioni</Typography>
           <div></div>
         </ToolbarStyled>
       </TopAppBar>
@@ -43,7 +41,7 @@ const SettingsPage: React.FC = () => {
         <MenuItem>
           <a href={href} download="library.csv" target="_blank" rel="noreferrer">
             <Button variant="contained" startIcon={<GetApp />}>
-              {t('app.export')}
+              esporta dati
             </Button>
           </a>
         </MenuItem>
@@ -53,7 +51,7 @@ const SettingsPage: React.FC = () => {
             startIcon={<ExitToApp />}
             onClick={() => dispatch(authActions.logout())}
           >
-            {t('app.logout')}
+            logout
           </Button>
         </MenuItem>
       </MenuList>

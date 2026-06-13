@@ -26,12 +26,12 @@ test('submits', async () => {
 
   render(<LoginPage />, { dispatch });
 
-  await user.type(screen.getByLabelText(/app.username/), 'foo');
-  await user.type(screen.getByLabelText(/app.password/), 'baz');
-  await user.click(screen.getByLabelText(/app.rememberMe/));
-  await user.click(screen.getByRole('button', { name: /app.login/ }));
+  await user.type(screen.getByLabelText(/nome utente/), 'foo');
+  await user.type(screen.getByLabelText(/password/), 'baz');
+  await user.click(screen.getByLabelText(/ricordami/));
+  await user.click(screen.getByRole('button', { name: /accedi/ }));
 
-  await waitFor(() => {});
+  await waitFor(() => { });
   expect(dispatch).toBeCalledWith({
     username: 'foo',
     password: 'baz',

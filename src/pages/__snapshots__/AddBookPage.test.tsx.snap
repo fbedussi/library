@@ -36,7 +36,7 @@ exports[`renders correctly 1`] = `
             <h6
               class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
             >
-              app.insert
+              Inserimento
             </h6>
             <a
               class="link-no-style"
@@ -77,7 +77,7 @@ exports[`renders correctly 1`] = `
           <p
             class="instructions"
           >
-            app.cameraInstructions
+            Se vuoi puoi fotografare la copertina, questo consentirà anche di estrarre automaticamente il titolo e l'autore (se presenti in copertina)
           </p>
           <a
             class="link-no-style"
@@ -103,7 +103,7 @@ exports[`renders correctly 1`] = `
                   />
                 </svg>
               </span>
-              app.takePhoto
+              fotografa la copertina
             </button>
           </a>
         </div>
@@ -123,7 +123,7 @@ exports[`renders correctly 1`] = `
                 for="author"
                 id="author-label"
               >
-                app.author
+                autore
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -144,7 +144,7 @@ exports[`renders correctly 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.author
+                      autore
                     </span>
                   </legend>
                 </fieldset>
@@ -159,7 +159,7 @@ exports[`renders correctly 1`] = `
                 for="title"
                 id="title-label"
               >
-                app.title
+                titolo
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -180,7 +180,7 @@ exports[`renders correctly 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.title
+                      titolo
                     </span>
                   </legend>
                 </fieldset>
@@ -195,7 +195,7 @@ exports[`renders correctly 1`] = `
                 for="location"
                 id="location-label"
               >
-                app.location
+                collocazione
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -216,7 +216,7 @@ exports[`renders correctly 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.location
+                      collocazione
                     </span>
                   </legend>
                 </fieldset>
@@ -231,7 +231,7 @@ exports[`renders correctly 1`] = `
                 for="category"
                 id="category-label"
               >
-                app.category
+                categoria
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -252,7 +252,7 @@ exports[`renders correctly 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.category
+                      categoria
                     </span>
                   </legend>
                 </fieldset>
@@ -264,7 +264,7 @@ exports[`renders correctly 1`] = `
               <label
                 class="MuiFormLabel-root MuiFormLabel-colorPrimary css-nwsdb5-MuiFormLabel-root"
               >
-                app.read
+                letto
               </label>
               <div
                 class="MuiFormGroup-root MuiFormGroup-row MuiRadioGroup-root MuiRadioGroup-row css-cis11t-MuiFormGroup-root"
@@ -312,7 +312,7 @@ exports[`renders correctly 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.yes
+                    sì
                   </span>
                 </label>
                 <label
@@ -357,7 +357,7 @@ exports[`renders correctly 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.no
+                    no
                   </span>
                 </label>
                 <label
@@ -403,7 +403,7 @@ exports[`renders correctly 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.dontKnow
+                    non so
                   </span>
                 </label>
               </div>
@@ -432,7 +432,7 @@ exports[`renders correctly 1`] = `
                   />
                 </svg>
               </span>
-              app.save
+              salva
             </button>
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeLarge MuiButton-colorPrimary css-1lbi7cf-MuiButtonBase-root-MuiButton-root"
@@ -454,7 +454,7 @@ exports[`renders correctly 1`] = `
                   />
                 </svg>
               </span>
-              app.reset
+              reset
             </button>
           </div>
         </form>
@@ -493,7 +493,7 @@ exports[`renders correctly 1`] = `
           <h6
             class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
           >
-            app.insert
+            Inserimento
           </h6>
           <a
             class="link-no-style"
@@ -534,7 +534,7 @@ exports[`renders correctly 1`] = `
         <p
           class="instructions"
         >
-          app.cameraInstructions
+          Se vuoi puoi fotografare la copertina, questo consentirà anche di estrarre automaticamente il titolo e l'autore (se presenti in copertina)
         </p>
         <a
           class="link-no-style"
@@ -560,7 +560,7 @@ exports[`renders correctly 1`] = `
                 />
               </svg>
             </span>
-            app.takePhoto
+            fotografa la copertina
           </button>
         </a>
       </div>
@@ -580,7 +580,7 @@ exports[`renders correctly 1`] = `
               for="author"
               id="author-label"
             >
-              app.author
+              autore
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -601,7 +601,7 @@ exports[`renders correctly 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.author
+                    autore
                   </span>
                 </legend>
               </fieldset>
@@ -616,7 +616,7 @@ exports[`renders correctly 1`] = `
               for="title"
               id="title-label"
             >
-              app.title
+              titolo
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -637,7 +637,7 @@ exports[`renders correctly 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.title
+                    titolo
                   </span>
                 </legend>
               </fieldset>
@@ -652,7 +652,7 @@ exports[`renders correctly 1`] = `
               for="location"
               id="location-label"
             >
-              app.location
+              collocazione
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -673,7 +673,7 @@ exports[`renders correctly 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.location
+                    collocazione
                   </span>
                 </legend>
               </fieldset>
@@ -688,7 +688,7 @@ exports[`renders correctly 1`] = `
               for="category"
               id="category-label"
             >
-              app.category
+              categoria
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -709,7 +709,7 @@ exports[`renders correctly 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.category
+                    categoria
                   </span>
                 </legend>
               </fieldset>
@@ -721,7 +721,7 @@ exports[`renders correctly 1`] = `
             <label
               class="MuiFormLabel-root MuiFormLabel-colorPrimary css-nwsdb5-MuiFormLabel-root"
             >
-              app.read
+              letto
             </label>
             <div
               class="MuiFormGroup-root MuiFormGroup-row MuiRadioGroup-root MuiRadioGroup-row css-cis11t-MuiFormGroup-root"
@@ -769,7 +769,7 @@ exports[`renders correctly 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.yes
+                  sì
                 </span>
               </label>
               <label
@@ -814,7 +814,7 @@ exports[`renders correctly 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.no
+                  no
                 </span>
               </label>
               <label
@@ -860,7 +860,7 @@ exports[`renders correctly 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.dontKnow
+                  non so
                 </span>
               </label>
             </div>
@@ -889,7 +889,7 @@ exports[`renders correctly 1`] = `
                 />
               </svg>
             </span>
-            app.save
+            salva
           </button>
           <button
             class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeLarge MuiButton-colorPrimary css-1lbi7cf-MuiButtonBase-root-MuiButton-root"
@@ -911,7 +911,7 @@ exports[`renders correctly 1`] = `
                 />
               </svg>
             </span>
-            app.reset
+            reset
           </button>
         </div>
       </form>

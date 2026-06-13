@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { SortingKey, SortingOrder } from '../model/model';
 import {
@@ -30,12 +29,10 @@ const SortingBar: React.FC<Props> = ({
 	foundNumber,
 	className,
 }) => {
-	const { t } = useTranslation();
-
 	return (
 		<FormControl component="fieldset" name="sorting-bar" className={className}>
 			<FormLabel component="legend">
-				{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}
+				{foundNumber} risultati • ordina per
 			</FormLabel>
 			<div className={styles['sort-controls']}>
 				<RadioGroup
@@ -47,22 +44,22 @@ const SortingBar: React.FC<Props> = ({
 					<FormControlLabel
 						value="author"
 						control={<Radio />}
-						label={t('app.author')}
+						label="autore"
 					/>
 					<FormControlLabel
 						value="title"
 						control={<Radio />}
-						label={t('app.title')}
+						label="titolo"
 					/>
 					<FormControlLabel
 						value="location"
 						control={<Radio />}
-						label={t('app.locationShort')}
+						label="coll."
 					/>
 					<FormControlLabel
 						value="category"
 						control={<Radio />}
-						label={t('app.categoryShort')}
+						label="cat."
 					/>
 				</RadioGroup>
 				<IconButton

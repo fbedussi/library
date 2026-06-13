@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TDispatch } from '../../model/types';
@@ -9,16 +8,15 @@ import notificationsActions from './actions';
 import { selectNotifications } from './selectors';
 
 const NotificationArea = () => {
-  const { t } = useTranslation();
   const notifications = useSelector(selectNotifications);
   const dispatch: TDispatch = useDispatch();
   return (
     <>
-      {notifications.map(({ message, messageIsLabelKey, _id }) => (
+      {notifications.map(({ message, _id }) => (
         <Snackbar
           key={_id}
           open={true}
-          message={messageIsLabelKey ? t(message) : message}
+          message={message}
           action={
             <React.Fragment>
               <IconButton

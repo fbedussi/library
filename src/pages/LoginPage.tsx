@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
 
@@ -12,7 +11,6 @@ import styles from './loginPage.module.css';
 
 const LoginPage: React.FC = () => {
   const userId = useSelector(selectUserId);
-  const { t } = useTranslation();
   const dispatch: TDispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -33,23 +31,23 @@ const LoginPage: React.FC = () => {
         <TextField
           name="username"
           id="username"
-          label={t('app.username')}
+          label="nome utente"
           variant="outlined"
         />
         <TextField
           name="password"
           id="password"
           type="password"
-          label={t('app.password')}
+          label="password"
           variant="outlined"
         />
         <FormControlLabel
           control={<Switch name="rememberMe" />}
-          label={t('app.rememberMe')}
+          label="ricordami"
         />
         <div className={styles['button-wrapper']}>
           <Button type="submit" color="primary" variant="contained">
-            {t('app.login')}
+            accedi
           </Button>
         </div>
       </form>

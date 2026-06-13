@@ -21,7 +21,7 @@ exports[`renders 1`] = `
               for="username"
               id="username-label"
             >
-              app.username
+              nome utente
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -41,7 +41,7 @@ exports[`renders 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.username
+                    nome utente
                   </span>
                 </legend>
               </fieldset>
@@ -56,7 +56,7 @@ exports[`renders 1`] = `
               for="password"
               id="password-label"
             >
-              app.password
+              password
             </label>
             <div
               class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -76,7 +76,7 @@ exports[`renders 1`] = `
                   class="css-1n64csd-MuiNotchedOutlined-root"
                 >
                   <span>
-                    app.password
+                    password
                   </span>
                 </legend>
               </fieldset>
@@ -108,7 +108,7 @@ exports[`renders 1`] = `
             <span
               class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
             >
-              app.rememberMe
+              ricordami
             </span>
           </label>
           <div
@@ -119,7 +119,7 @@ exports[`renders 1`] = `
               tabindex="0"
               type="submit"
             >
-              app.login
+              accedi
             </button>
           </div>
         </form>
@@ -143,7 +143,7 @@ exports[`renders 1`] = `
             for="username"
             id="username-label"
           >
-            app.username
+            nome utente
           </label>
           <div
             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -163,7 +163,7 @@ exports[`renders 1`] = `
                 class="css-1n64csd-MuiNotchedOutlined-root"
               >
                 <span>
-                  app.username
+                  nome utente
                 </span>
               </legend>
             </fieldset>
@@ -178,7 +178,7 @@ exports[`renders 1`] = `
             for="password"
             id="password-label"
           >
-            app.password
+            password
           </label>
           <div
             class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -198,7 +198,7 @@ exports[`renders 1`] = `
                 class="css-1n64csd-MuiNotchedOutlined-root"
               >
                 <span>
-                  app.password
+                  password
                 </span>
               </legend>
             </fieldset>
@@ -230,7 +230,7 @@ exports[`renders 1`] = `
           <span
             class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
           >
-            app.rememberMe
+            ricordami
           </span>
         </label>
         <div
@@ -241,7 +241,7 @@ exports[`renders 1`] = `
             tabindex="0"
             type="submit"
           >
-            app.login
+            accedi
           </button>
         </div>
       </form>

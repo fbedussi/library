@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { FormData as BookData } from '../model/model';
 import {
@@ -46,7 +45,6 @@ const BookForm: React.FC<Props> = ({
 	className,
 	variant,
 }) => {
-	const { t } = useTranslation();
 	const [{ resetKey, defaults, errors }, setState] = useState<State>({
 		resetKey: 0,
 		defaults: initialValues,
@@ -98,7 +96,7 @@ const BookForm: React.FC<Props> = ({
 					id="author"
 					name="author"
 					variant="outlined"
-					label={t('app.author')}
+					label="autore"
 					defaultValue={defaults.author}
 					error={!!errors.author}
 					helperText={errors.author}
@@ -108,7 +106,7 @@ const BookForm: React.FC<Props> = ({
 					id="title"
 					name="title"
 					variant="outlined"
-					label={t('app.title')}
+					label="titolo"
 					defaultValue={defaults.title}
 					error={!!errors.title}
 					helperText={errors.title}
@@ -118,7 +116,7 @@ const BookForm: React.FC<Props> = ({
 					id="location"
 					name="location"
 					variant="outlined"
-					label={t('app.location')}
+					label="collocazione"
 					defaultValue={defaults.location}
 					error={!!errors.location}
 					helperText={errors.location}
@@ -128,7 +126,7 @@ const BookForm: React.FC<Props> = ({
 					id="category"
 					name="category"
 					variant="outlined"
-					label={t('app.category')}
+					label="categoria"
 					defaultValue={defaults.category ?? ''}
 				/>
 
@@ -140,28 +138,28 @@ const BookForm: React.FC<Props> = ({
 								defaultChecked={!!defaults.showOnlyNotRead}
 							/>
 						}
-						label={t('app.notRead')}
+						label="non letto"
 					/>
 				)}
 
 				{variant === 'edit' && (
 					<FormControl>
-						<FormLabel>{t('app.read')}</FormLabel>
+						<FormLabel>letto</FormLabel>
 						<RadioGroup name="read" defaultValue={defaults.read ?? ''} row>
 							<FormControlLabel
 								value="true"
 								control={<Radio />}
-								label={t('app.yes')}
+								label="sì"
 							/>
 							<FormControlLabel
 								value="false"
 								control={<Radio />}
-								label={t('app.no')}
+								label="no"
 							/>
 							<FormControlLabel
 								value=""
 								control={<Radio />}
-								label={t('app.dontKnow')}
+								label="non so"
 							/>
 						</RadioGroup>
 					</FormControl>
@@ -184,7 +182,7 @@ const BookForm: React.FC<Props> = ({
 					startIcon={<Close />}
 					type="reset"
 				>
-					{t('app.reset')}
+					reset
 				</Button>
 			</div>
 		</form>

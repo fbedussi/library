@@ -67,10 +67,10 @@ test('displays search results', async () => {
 		},
 	});
 	await user.type(
-		screen.getByRole('textbox', { name: /app.author/i }),
+		screen.getByRole('textbox', { name: /autore/i }),
 		'camilleri',
 	);
-	await user.click(screen.getByRole('button', { name: /app.search/i }));
+	await user.click(screen.getByRole('button', { name: /ricerca/i }));
 	expect(
 		await screen.findByText('Gli arancini di Montalbano'),
 	).toBeInTheDocument();

@@ -3,7 +3,6 @@ import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 
 import './global.css';
-import { initI18n } from './i18n';
 import Routes from './Routes';
 import store from './store';
 import ErrorBoundary from './store/errors/ErrorBoundary';
@@ -14,8 +13,6 @@ import {
   Container,
   createCache,
 } from './styleguide';
-
-initI18n();
 
 const cache = createCache({
   key: 'library',

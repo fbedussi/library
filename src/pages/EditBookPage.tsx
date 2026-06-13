@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -20,7 +19,6 @@ import { Save } from '../styleguide/icons';
 
 const EditBookPage: React.FC = () => {
 	const { bookId } = useParams<{ bookId: Id }>();
-	const { t } = useTranslation();
 	const dispatch: TDispatch = useDispatch();
 	const book = useSelector(selectBook(bookId || ''));
 
@@ -42,12 +40,12 @@ const EditBookPage: React.FC = () => {
 			<BookForm
 				initialValues={initialValues}
 				enableReinitialize={true}
-				validate={bookFormValidation(t)}
+				validate={bookFormValidation()}
 				onSubmit={values => {
 					dispatch(booksActions.update(convertRead({ ...book, ...values })));
 				}}
 				PrimaryIcon={<Save />}
-				primaryLabel={t('app.save')}
+				primaryLabel="salva"
 				variant="edit"
 			/>
 

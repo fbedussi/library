@@ -28,7 +28,7 @@ test('renders login page if no user id is set', () => {
       <Routes />
     </Provider>,
   );
-  expect(screen.getByLabelText('app.username')).toBeInTheDocument();
+  expect(screen.getByLabelText('nome utente')).toBeInTheDocument();
 });
 
 test('renders search page if user id is set', () => {

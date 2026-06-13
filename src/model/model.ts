@@ -51,7 +51,6 @@ export type Notification = {
 	autoClose: boolean;
 	errorId?: string;
 	errorType?: 'ui' | 'http';
-	messageIsLabelKey?: boolean;
 };
 
 export type AuthState = {

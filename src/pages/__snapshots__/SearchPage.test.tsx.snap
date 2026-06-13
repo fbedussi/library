@@ -55,7 +55,7 @@ exports[`renders 1`] = `
             <h6
               class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
             >
-              app.search
+              Ricerca
             </h6>
             <a
               class="link-no-style"
@@ -109,7 +109,7 @@ exports[`renders 1`] = `
                   for="author"
                   id="author-label"
                 >
-                  app.author
+                  autore
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -130,7 +130,7 @@ exports[`renders 1`] = `
                       class="css-1n64csd-MuiNotchedOutlined-root"
                     >
                       <span>
-                        app.author
+                        autore
                       </span>
                     </legend>
                   </fieldset>
@@ -145,7 +145,7 @@ exports[`renders 1`] = `
                   for="title"
                   id="title-label"
                 >
-                  app.title
+                  titolo
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -166,7 +166,7 @@ exports[`renders 1`] = `
                       class="css-1n64csd-MuiNotchedOutlined-root"
                     >
                       <span>
-                        app.title
+                        titolo
                       </span>
                     </legend>
                   </fieldset>
@@ -181,7 +181,7 @@ exports[`renders 1`] = `
                   for="location"
                   id="location-label"
                 >
-                  app.location
+                  collocazione
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -202,7 +202,7 @@ exports[`renders 1`] = `
                       class="css-1n64csd-MuiNotchedOutlined-root"
                     >
                       <span>
-                        app.location
+                        collocazione
                       </span>
                     </legend>
                   </fieldset>
@@ -217,7 +217,7 @@ exports[`renders 1`] = `
                   for="category"
                   id="category-label"
                 >
-                  app.category
+                  categoria
                 </label>
                 <div
                   class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -238,7 +238,7 @@ exports[`renders 1`] = `
                       class="css-1n64csd-MuiNotchedOutlined-root"
                     >
                       <span>
-                        app.category
+                        categoria
                       </span>
                     </legend>
                   </fieldset>
@@ -271,7 +271,7 @@ exports[`renders 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.notRead
+                  non letto
                 </span>
               </label>
             </div>
@@ -298,7 +298,7 @@ exports[`renders 1`] = `
                     />
                   </svg>
                 </span>
-                app.search
+                Ricerca
               </button>
               <button
                 class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeLarge MuiButton-colorPrimary css-1lbi7cf-MuiButtonBase-root-MuiButton-root"
@@ -320,7 +320,7 @@ exports[`renders 1`] = `
                     />
                   </svg>
                 </span>
-                app.reset
+                reset
               </button>
             </div>
           </form>
@@ -331,9 +331,8 @@ exports[`renders 1`] = `
             <legend
               class="MuiFormLabel-root MuiFormLabel-colorPrimary css-nwsdb5-MuiFormLabel-root"
             >
-              app.resultsFound
-               • 
-              app.orderBy
+              0
+               risultati • ordina per
             </legend>
             <div
               class="sort-controls"
@@ -385,7 +384,7 @@ exports[`renders 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.author
+                    autore
                   </span>
                 </label>
                 <label
@@ -430,7 +429,7 @@ exports[`renders 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.title
+                    titolo
                   </span>
                 </label>
                 <label
@@ -475,7 +474,7 @@ exports[`renders 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.locationShort
+                    coll.
                   </span>
                 </label>
                 <label
@@ -520,7 +519,7 @@ exports[`renders 1`] = `
                   <span
                     class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                   >
-                    app.categoryShort
+                    cat.
                   </span>
                 </label>
               </div>
@@ -631,7 +630,7 @@ exports[`renders 1`] = `
           <h6
             class="MuiTypography-root MuiTypography-h6 css-1miy0lu-MuiTypography-root"
           >
-            app.search
+            Ricerca
           </h6>
           <a
             class="link-no-style"
@@ -685,7 +684,7 @@ exports[`renders 1`] = `
                 for="author"
                 id="author-label"
               >
-                app.author
+                autore
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -706,7 +705,7 @@ exports[`renders 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.author
+                      autore
                     </span>
                   </legend>
                 </fieldset>
@@ -721,7 +720,7 @@ exports[`renders 1`] = `
                 for="title"
                 id="title-label"
               >
-                app.title
+                titolo
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -742,7 +741,7 @@ exports[`renders 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.title
+                      titolo
                     </span>
                   </legend>
                 </fieldset>
@@ -757,7 +756,7 @@ exports[`renders 1`] = `
                 for="location"
                 id="location-label"
               >
-                app.location
+                collocazione
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -778,7 +777,7 @@ exports[`renders 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.location
+                      collocazione
                     </span>
                   </legend>
                 </fieldset>
@@ -793,7 +792,7 @@ exports[`renders 1`] = `
                 for="category"
                 id="category-label"
               >
-                app.category
+                categoria
               </label>
               <div
                 class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
@@ -814,7 +813,7 @@ exports[`renders 1`] = `
                     class="css-1n64csd-MuiNotchedOutlined-root"
                   >
                     <span>
-                      app.category
+                      categoria
                     </span>
                   </legend>
                 </fieldset>
@@ -847,7 +846,7 @@ exports[`renders 1`] = `
               <span
                 class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
               >
-                app.notRead
+                non letto
               </span>
             </label>
           </div>
@@ -874,7 +873,7 @@ exports[`renders 1`] = `
                   />
                 </svg>
               </span>
-              app.search
+              Ricerca
             </button>
             <button
               class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-sizeLarge MuiButton-colorPrimary css-1lbi7cf-MuiButtonBase-root-MuiButton-root"
@@ -896,7 +895,7 @@ exports[`renders 1`] = `
                   />
                 </svg>
               </span>
-              app.reset
+              reset
             </button>
           </div>
         </form>
@@ -907,9 +906,8 @@ exports[`renders 1`] = `
           <legend
             class="MuiFormLabel-root MuiFormLabel-colorPrimary css-nwsdb5-MuiFormLabel-root"
           >
-            app.resultsFound
-             • 
-            app.orderBy
+            0
+             risultati • ordina per
           </legend>
           <div
             class="sort-controls"
@@ -961,7 +959,7 @@ exports[`renders 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.author
+                  autore
                 </span>
               </label>
               <label
@@ -1006,7 +1004,7 @@ exports[`renders 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.title
+                  titolo
                 </span>
               </label>
               <label
@@ -1051,7 +1049,7 @@ exports[`renders 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.locationShort
+                  coll.
                 </span>
               </label>
               <label
@@ -1096,7 +1094,7 @@ exports[`renders 1`] = `
                 <span
                   class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
                 >
-                  app.categoryShort
+                  cat.
                 </span>
               </label>
             </div>

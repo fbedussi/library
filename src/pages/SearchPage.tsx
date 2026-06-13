@@ -1,6 +1,5 @@
 import Fuse from 'fuse.js';
 import React, { useEffect, useMemo, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -45,8 +44,6 @@ const SearchPage: React.FC = () => {
   const defaultScrollTop = parseInt(queryScrollTop || '0');
   const scrollTopAtLanding = useRef(defaultScrollTop);
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
-
-  const { t } = useTranslation();
 
   const setSearchCriteria = (values: FormData) => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -145,7 +142,7 @@ const SearchPage: React.FC = () => {
             <MoreVert />
           </IconButton>
           {!books.length ? <CircularProgress color="secondary" /> : null}
-          <Typography variant="h6">{t('app.search')}</Typography>
+          <Typography variant="h6">Ricerca</Typography>
           <ViewAllLink />
         </ToolbarStyled>
       </TopAppBar>
@@ -164,7 +161,7 @@ const SearchPage: React.FC = () => {
             });
           }}
           PrimaryIcon={<Search />}
-          primaryLabel={t('app.search')}
+          primaryLabel="Ricerca"
           variant="search"
         />
 

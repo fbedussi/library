@@ -37,7 +37,7 @@ test('renders correctly', () => {
 test('no currentPhotoUrl', () => {
 	render(<AddBookPage />);
 	const cameraLink = screen.getByRole<HTMLAnchorElement>('link', {
-		name: /app.takePhoto/i,
+		name: /fotografa la copertina/i,
 	});
 	expect(cameraLink).toBeInTheDocument();
 	expect(!!cameraLink.href.match(/\/camera$/)).toBe(true);
@@ -51,7 +51,7 @@ test('currentPhotoUrl', () => {
 		},
 	});
 	const cameraLink = screen.queryByRole('link', {
-		name: /app.takePhoto/i,
+		name: /fotografa la copertina/i,
 	});
 	expect(cameraLink).not.toBeInTheDocument();
 	expect(screen.getByAltText('bookCover')).toBeInTheDocument();
@@ -62,15 +62,15 @@ test('validates', async () => {
 
 	render(<AddBookPage />);
 
-	await user.type(screen.getByLabelText(/app.author/i), 'author');
+	await user.type(screen.getByLabelText(/autore/i), 'author');
 
-	await user.type(screen.getByLabelText(/app.title/i), 'title');
+	await user.type(screen.getByLabelText(/titolo/i), 'title');
 	const submitBtn = screen.getByRole('button', {
-		name: /app.save/i,
+		name: /salva/i,
 	});
 	await user.click(submitBtn);
 	await waitFor(() => {
-		expect(screen.queryByText(/errors.mandatoryField/i)).toBeInTheDocument();
+		expect(screen.queryByText(/campo obbligatorio/i)).toBeInTheDocument();
 	});
 });
 
@@ -79,12 +79,12 @@ test('submits correctly', async () => {
 	const dispatch = jest.fn(() => Promise.resolve());
 	render(<AddBookPage />, { dispatch });
 
-	await user.type(screen.getByLabelText(/app.author/i), 'author');
-	await user.type(screen.getByLabelText(/app.title/i), 'title');
-	await user.type(screen.getByLabelText(/app.location/i), 'location');
-	await user.type(screen.getByLabelText(/app.category/i), 'category');
+	await user.type(screen.getByLabelText(/autore/i), 'author');
+	await user.type(screen.getByLabelText(/titolo/i), 'title');
+	await user.type(screen.getByLabelText(/collocazione/i), 'location');
+	await user.type(screen.getByLabelText(/categoria/i), 'category');
 	const submitBtn = screen.getByRole('button', {
-		name: /app.save/i,
+		name: /salva/i,
 	});
 	await user.click(submitBtn);
 	await waitFor(() => {
@@ -105,7 +105,7 @@ test('submits correctly', async () => {
 test('displays no word', () => {
 	render(<AddBookPage />);
 	expect(
-		screen.queryByText(/app.autocompleteInstructions/i),
+		screen.queryByText(/autocompleteInstructions/i),
 	).not.toBeInTheDocument();
 });
 
@@ -115,7 +115,7 @@ test('displays words', () => {
 			photos: { words: ['word1', 'word2'], currentPhotoPath: '' },
 		},
 	});
-	expect(screen.getByText(/app.autocompleteInstructions/i)).toBeInTheDocument();
+	expect(screen.getByText(/Seleziona il campo/i)).toBeInTheDocument();
 	expect(screen.getByText(/word1/i)).toBeInTheDocument();
 	expect(screen.getByText(/word2/i)).toBeInTheDocument();
 });
@@ -145,13 +145,13 @@ test('insert word', async () => {
 		},
 	});
 	await user.click(screen.getByText(/word1/i));
-	await user.click(screen.getByRole('radio', { name: /app.title/i }));
+	await user.click(screen.getByRole('radio', { name: /titolo/i }));
 	await user.click(screen.getByText(/word2/i));
 	expect(
-		screen.getByRole<HTMLInputElement>('textbox', { name: /app.author/i })
+		screen.getByRole<HTMLInputElement>('textbox', { name: /autore/i })
 			.value,
 	).toBe('word1');
 	expect(
-		screen.getByRole<HTMLInputElement>('textbox', { name: /app.title/i }).value,
+		screen.getByRole<HTMLInputElement>('textbox', { name: /titolo/i }).value,
 	).toBe('word2');
 });

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
 
@@ -22,7 +21,6 @@ import styles from './viewAllPage.module.css';
 const ViewAllPage: React.FC = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const books = useSelector(selectBooks);
-	const { t } = useTranslation();
 	const queryKey = (searchParams.get('key') as SortingKey) || null;
 	const defaultSortingKey: SortingKey = 'author';
 	const [sortingKey, setSortingKey] = useState(queryKey || defaultSortingKey);
@@ -57,7 +55,7 @@ const ViewAllPage: React.FC = () => {
 			<TopAppBar position="fixed" color="primary">
 				<ToolbarStyled>
 					<BackLink />
-					<Typography variant="h6">{t('app.viewAll')}</Typography>
+					<Typography variant="h6">Vedi tutti</Typography>
 					<ViewAllLink />
 				</ToolbarStyled>
 			</TopAppBar>
