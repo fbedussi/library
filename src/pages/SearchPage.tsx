@@ -105,7 +105,7 @@ const SearchPage: React.FC = () => {
     );
     const books =
       filteredBooks?.filter(({ score }) => {
-        return score !== undefined && score < 0.81;
+        return score !== undefined && score < 0.72;
       }) || [];
 
     books.sort(

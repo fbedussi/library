@@ -6,7 +6,6 @@ const options = {
 	keys: ['title', 'author', 'location', 'category'],
 	includeScore: true,
 	useExtendedSearch: true,
-	ignoreFieldNorm: true,
 };
 
 let fuse: Fuse<Book> | undefined;

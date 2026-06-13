@@ -10,7 +10,7 @@
     "@mui/material": "^9.1.1",
     "@reduxjs/toolkit": "^2.12.0",
     "firebase": "^8.0.0",
-    "fuse.js": "^6.4.3",
+    "fuse.js": "^7.4.2",
     "i18next": "^19.8.3",
     "i18next-browser-languagedetector": "^7.0.1",
     "i18next-xhr-backend": "^3.2.2",
