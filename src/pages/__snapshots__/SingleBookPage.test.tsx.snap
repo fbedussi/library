@@ -67,109 +67,104 @@ exports[`renders correctly - with book 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe sc-dkrFOg ljvCyv iSRPqL"
+        class="sc-bdDsCe sc-dkXsAU fFUQrG drCpYT"
       >
         <div
-          class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iBYQkv ezoZbp book-card css-1v5z4dq-MuiPaper-root-MuiCard-root"
+          class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iCECmn cGWAsQ book-card css-196bwzp-MuiPaper-root-MuiCard-root"
         >
           <div
-            class="sc-ftTHYK gsAKHV"
+            class="sc-fuztkK duojHo"
           >
             <div
-              class="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+              class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
             >
               <div
-                class="sc-pyfCe eAYOLR"
+                class="sc-qdQOe fqUyHN"
               >
                 a
               </div>
               <a
-                class="sc-hLBbgP fLjBEz"
+                class="sc-hKVpXn eTipLD"
                 href="/book/B"
               >
                 <h2
-                  class="MuiTypography-root MuiTypography-h5 book-title css-ag7rrr-MuiTypography-root"
+                  class="MuiTypography-root MuiTypography-h5 book-title css-16xl4zq-MuiTypography-root"
                 >
                   t
                 </h2>
               </a>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1ro85z9-MuiTypography-root"
               >
                 l
               </p>
               <p
-                class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-body1 css-1ro85z9-MuiTypography-root"
               />
             </div>
             <div
-              class="MuiCardActions-root sc-jrcTuL NOxoF css-1rwjz6-MuiCardActions-root"
+              class="MuiCardActions-root sc-jrIDTr iRVtzo css-bbbzor-MuiCardActions-root"
             >
               <button
-                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
                 data-testid="delete-btn"
                 tabindex="0"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                   data-testid="DeleteIcon"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                    d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
                   />
                 </svg>
-                <span
-                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                />
               </button>
               <a
-                class="sc-hLBbgP fLjBEz"
+                class="sc-hKVpXn eTipLD"
                 data-testid="edit-link"
                 href="/edit/B"
               >
                 <button
-                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                  class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
                   tabindex="0"
                   type="button"
                 >
                   <svg
                     aria-hidden="true"
-                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                    class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                     data-testid="EditIcon"
                     focusable="false"
                     viewBox="0 0 24 24"
                   >
                     <path
-                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                      d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
                     />
                   </svg>
-                  <span
-                    class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                  />
                 </button>
               </a>
             </div>
           </div>
         </div>
         <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe fBfpnQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eCQgVK fVWVO mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
+          style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
         >
           <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
+            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKkgUA bydCkS css-1ygil4i-MuiToolbar-root"
           >
             <button
               aria-label="open drawer"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1fytndg-MuiButtonBase-root-MuiIconButton-root"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                 data-testid="ChevronLeftIcon"
                 focusable="false"
                 viewBox="0 0 24 24"
@@ -178,9 +173,6 @@ exports[`renders correctly - with book 1`] = `
                   d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
                 />
               </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
             </button>
           </div>
         </header>
@@ -189,109 +181,104 @@ exports[`renders correctly - with book 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe sc-dkrFOg ljvCyv iSRPqL"
+      class="sc-bdDsCe sc-dkXsAU fFUQrG drCpYT"
     >
       <div
-        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iBYQkv ezoZbp book-card css-1v5z4dq-MuiPaper-root-MuiCard-root"
+        class="MuiPaper-root MuiPaper-outlined MuiPaper-rounded MuiCard-root sc-iCECmn cGWAsQ book-card css-196bwzp-MuiPaper-root-MuiCard-root"
       >
         <div
-          class="sc-ftTHYK gsAKHV"
+          class="sc-fuztkK duojHo"
         >
           <div
-            class="MuiCardContent-root css-46bh2p-MuiCardContent-root"
+            class="MuiCardContent-root css-1lt5qva-MuiCardContent-root"
           >
             <div
-              class="sc-pyfCe eAYOLR"
+              class="sc-qdQOe fqUyHN"
             >
               a
             </div>
             <a
-              class="sc-hLBbgP fLjBEz"
+              class="sc-hKVpXn eTipLD"
               href="/book/B"
             >
               <h2
-                class="MuiTypography-root MuiTypography-h5 book-title css-ag7rrr-MuiTypography-root"
+                class="MuiTypography-root MuiTypography-h5 book-title css-16xl4zq-MuiTypography-root"
               >
                 t
               </h2>
             </a>
             <p
-              class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 css-1ro85z9-MuiTypography-root"
             >
               l
             </p>
             <p
-              class="MuiTypography-root MuiTypography-body1 css-1pnmrwp-MuiTypography-root"
+              class="MuiTypography-root MuiTypography-body1 css-1ro85z9-MuiTypography-root"
             />
           </div>
           <div
-            class="MuiCardActions-root sc-jrcTuL NOxoF css-1rwjz6-MuiCardActions-root"
+            class="MuiCardActions-root sc-jrIDTr iRVtzo css-bbbzor-MuiCardActions-root"
           >
             <button
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
               data-testid="delete-btn"
               tabindex="0"
               type="button"
             >
               <svg
                 aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                 data-testid="DeleteIcon"
                 focusable="false"
                 viewBox="0 0 24 24"
               >
                 <path
-                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"
+                  d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6zM19 4h-3.5l-1-1h-5l-1 1H5v2h14z"
                 />
               </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
             </button>
             <a
-              class="sc-hLBbgP fLjBEz"
+              class="sc-hKVpXn eTipLD"
               data-testid="edit-link"
               href="/edit/B"
             >
               <button
-                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-78trlr-MuiButtonBase-root-MuiIconButton-root"
+                class="MuiButtonBase-root MuiIconButton-root MuiIconButton-sizeMedium css-53g0n7-MuiButtonBase-root-MuiIconButton-root"
                 tabindex="0"
                 type="button"
               >
                 <svg
                   aria-hidden="true"
-                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+                  class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
                   data-testid="EditIcon"
                   focusable="false"
                   viewBox="0 0 24 24"
                 >
                   <path
-                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.9959.9959 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"
+                    d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34a.996.996 0 0 0-1.41 0l-1.83 1.83 3.75 3.75z"
                   />
                 </svg>
-                <span
-                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                />
               </button>
             </a>
           </div>
         </div>
       </div>
       <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eDvSVe fBfpnQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-eCQgVK fVWVO mui-fixed css-zanzjh-MuiPaper-root-MuiAppBar-root"
+        style="--Paper-shadow: 0px 2px 4px -1px rgba(0,0,0,0.2),0px 4px 5px 0px rgba(0,0,0,0.14),0px 1px 10px 0px rgba(0,0,0,0.12);"
       >
         <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
+          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKkgUA bydCkS css-1ygil4i-MuiToolbar-root"
         >
           <button
             aria-label="open drawer"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
+            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1fytndg-MuiButtonBase-root-MuiIconButton-root"
             tabindex="0"
             type="button"
           >
             <svg
               aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
+              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-1umw9bq-MuiSvgIcon-root"
               data-testid="ChevronLeftIcon"
               focusable="false"
               viewBox="0 0 24 24"
@@ -300,9 +287,6 @@ exports[`renders correctly - with book 1`] = `
                 d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
               />
             </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
           </button>
         </div>
       </header>

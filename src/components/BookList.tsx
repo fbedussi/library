@@ -1,5 +1,5 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
-import { FixedSizeList as List } from 'react-window';
+import { List, RowComponentProps, useListRef } from 'react-window';
 import styled from 'styled-components';
 
 import { Book, SearchCriteria } from '../model/model';
@@ -11,15 +11,8 @@ const BooksList: React.FC<{
 	books: Book[];
 	sortingKey?: keyof SearchCriteria;
 	selectedLetter?: string;
-	width: number;
-	height: number;
-}> = ({ books, sortingKey, selectedLetter, width, height }) => {
-	const containerRef = useRef<HTMLDivElement>(null);
-
-	const listRef = useRef<List>(null);
-
-	const initialCellHeight = 160;
-	const [cellHeight, _setCellHeight] = useState(initialCellHeight);
+}> = ({ books, sortingKey, selectedLetter }) => {
+	const listRef = useListRef(null);
 
 	useEffect(() => {
 		if (!sortingKey || !selectedLetter) {
@@ -34,35 +27,17 @@ const BooksList: React.FC<{
 					return !sortingKey || (firstLetter && (firstLetter >= selectedLetter))
 				},
 			);
-			listRef.current?.scrollToItem(itemIndex);
+			listRef.current?.scrollToRow({ index: itemIndex });
 		}
 	}, [selectedLetter, books, sortingKey]);
 
-	useLayoutEffect(() => {
-		const setHeights = () => {
-			const cellHeight =
-				containerRef.current
-					?.querySelector('.book-card')
-					?.getBoundingClientRect()?.height || initialCellHeight;
-
-			const gellGap = 16;
-			_setCellHeight(Math.round(cellHeight) + gellGap);
-		};
-
-		setHeights();
-		window.addEventListener('resize', setHeights);
-		return window.removeEventListener('resize', setHeights);
-	}, []);
-
 	return (
 		<List
-			ref={listRef}
-			height={Math.min(height, cellHeight * books.length)}
-			itemCount={books.length}
-			itemSize={cellHeight}
-			width={width}
-		>
-			{({ index, style }: { index: number; style: Object }) => (
+			listRef={listRef}
+			rowHeight={190}
+			rowCount={books.length}
+			rowProps={{}}
+			rowComponent={({ index, style }: RowComponentProps) => (
 				<BookCardContainer
 					className="book-card-container"
 					style={style}
@@ -71,7 +46,7 @@ const BooksList: React.FC<{
 					<BookCard book={books[index]} />
 				</BookCardContainer>
 			)}
-		</List>
+		/>
 	);
 };
 

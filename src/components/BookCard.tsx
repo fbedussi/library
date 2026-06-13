@@ -20,6 +20,7 @@ import { LinkNoStyle } from './CommonComponents';
 const StyledCard = styled(Card)`
 	display: flex;
 	width: 100%;
+	height: 100%;
 `;
 
 const BookInfo = styled.div`

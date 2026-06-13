@@ -2,7 +2,6 @@ import { Base64, Book, DbBook, Id } from './model/model';
 import db, { UploadTaskSnapshot, storage } from './firebase';
 
 import { b64toBlob } from './libs/photos';
-import { v4 as uuidv4 } from 'uuid';
 
 const booksCollection = db.collection('books');
 
@@ -78,7 +77,7 @@ export const uploadPhotoToBucket = (
 	base64: Base64,
 	contentType: string,
 ): Promise<UploadTaskSnapshot> => {
-	const uuid = uuidv4();
+	const uuid = crypto.randomUUID();
 	const pictureRef = storage.child(`${uuid}.jpg`);
 	return pictureRef
 		.put(b64toBlob(base64, contentType))

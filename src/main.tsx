@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import styled, { createGlobalStyle } from 'styled-components';
 
 import { initI18n } from './i18n';
-import reportWebVitals from './reportWebVitals';
 import Routes from './Routes';
 import store from './store';
 import ErrorBoundary from './store/errors/ErrorBoundary';
@@ -75,8 +74,3 @@ root.render(
     </Provider>
   </React.StrictMode>,
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

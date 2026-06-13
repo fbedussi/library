@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router-dom';
-import Autosizer from 'react-virtualized-auto-sizer';
 import styled from 'styled-components';
 
 import BackLink from '../components/BackLink';
@@ -120,17 +119,11 @@ const ViewAllPage: React.FC = () => {
 					))}
 				</Letters>
 				<BooksListWrapper ref={containerRef}>
-					<Autosizer>
-						{({ height, width }) => (
-							<BooksList
-								books={booksToRender}
-								sortingKey={sortingKey}
-								selectedLetter={selectedLetter}
-								width={width}
-								height={height}
-							/>
-						)}
-					</Autosizer>
+					<BooksList
+						books={booksToRender}
+						sortingKey={sortingKey}
+						selectedLetter={selectedLetter}
+					/>
 				</BooksListWrapper>
 			</LettersAndList>
 		</TopBarPageWrapper>

@@ -27,7 +27,7 @@ function render(
     route?: string;
   },
 ) {
-  const Wrapper: React.FC<{ children?: JSX.Element }> = ({ children }) => {
+  const Wrapper: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     return (
       <Provider store={dispatch ? { ...store, dispatch } : store}>
         <MemoryRouter initialEntries={[route]}>{children}</MemoryRouter>

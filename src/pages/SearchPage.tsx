@@ -24,7 +24,7 @@ import theme from '../styleguide/theme';
 
 const Wrapper = styled.div`
   .book-card-container {
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
   }
 `;
 
@@ -199,8 +199,6 @@ const SearchPage: React.FC = () => {
 
       <BooksList
         books={booksToShow}
-        width={window.innerWidth}
-        height={window.innerHeight}
       />
 
       <FabLink to="/add">
