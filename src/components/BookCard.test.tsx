@@ -6,8 +6,8 @@ import { Book } from '../model/model';
 import { render, screen } from '../test-utils';
 import BookCard from './BookCard';
 
-jest.mock('../store/books/actions', () => ({
-  remove: (id: string) => id,
+vi.mock('../store/books/actions', () => ({
+  default: { remove: (id: string) => id },
 }));
 
 const book: Book = {
@@ -46,7 +46,7 @@ test('display data no image', () => {
 
 test('delete book', async () => {
   const user = userEvent.setup();
-  const dispatch = jest.fn();
+  const dispatch = vi.fn();
   render(<BookCard book={book} />, { dispatch });
   const deleteBtn = screen.getByTestId('delete-btn');
   expect(deleteBtn).toBeInTheDocument();

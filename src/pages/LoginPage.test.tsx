@@ -8,11 +8,11 @@ import { render } from '../test-utils';
 import LoginPage from './LoginPage';
 import SearchPage from './SearchPage';
 
-jest.mock('../store/auth/actions', () => {
-  return {
+vi.mock('../store/auth/actions', () => ({
+  default: {
     login: (x: any) => ({ ...x, type: 'login' }),
-  };
-});
+  },
+}));
 
 test('renders', () => {
   const page = render(<LoginPage />);
@@ -22,7 +22,7 @@ test('renders', () => {
 test('submits', async () => {
   const user = userEvent.setup();
 
-  const dispatch = jest.fn();
+  const dispatch = vi.fn();
 
   render(<LoginPage />, { dispatch });
 

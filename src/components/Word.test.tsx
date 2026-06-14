@@ -8,7 +8,7 @@ import Word from './Word';
 test('does the selection', async () => {
   const user = userEvent.setup();
 
-  const onClickCb = jest.fn();
+  const onClickCb = vi.fn();
   const word = 'word';
   render(<Word word={word} onClick={onClickCb} />);
 

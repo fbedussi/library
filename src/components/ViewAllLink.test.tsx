@@ -3,8 +3,8 @@ import React from 'react';
 import { render, screen } from '../test-utils';
 import ViewAllLink from './ViewAllLink';
 
-jest.mock('../store/books/selectors', () => {
-  const originalModule = jest.requireActual('../store/books/selectors');
+vi.mock('../store/books/selectors', async (importOriginal) => {
+  const originalModule = await importOriginal();
 
   return {
     ...originalModule,

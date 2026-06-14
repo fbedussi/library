@@ -32,7 +32,7 @@ test('renders correctly - with book', () => {
 });
 
 test('submits correctly', async () => {
-  const dispatch = jest.fn();
+  const dispatch = vi.fn();
   render(
     <Routes>
       <Route path="/edit/:bookId" element={<EditBookPage />} />

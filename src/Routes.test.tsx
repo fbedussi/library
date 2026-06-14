@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import Routes from './Routes';
 import { getTestStore } from './store';
 
-jest.mock('./config', () => {
+vi.mock('./config', () => {
   return {
     firebase: {
       apiKey: 'apiKey',
@@ -20,7 +20,7 @@ jest.mock('./config', () => {
   };
 });
 
-jest.mock('./firebase', () => ({}));
+vi.mock('./firebase', () => ({}));
 
 test('renders login page if no user id is set', () => {
   render(

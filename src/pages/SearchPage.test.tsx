@@ -7,15 +7,14 @@ import { initSearch } from '../libs/search';
 import { act, render, screen, waitFor } from '../test-utils';
 import SearchPage from './SearchPage';
 
-jest.mock('react-router-dom', () => ({
-	...(jest.requireActual('react-router-dom') as any),
-	useNavigate: jest.fn(),
+vi.mock('react-router-dom', async (importOriginal) => ({
+	...(await importOriginal() as any),
+	useNavigate: vi.fn(),
 }));
 
-beforeEach(() => {
-	(router.useNavigate as any).mockImplementation(
-		jest.requireActual('react-router-dom').useNavigate,
-	);
+beforeEach(async () => {
+	const actual = await vi.importActual<typeof router>('react-router-dom');
+	(router.useNavigate as any).mockImplementation(actual.useNavigate);
 });
 
 const books = [

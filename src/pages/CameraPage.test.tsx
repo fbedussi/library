@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '../test-utils';
 import CameraPage from './CameraPage';
 
-jest.mock('../config', () => {
+vi.mock('../config', () => {
   return {
     firebase: {
       apiKey: 'apiKey',

@@ -3,11 +3,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '../../test-utils';
 import NotificationArea from './NotificationArea';
 
-jest.mock('./actions', () => {
-	return {
-		removeNotification: () => 'removeNotification',
-	};
-});
+vi.mock('./actions', () => ({
+	default: { removeNotification: () => 'removeNotification' },
+}));
 
 test('Renders the notification', () => {
 	render(<NotificationArea />, {
@@ -28,7 +26,7 @@ test('Renders the notification', () => {
 });
 
 test('CloseButton', () => {
-	const dispatch = jest.fn();
+	const dispatch = vi.fn();
 	render(<NotificationArea />, {
 		dispatch,
 		initialState: {

@@ -9,7 +9,7 @@ import photosActions from '../store/photos/actions';
 import { render, screen } from '../test-utils';
 import AddBookPage from './AddBookPage';
 
-jest.mock('../config', () => {
+vi.mock('../config', () => {
 	return {
 		firebase: {
 			apiKey: 'apiKey',
@@ -76,7 +76,7 @@ test('validates', async () => {
 
 test('submits correctly', async () => {
 	const user = userEvent.setup();
-	const dispatch = jest.fn(() => Promise.resolve());
+	const dispatch = vi.fn(() => Promise.resolve());
 	render(<AddBookPage />, { dispatch });
 
 	await user.type(screen.getByLabelText(/autore/i), 'author');
@@ -123,7 +123,7 @@ test('displays words', () => {
 test('reset photo data', async () => {
 	const user = userEvent.setup();
 
-	const dispatch = jest.fn();
+	const dispatch = vi.fn();
 	render(<AddBookPage />, {
 		dispatch,
 		initialState: {

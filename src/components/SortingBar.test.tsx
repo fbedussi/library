@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { render, screen } from '../test-utils';
 import SortingBar from './SortingBar';
 
-const setSortingKey = jest.fn();
-const setSortingOrder = jest.fn();
+const setSortingKey = vi.fn();
+const setSortingOrder = vi.fn();
 
 test('has all the controls', () => {
   render(

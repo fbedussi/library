@@ -5,8 +5,8 @@ import userEvent from '@testing-library/user-event';
 import { render, screen, waitFor } from '../test-utils';
 import BookForm from './BookForm';
 
-jest.mock('../store/books/actions', () => ({
-	remove: (id: string) => id,
+vi.mock('../store/books/actions', () => ({
+	default: { remove: (id: string) => id },
 }));
 
 const initialValues = {
@@ -16,7 +16,7 @@ const initialValues = {
 	read: '',
 };
 
-const onSubmit = jest.fn();
+const onSubmit = vi.fn();
 
 test('displays the fields with initial values', () => {
 	render(
@@ -117,7 +117,7 @@ test('displays error', async () => {
 });
 
 test('calls onSubmit', async () => {
-	const onSubmit = jest.fn();
+	const onSubmit = vi.fn();
 	const user = userEvent.setup();
 
 	render(
