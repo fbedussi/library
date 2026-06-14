@@ -1,8 +1,28 @@
-import db, { storage, type UploadTaskSnapshot } from './firebase';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  type QueryDocumentSnapshot,
+  query,
+  setDoc,
+  where,
+} from 'firebase/firestore';
+import {
+  getDownloadURL,
+  ref,
+  type UploadResult,
+  uploadBytes,
+} from 'firebase/storage';
+
+import db, { storage } from './firebase';
 import { b64toBlob } from './libs/photos';
 import type { Base64, Book, DbBook, Id } from './model/model';
 
-const booksCollection = db.collection('books');
+export type { UploadResult };
+
+const booksCollection = collection(db, 'books');
 
 export const searchBooksInDB = (
   handleUpdate: (books: Book[]) => void,
@@ -14,37 +34,36 @@ export const searchBooksInDB = (
   },
 ) => {
   const { author, title, location, userId } = searchCriteria;
-  booksCollection
-    .where('title', '>=', title)
-    .where('author', '>=', author)
-    .where('location', '>=', location)
-    .where('userId', '==', userId)
-    .get()
-    .then(querySnapshot => {
-      const results: Book[] = [];
-      querySnapshot.forEach(doc => {
-        const dataFromDb = doc.data() as Book;
-        results.push(dataFromDb);
-      });
-      handleUpdate(results);
+  const q = query(
+    booksCollection,
+    where('title', '>=', title),
+    where('author', '>=', author),
+    where('location', '>=', location),
+    where('userId', '==', userId),
+  );
+  getDocs(q).then(querySnapshot => {
+    const results: Book[] = [];
+    querySnapshot.forEach((snapshot: QueryDocumentSnapshot) => {
+      const dataFromDb = snapshot.data() as Book;
+      results.push(dataFromDb);
     });
+    handleUpdate(results);
+  });
 };
 
 export const loadBooksFromDB = (
   handleUpdate: (books: Book[]) => void,
   userId: Id,
 ) => {
-  booksCollection
-    .where('userId', '==', userId)
-    .get()
-    .then(querySnapshot => {
-      const results: Book[] = [];
-      querySnapshot.forEach(doc => {
-        const dataFromDb = doc.data() as Omit<Book, 'id'>;
-        results.push({ ...dataFromDb, id: doc.id });
-      });
-      handleUpdate(results);
+  const q = query(booksCollection, where('userId', '==', userId));
+  getDocs(q).then(querySnapshot => {
+    const results: Book[] = [];
+    querySnapshot.forEach((snapshot: QueryDocumentSnapshot) => {
+      const dataFromDb = snapshot.data() as Omit<Book, 'id'>;
+      results.push({ ...dataFromDb, id: snapshot.id });
     });
+    handleUpdate(results);
+  });
 };
 
 export const addBookInDB = (
@@ -55,13 +74,13 @@ export const addBookInDB = (
     // no undefined are allowed on firebase
     delete book.read;
   }
-  return booksCollection.add({ ...book, userId }).then(doc => {
-    return { ...book, id: doc.id };
+  return addDoc(booksCollection, { ...book, userId }).then(docRef => {
+    return { ...book, id: docRef.id };
   });
 };
 
 export const deleteBookInDB = (id: Id) => {
-  return booksCollection.doc(id).delete();
+  return deleteDoc(doc(db, 'books', id));
 };
 
 export const updateBookInDB = (book: DbBook) => {
@@ -69,19 +88,17 @@ export const updateBookInDB = (book: DbBook) => {
   if (book.read === undefined) {
     delete book.read;
   }
-  return booksCollection.doc(book.id).set(book);
+  return setDoc(doc(db, 'books', book.id), book);
 };
 
 export const uploadPhotoToBucket = (
   base64: Base64,
   contentType: string,
-): Promise<UploadTaskSnapshot> => {
+): Promise<UploadResult> => {
   const uuid = crypto.randomUUID();
-  const pictureRef = storage.child(`${uuid}.jpg`);
-  return pictureRef
-    .put(b64toBlob(base64, contentType))
-    .catch(error => console.error(error));
+  const pictureRef = ref(storage, `${uuid}.jpg`);
+  return uploadBytes(pictureRef, b64toBlob(base64, contentType));
 };
 
 export const getPhotoUrl = (photoId: string) =>
-  storage.child(photoId).getDownloadURL();
+  getDownloadURL(ref(storage, photoId));
