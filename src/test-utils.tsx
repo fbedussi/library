@@ -1,15 +1,15 @@
-import React, { JSX } from 'react';
-import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
-
 import {
-  ByRoleMatcher,
-  ByRoleOptions,
+  type ByRoleMatcher,
+  type ByRoleOptions,
   render as rtlRender,
   screen as rtlScreen,
 } from '@testing-library/react';
+import type React from 'react';
+import type { JSX } from 'react';
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
 
-import { RootState } from './model/model';
+import type { RootState } from './model/model';
 import { getTestStore } from './store';
 
 function render(
@@ -22,8 +22,8 @@ function render(
     ...renderOptions
   } = {} as {
     initialState?: Partial<RootState>;
-    store?: any;
-    dispatch?: any;
+    store?: ReturnType<typeof getTestStore>;
+    dispatch?: ReturnType<typeof getTestStore>['dispatch'];
     route?: string;
   },
 ) {

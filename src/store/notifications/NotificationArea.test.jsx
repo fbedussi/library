@@ -1,45 +1,43 @@
-import React from 'react';
-
 import { fireEvent, render, screen } from '../../test-utils';
 import NotificationArea from './NotificationArea';
 
 vi.mock('./actions', () => ({
-	default: { removeNotification: () => 'removeNotification' },
+  default: { removeNotification: () => 'removeNotification' },
 }));
 
 test('Renders the notification', () => {
-	render(<NotificationArea />, {
-		initialState: {
-			notifications: [
-				{
-					_id: '1',
-					type: 'error',
-					message: 'foo',
-					autoClose: false,
-				},
-			],
-		},
-	});
+  render(<NotificationArea />, {
+    initialState: {
+      notifications: [
+        {
+          _id: '1',
+          type: 'error',
+          message: 'foo',
+          autoClose: false,
+        },
+      ],
+    },
+  });
 
-	expect(screen.getByText('foo')).toBeTruthy();
-	expect(screen.getByTestId('close-button')).toBeTruthy();
+  expect(screen.getByText('foo')).toBeTruthy();
+  expect(screen.getByTestId('close-button')).toBeTruthy();
 });
 
 test('CloseButton', () => {
-	const dispatch = vi.fn();
-	render(<NotificationArea />, {
-		dispatch,
-		initialState: {
-			notifications: [
-				{
-					_id: '1',
-					type: 'error',
-					message: 'foo',
-					autoClose: false,
-				},
-			],
-		},
-	});
-	fireEvent.click(screen.getByTestId('close-button'));
-	expect(dispatch).toBeCalledWith('removeNotification');
+  const dispatch = vi.fn();
+  render(<NotificationArea />, {
+    dispatch,
+    initialState: {
+      notifications: [
+        {
+          _id: '1',
+          type: 'error',
+          message: 'foo',
+          autoClose: false,
+        },
+      ],
+    },
+  });
+  fireEvent.click(screen.getByTestId('close-button'));
+  expect(dispatch).toBeCalledWith('removeNotification');
 });

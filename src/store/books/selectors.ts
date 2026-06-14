@@ -1,4 +1,4 @@
-import { Id, RootState } from '../../model/model';
+import type { Id, RootState } from '../../model/model';
 
 export const selectBooks = (state: RootState) => state.books;
 

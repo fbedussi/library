@@ -1,7 +1,7 @@
-import { Action } from 'redux';
-import { ThunkAction, ThunkDispatch } from 'redux-thunk';
+import type { Action } from 'redux';
+import type { ThunkAction, ThunkDispatch } from 'redux-thunk';
 
-import { RootState } from './model';
+import type { RootState } from './model';
 
 export type AppThunk = ThunkAction<void, RootState, unknown, Action<string>>;
 

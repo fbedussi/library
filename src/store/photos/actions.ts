@@ -1,5 +1,5 @@
 import { uploadPhotoToBucket } from '../../data';
-import { AppThunkPromise } from '../../model/types';
+import type { AppThunkPromise } from '../../model/types';
 import { extractTextFromImage } from '../../ocr';
 import { slice } from './slice';
 

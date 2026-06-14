@@ -1,4 +1,4 @@
-import { Base64 } from '../model/model';
+import type { Base64 } from '../model/model';
 
 export const b64toBlob = (
   b64Data: Base64,

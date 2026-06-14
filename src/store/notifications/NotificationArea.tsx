@@ -1,9 +1,7 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { TDispatch } from '../../model/types';
-import { IconButton, Snackbar } from '@mui/material';
 import { Close } from '@mui/icons-material';
+import { IconButton, Snackbar } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import type { TDispatch } from '../../model/types';
 import notificationsActions from './actions';
 import { selectNotifications } from './selectors';
 
@@ -18,19 +16,17 @@ const NotificationArea = () => {
           open={true}
           message={message}
           action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                data-testid="close-button"
-                color="inherit"
-                onClick={() =>
-                  dispatch(notificationsActions.removeNotification(_id))
-                }
-              >
-                <Close />
-              </IconButton>
-            </React.Fragment>
+            <IconButton
+              size="small"
+              aria-label="close"
+              data-testid="close-button"
+              color="inherit"
+              onClick={() =>
+                dispatch(notificationsActions.removeNotification(_id))
+              }
+            >
+              <Close />
+            </IconButton>
           }
         />
       ))}

@@ -1,6 +1,6 @@
 import { generateUID } from '../../libs/uuid';
-import { Notification } from '../../model/model';
-import { AppThunk } from '../../model/types';
+import type { Notification } from '../../model/model';
+import type { AppThunk } from '../../model/types';
 import errorsActions from '../errors/actions';
 import { selectNotification } from './selectors';
 import { slice } from './slice';

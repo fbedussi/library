@@ -1,17 +1,16 @@
-import React from 'react';
+import { ExitToApp, GetApp } from '@mui/icons-material';
+import { Button, MenuItem, MenuList, Typography } from '@mui/material';
+import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import BackLink from '../components/BackLink';
 import {
   PageWrapper,
   ToolbarStyled,
   TopAppBar,
 } from '../components/CommonComponents';
-import { TDispatch } from '../model/types';
+import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectBooks } from '../store/books/selectors';
-import { Button, MenuItem, MenuList, Typography } from '@mui/material';
-import { ExitToApp, GetApp } from '@mui/icons-material';
 
 const SettingsPage: React.FC = () => {
   const books = useSelector(selectBooks);
@@ -39,7 +38,12 @@ const SettingsPage: React.FC = () => {
 
       <MenuList>
         <MenuItem>
-          <a href={href} download="library.csv" target="_blank" rel="noreferrer">
+          <a
+            href={href}
+            download="library.csv"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Button variant="contained" startIcon={<GetApp />}>
               esporta dati
             </Button>

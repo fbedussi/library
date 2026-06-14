@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { Book, Id } from '../../model/model';
+import type { Book, Id } from '../../model/model';
 
 const initialState: Book[] = [];
 

@@ -1,8 +1,6 @@
-import React from 'react';
-
 import userEvent from '@testing-library/user-event';
 
-import { Book } from '../model/model';
+import type { Book } from '../model/model';
 import { render, screen } from '../test-utils';
 import BookCard from './BookCard';
 
@@ -28,7 +26,7 @@ test('display data and image', () => {
   expect(bookLink.href.includes(`/book/${book.id}`)).toBe(true);
   expect(screen.getByText(book.author)).toBeInTheDocument();
   expect(screen.getByText(book.location)).toBeInTheDocument();
-  expect(screen.getByText(book.category!)).toBeInTheDocument();
+  expect(book.category && screen.getByText(book.category)).toBeInTheDocument();
   expect(screen.getByTestId('edit-link')).toBeInTheDocument();
   const img = screen.getByTestId('book-cover');
   expect(img).toBeInTheDocument();

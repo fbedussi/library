@@ -1,88 +1,87 @@
-import { Base64, Book, DbBook, Id } from './model/model';
-import db, { UploadTaskSnapshot, storage } from './firebase';
-
+import db, { storage, type UploadTaskSnapshot } from './firebase';
 import { b64toBlob } from './libs/photos';
+import type { Base64, Book, DbBook, Id } from './model/model';
 
 const booksCollection = db.collection('books');
 
 export const searchBooksInDB = (
-	handleUpdate: (books: Book[]) => void,
-	searchCriteria: {
-		author: string;
-		title: string;
-		location: string;
-		userId: Id;
-	},
+  handleUpdate: (books: Book[]) => void,
+  searchCriteria: {
+    author: string;
+    title: string;
+    location: string;
+    userId: Id;
+  },
 ) => {
-	const { author, title, location, userId } = searchCriteria;
-	booksCollection
-		.where('title', '>=', title)
-		.where('author', '>=', author)
-		.where('location', '>=', location)
-		.where('userId', '==', userId)
-		.get()
-		.then(function (querySnapshot) {
-			let results: Book[] = [];
-			querySnapshot.forEach(function (doc) {
-				const dataFromDb = doc.data() as Book;
-				results.push(dataFromDb);
-			});
-			handleUpdate(results);
-		});
+  const { author, title, location, userId } = searchCriteria;
+  booksCollection
+    .where('title', '>=', title)
+    .where('author', '>=', author)
+    .where('location', '>=', location)
+    .where('userId', '==', userId)
+    .get()
+    .then(querySnapshot => {
+      const results: Book[] = [];
+      querySnapshot.forEach(doc => {
+        const dataFromDb = doc.data() as Book;
+        results.push(dataFromDb);
+      });
+      handleUpdate(results);
+    });
 };
 
 export const loadBooksFromDB = (
-	handleUpdate: (books: Book[]) => void,
-	userId: Id,
+  handleUpdate: (books: Book[]) => void,
+  userId: Id,
 ) => {
-	booksCollection
-		.where('userId', '==', userId)
-		.get()
-		.then(function (querySnapshot) {
-			let results: Book[] = [];
-			querySnapshot.forEach(doc => {
-				const dataFromDb = doc.data() as Omit<Book, 'id'>;
-				results.push({ ...dataFromDb, id: doc.id });
-			});
-			handleUpdate(results);
-		});
+  booksCollection
+    .where('userId', '==', userId)
+    .get()
+    .then(querySnapshot => {
+      const results: Book[] = [];
+      querySnapshot.forEach(doc => {
+        const dataFromDb = doc.data() as Omit<Book, 'id'>;
+        results.push({ ...dataFromDb, id: doc.id });
+      });
+      handleUpdate(results);
+    });
 };
 
 export const addBookInDB = (
-	book: Omit<Book, 'id'>,
-	userId: Id,
+  book: Omit<Book, 'id'>,
+  userId: Id,
 ): Promise<Book> => {
-	if (book.read === undefined) {
-		// no undefined are allowed on firebase
-		delete book.read;
-	}
-	return booksCollection.add({ ...book, userId }).then(doc => {
-		return { ...book, id: doc.id };
-	});
+  if (book.read === undefined) {
+    // no undefined are allowed on firebase
+    delete book.read;
+  }
+  return booksCollection.add({ ...book, userId }).then(doc => {
+    return { ...book, id: doc.id };
+  });
 };
 
 export const deleteBookInDB = (id: Id) => {
-	return booksCollection.doc(id).delete();
+  return booksCollection.doc(id).delete();
 };
 
 export const updateBookInDB = (book: DbBook) => {
-	// firebase does not accept undefined values
-	if (book.read === undefined) {
-		delete book.read;
-	}
-	return booksCollection.doc(book.id).set(book);
+  // firebase does not accept undefined values
+  if (book.read === undefined) {
+    delete book.read;
+  }
+  return booksCollection.doc(book.id).set(book);
 };
 
 export const uploadPhotoToBucket = (
-	base64: Base64,
-	contentType: string,
+  base64: Base64,
+  contentType: string,
 ): Promise<UploadTaskSnapshot> => {
-	const uuid = crypto.randomUUID();
-	const pictureRef = storage.child(`${uuid}.jpg`);
-	return pictureRef
-		.put(b64toBlob(base64, contentType))
-		.catch(error => console.error(error));
+  const uuid = crypto.randomUUID();
+  const pictureRef = storage.child(`${uuid}.jpg`);
+  return pictureRef
+    .put(b64toBlob(base64, contentType))
+    .catch(error => console.error(error));
 };
 
 export const getPhotoUrl = (photoId: string) =>
-	storage.child(photoId).getDownloadURL();
+  storage.child(photoId).getDownloadURL();

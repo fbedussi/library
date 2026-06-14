@@ -1,13 +1,15 @@
-import React from 'react';
+import userEvent from '@testing-library/user-event';
 import { Route, Routes } from 'react-router-dom';
 
-import userEvent from '@testing-library/user-event';
-
+import type { Book } from '../model/model';
 import booksActions from '../store/books/actions';
 import { render, screen, waitFor } from '../test-utils';
 import EditBookPage from './EditBookPage';
 
-booksActions.update = (x: any) => ({ ...x, type: 'update' });
+booksActions.update = ((x: Book) => ({
+  ...x,
+  type: 'update',
+})) as unknown as typeof booksActions.update;
 
 test('renders correctly - no book', () => {
   const page = render(<EditBookPage />);
@@ -22,7 +24,14 @@ test('renders correctly - with book', () => {
     {
       initialState: {
         books: [
-          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '', category: 'cat' },
+          {
+            id: 'B',
+            author: 'a',
+            title: 't',
+            location: 'l',
+            coverPath: '',
+            category: 'cat',
+          },
         ],
       },
       route: '/edit/B',
@@ -40,7 +49,14 @@ test('submits correctly', async () => {
     {
       initialState: {
         books: [
-          { id: 'B', author: 'a', title: 't', location: 'l', coverPath: '', category: 'cay' },
+          {
+            id: 'B',
+            author: 'a',
+            title: 't',
+            location: 'l',
+            coverPath: '',
+            category: 'cay',
+          },
         ],
       },
       dispatch,
@@ -59,8 +75,8 @@ test('submits correctly', async () => {
   const locationInput = screen.getByLabelText(/collocazione/i);
   await user.clear(locationInput);
   await user.type(locationInput, 'location');
-  const categoryInput = screen.getByLabelText(/categoria/i)
-  await user.clear(categoryInput)
+  const categoryInput = screen.getByLabelText(/categoria/i);
+  await user.clear(categoryInput);
   await user.type(categoryInput, 'category');
   const submitBtn = screen.getByRole('button', {
     name: /salva/i,

@@ -4,10 +4,20 @@ const _localStorageData: Record<string, string> = {};
 Object.defineProperty(globalThis, 'localStorage', {
   value: {
     getItem: (key: string) => _localStorageData[key] ?? null,
-    setItem: (key: string, value: string) => { _localStorageData[key] = String(value); },
-    removeItem: (key: string) => { delete _localStorageData[key]; },
-    clear: () => { Object.keys(_localStorageData).forEach(k => delete _localStorageData[k]); },
-    get length() { return Object.keys(_localStorageData).length; },
+    setItem: (key: string, value: string) => {
+      _localStorageData[key] = String(value);
+    },
+    removeItem: (key: string) => {
+      delete _localStorageData[key];
+    },
+    clear: () => {
+      Object.keys(_localStorageData).forEach(k => {
+        delete _localStorageData[k];
+      });
+    },
+    get length() {
+      return Object.keys(_localStorageData).length;
+    },
     key: (i: number) => Object.keys(_localStorageData)[i] ?? null,
   },
   writable: true,
@@ -17,9 +27,9 @@ Object.defineProperty(globalThis, 'localStorage', {
 import '@testing-library/jest-dom';
 
 window.ResizeObserver = class ResizeObserver {
-  observe() { }
-  unobserve() { }
-  disconnect() { }
+  observe() {}
+  unobserve() {}
+  disconnect() {}
 };
 
 vi.mock('./data', () => ({}));

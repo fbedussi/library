@@ -1,141 +1,139 @@
-import React from 'react';
-
 import userEvent from '@testing-library/user-event';
 
 import { render, screen, waitFor } from '../test-utils';
 import BookForm from './BookForm';
 
 vi.mock('../store/books/actions', () => ({
-	default: { remove: (id: string) => id },
+  default: { remove: (id: string) => id },
 }));
 
 const initialValues = {
-	title: 'title',
-	author: 'author',
-	location: 'location',
-	read: '',
+  title: 'title',
+  author: 'author',
+  location: 'location',
+  read: '',
 };
 
 const onSubmit = vi.fn();
 
 test('displays the fields with initial values', () => {
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			variant="edit"
-		/>,
-	);
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      variant="edit"
+    />,
+  );
 
-	expect(screen.getByLabelText(/autore/i)).toBeInTheDocument();
-	expect(screen.getByLabelText(/titolo/i)).toBeInTheDocument();
-	expect(screen.getByLabelText(/collocazione/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/autore/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/titolo/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/collocazione/i)).toBeInTheDocument();
 
-	expect(screen.getByDisplayValue('author')).toBeInTheDocument();
-	expect(screen.getByDisplayValue('title')).toBeInTheDocument();
-	expect(screen.getByDisplayValue('location')).toBeInTheDocument();
+  expect(screen.getByDisplayValue('author')).toBeInTheDocument();
+  expect(screen.getByDisplayValue('title')).toBeInTheDocument();
+  expect(screen.getByDisplayValue('location')).toBeInTheDocument();
 });
 
 test('edit variant displays the read field', () => {
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			variant="edit"
-		/>,
-	);
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      variant="edit"
+    />,
+  );
 
-	expect(screen.getByText(/letto/i)).toBeInTheDocument();
+  expect(screen.getByText(/letto/i)).toBeInTheDocument();
 });
 
 test('search variant displays the showOnlyNotRead field', () => {
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			variant="search"
-		/>,
-	);
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      variant="search"
+    />,
+  );
 
-	expect(screen.getByLabelText(/non letto/i)).toBeInTheDocument();
+  expect(screen.getByLabelText(/non letto/i)).toBeInTheDocument();
 });
 
 test('displays the buttons', () => {
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			variant="edit"
-		/>,
-	);
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      variant="edit"
+    />,
+  );
 
-	const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
-		name: 'submit',
-	});
-	expect(submitBtn).toBeInTheDocument();
-	expect(submitBtn.type).toBe('submit');
-	const resetBtn = screen.getByRole('button', {
-		name: 'reset',
-	}) as HTMLButtonElement;
-	expect(resetBtn).toBeInTheDocument();
-	expect(resetBtn.type).toBe('reset');
+  const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
+    name: 'submit',
+  });
+  expect(submitBtn).toBeInTheDocument();
+  expect(submitBtn.type).toBe('submit');
+  const resetBtn = screen.getByRole('button', {
+    name: 'reset',
+  }) as HTMLButtonElement;
+  expect(resetBtn).toBeInTheDocument();
+  expect(resetBtn.type).toBe('reset');
 });
 
 test('displays error', async () => {
-	const user = userEvent.setup();
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			validate={() => ({
-				title: 'errTitle',
-				author: 'errAuthor',
-				location: 'errLocation',
-			})}
-			variant="edit"
-		/>,
-	);
-	await user.type(screen.getByLabelText(/autore/i), 'author2');
-	const submitBtn = screen.getByRole('button', {
-		name: 'submit',
-	}) as HTMLButtonElement;
-	await user.click(submitBtn);
-	expect(onSubmit).not.toBeCalled();
-	expect(await screen.findByText(/errTitle/i)).toBeInTheDocument();
-	expect(await screen.findByText(/errAuthor/i)).toBeInTheDocument();
-	expect(await screen.findByText(/errLocation/i)).toBeInTheDocument();
+  const user = userEvent.setup();
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      validate={() => ({
+        title: 'errTitle',
+        author: 'errAuthor',
+        location: 'errLocation',
+      })}
+      variant="edit"
+    />,
+  );
+  await user.type(screen.getByLabelText(/autore/i), 'author2');
+  const submitBtn = screen.getByRole('button', {
+    name: 'submit',
+  }) as HTMLButtonElement;
+  await user.click(submitBtn);
+  expect(onSubmit).not.toBeCalled();
+  expect(await screen.findByText(/errTitle/i)).toBeInTheDocument();
+  expect(await screen.findByText(/errAuthor/i)).toBeInTheDocument();
+  expect(await screen.findByText(/errLocation/i)).toBeInTheDocument();
 });
 
 test('calls onSubmit', async () => {
-	const onSubmit = vi.fn();
-	const user = userEvent.setup();
+  const onSubmit = vi.fn();
+  const user = userEvent.setup();
 
-	render(
-		<BookForm
-			initialValues={initialValues}
-			onSubmit={onSubmit}
-			primaryLabel="submit"
-			PrimaryIcon={<span></span>}
-			variant="edit"
-		/>,
-	);
-	await user.type(screen.getByLabelText(/autore/i), 'author2');
-	const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
-		name: 'submit',
-	});
-	expect(submitBtn.disabled).toBe(false);
-	await user.click(submitBtn);
-	waitFor(() => {
-		expect(onSubmit).toBeCalled();
-	});
+  render(
+    <BookForm
+      initialValues={initialValues}
+      onSubmit={onSubmit}
+      primaryLabel="submit"
+      PrimaryIcon={<span></span>}
+      variant="edit"
+    />,
+  );
+  await user.type(screen.getByLabelText(/autore/i), 'author2');
+  const submitBtn = screen.getByRole<HTMLButtonElement>('button', {
+    name: 'submit',
+  });
+  expect(submitBtn.disabled).toBe(false);
+  await user.click(submitBtn);
+  waitFor(() => {
+    expect(onSubmit).toBeCalled();
+  });
 });

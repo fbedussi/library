@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-
 import { Chip } from '@mui/material';
+import type React from 'react';
+import { useState } from 'react';
 import styles from './word.module.css';
 
 const Word: React.FC<{ word: string; onClick: () => void }> = ({

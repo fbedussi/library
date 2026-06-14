@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthState } from '../../model/model';
+import type { AuthState } from '../../model/model';
 import { getPersistedtUserId } from '../../persistance';
 
 const initialState: AuthState = {

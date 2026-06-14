@@ -1,11 +1,11 @@
-import Fuse from 'fuse.js';
+import Fuse, { type Expression } from 'fuse.js';
 
-import { Book, SearchCriteria } from '../model/model';
+import type { Book, SearchCriteria } from '../model/model';
 
 const options = {
-	keys: ['title', 'author', 'location', 'category'],
-	includeScore: true,
-	useExtendedSearch: true,
+  keys: ['title', 'author', 'location', 'category'],
+  includeScore: true,
+  useExtendedSearch: true,
 };
 
 let fuse: Fuse<Book> | undefined;
@@ -13,82 +13,82 @@ let fuse: Fuse<Book> | undefined;
 let allBooks: Book[] = [];
 
 export const initSearch = (books: Book[]) => {
-	const index = Fuse.createIndex(options.keys, books);
-	allBooks = books;
-	fuse = new Fuse(books, options, index);
+  const index = Fuse.createIndex(options.keys, books);
+  allBooks = books;
+  fuse = new Fuse(books, options, index);
 };
 
 export const search = ({
-	author,
-	title,
-	location,
-	category,
-	showOnlyNotRead,
+  author,
+  title,
+  location,
+  category,
+  showOnlyNotRead,
 }: SearchCriteria) => {
-	if (!author && !title && !location && !category && showOnlyNotRead) {
-		const result = allBooks
-			.filter(book => book.read === false)
-			.map((book, refIndex) => ({ item: book, refIndex, score: 0 }));
-		return result;
-	}
-	// TODO: why is not a { [field: string]: string }[]
-	const query: any[] = [{ author }, { title }, { location }, { category }]
-		.filter(obj => Object.values(obj).every(value => value))
-		.map(field =>
-			Object.keys(field)[0] === 'location'
-				? { location: `^${field.location}` }
-				: field,
-		);
-	const result = fuse?.search({
-		$and: query,
-	});
-	return showOnlyNotRead
-		? result?.filter(result => result.item.read === false)
-		: result;
+  if (!author && !title && !location && !category && showOnlyNotRead) {
+    const result = allBooks
+      .filter(book => book.read === false)
+      .map((book, refIndex) => ({ item: book, refIndex, score: 0 }));
+    return result;
+  }
+  // TODO: why is not a { [field: string]: string }[]
+  const query = [{ author }, { title }, { location }, { category }]
+    .filter(obj => Object.values(obj).every(value => value))
+    .map(field =>
+      Object.keys(field)[0] === 'location'
+        ? { location: `^${field.location}` }
+        : field,
+    );
+  const result = fuse?.search({
+    $and: query as Expression[],
+  });
+  return showOnlyNotRead
+    ? result?.filter(result => result.item.read === false)
+    : result;
 };
 
 export const splitCode = (code: string): (string | number)[] => {
-	let parts: (string | number)[] = [];
-	while (code.length) {
-		const match = code.match(/[^\d]+|\d+/);
-		if (!match) {
-			throw new Error('Invalid code');
-		}
-		const isNumber = Boolean(match[0].match(/\d+/));
-		parts.push(isNumber ? parseInt(match[0]) : match[0]);
-		code = code.substring(match[0].length);
-	}
-	return parts;
+  const parts: (string | number)[] = [];
+  while (code.length) {
+    const match = code.match(/[^\d]+|\d+/);
+    if (!match) {
+      throw new Error('Invalid code');
+    }
+    const isNumber = Boolean(match[0].match(/\d+/));
+    parts.push(isNumber ? Number(match[0]) : match[0]);
+    code = code.substring(match[0].length);
+  }
+  return parts;
 };
 
 export const sort = (
-	cod1: string | boolean | undefined,
-	cod2: string | boolean | undefined,
+  cod1: string | boolean | undefined,
+  cod2: string | boolean | undefined,
 ): number => {
-	const parts1 = splitCode(cod1?.toString() || 'false');
-	const parts2 = splitCode(cod2?.toString() || 'false');
-	const firstDifferentPartIndex = parts1.findIndex(
-		(part, index) => part !== parts2[index],
-	);
+  const parts1 = splitCode(cod1?.toString() || 'false');
+  const parts2 = splitCode(cod2?.toString() || 'false');
+  const firstDifferentPartIndex = parts1.findIndex(
+    (part, index) => part !== parts2[index],
+  );
 
-	if (
-		typeof parts1[firstDifferentPartIndex] !==
-		typeof parts2[firstDifferentPartIndex]
-	) {
-		return 0;
-	}
+  if (
+    typeof parts1[firstDifferentPartIndex] !==
+    typeof parts2[firstDifferentPartIndex]
+  ) {
+    return 0;
+  }
 
-	const a = parts1[firstDifferentPartIndex];
-	const b = parts2[firstDifferentPartIndex];
-	return a < b ? -1 : a === b ? 0 : 1;
+  const a = parts1[firstDifferentPartIndex];
+  const b = parts2[firstDifferentPartIndex];
+  return a < b ? -1 : a === b ? 0 : 1;
 };
 
 export const convertRead = <T>(
-	values: T & { read?: string | boolean },
+  values: T & { read?: string | boolean },
 ): T & { read?: boolean } => ({
-	...values,
-	read:
-		typeof values.read === 'boolean'
-			? values.read
-			: (!!values.read?.length || undefined) && values.read === 'true',
+  ...values,
+  read:
+    typeof values.read === 'boolean'
+      ? values.read
+      : (!!values.read?.length || undefined) && values.read === 'true',
 });

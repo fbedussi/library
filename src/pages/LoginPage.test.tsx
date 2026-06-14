@@ -1,16 +1,12 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
-
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { render } from '../test-utils';
 import LoginPage from './LoginPage';
-import SearchPage from './SearchPage';
 
 vi.mock('../store/auth/actions', () => ({
   default: {
-    login: (x: any) => ({ ...x, type: 'login' }),
+    login: (x: object) => ({ ...x, type: 'login' }),
   },
 }));
 
@@ -31,7 +27,7 @@ test('submits', async () => {
   await user.click(screen.getByLabelText(/ricordami/));
   await user.click(screen.getByRole('button', { name: /accedi/ }));
 
-  await waitFor(() => { });
+  await waitFor(() => {});
   expect(dispatch).toBeCalledWith({
     username: 'foo',
     password: 'baz',

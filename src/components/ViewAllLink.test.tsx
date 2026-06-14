@@ -1,10 +1,8 @@
-import React from 'react';
-
 import { render, screen } from '../test-utils';
 import ViewAllLink from './ViewAllLink';
 
-vi.mock('../store/books/selectors', async (importOriginal) => {
-  const originalModule = await importOriginal();
+vi.mock('../store/books/selectors', async importOriginal => {
+  const originalModule = await importOriginal<object>();
 
   return {
     ...originalModule,

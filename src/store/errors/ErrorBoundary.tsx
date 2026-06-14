@@ -1,10 +1,14 @@
-import React, { PropsWithChildren, Suspense } from 'react';
-import { connect } from 'react-redux';
-
-import { BeError, Notification, RootState, UiError } from '../../model/model';
-import { TDispatch } from '../../model/types';
-import ErrorPage from '../../pages/ErrorPage';
 import { CircularProgress } from '@mui/material';
+import React, { type PropsWithChildren, Suspense } from 'react';
+import { connect } from 'react-redux';
+import type {
+  BeError,
+  Notification,
+  RootState,
+  UiError,
+} from '../../model/model';
+import type { TDispatch } from '../../model/types';
+import ErrorPage from '../../pages/ErrorPage';
 import notificationsActions from '../notifications/actions';
 import errorsActions from './actions';
 import { selectHttpErrors, selectUiErrors } from './selectors';
@@ -21,7 +25,7 @@ class ErrorBoundary extends React.Component<PropsWithChildren<Props>> {
   componentDidCatch(error: Error) {
     const { setHttpError, setUiError } = this.props;
     return 'status' in error
-      ? setHttpError(error as any as BeError)
+      ? setHttpError(error as unknown as BeError)
       : setUiError({ message: error.message, stack: error.stack });
   }
 

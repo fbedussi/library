@@ -1,12 +1,11 @@
-import React from 'react';
+import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
+import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router-dom';
-
 import { PageWrapper } from '../components/CommonComponents';
-import { TDispatch } from '../model/types';
+import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectUserId } from '../store/auth/selectors';
-import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import styles from './loginPage.module.css';
 
 const LoginPage: React.FC = () => {
@@ -21,11 +20,16 @@ const LoginPage: React.FC = () => {
       <form
         className={styles['login-form']}
         action={(formData: FormData) => {
-          dispatch(authActions.login({
-            username: formData.get('username') as string,
-            password: formData.get('password') as string,
-            rememberMe: formData.get('rememberMe') === 'on',
-          }, navigate));
+          dispatch(
+            authActions.login(
+              {
+                username: formData.get('username') as string,
+                password: formData.get('password') as string,
+                rememberMe: formData.get('rememberMe') === 'on',
+              },
+              navigate,
+            ),
+          );
         }}
       >
         <TextField

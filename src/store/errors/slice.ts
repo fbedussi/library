@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { generateUID } from '../../libs/uuid';
-import { BeError, Errors, UiError } from '../../model/model';
+import type { BeError, Errors, UiError } from '../../model/model';
 
 const initialState: Errors = {
   http: [],

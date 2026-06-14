@@ -1,8 +1,10 @@
-import { FuseResult } from 'fuse.js';
-import React, { useEffect, useMemo, useRef } from 'react';
+import { Add, MoreVert, Search } from '@mui/icons-material';
+import { CircularProgress, Fab, IconButton, Typography } from '@mui/material';
+import type { FuseResult } from 'fuse.js';
+import type React from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
 import BookForm from '../components/BookForm';
 import BooksList from '../components/BookList';
 import {
@@ -13,10 +15,8 @@ import {
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
 import { convertRead, search, sort } from '../libs/search';
-import { Book, FormData, SortingOrder, SortingKey } from '../model/model';
+import type { Book, FormData, SortingKey, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
-import { CircularProgress, Fab, IconButton, Typography } from '@mui/material';
-import { Add, MoreVert, Search } from '@mui/icons-material';
 import styles from './searchPage.module.css';
 
 const SearchPage: React.FC = () => {
@@ -41,7 +41,7 @@ const SearchPage: React.FC = () => {
   const books = useSelector(selectBooks);
 
   const queryScrollTop = searchParams.get('scrollTop');
-  const defaultScrollTop = parseInt(queryScrollTop || '0');
+  const defaultScrollTop = Number(queryScrollTop || '0');
   const scrollTopAtLanding = useRef(defaultScrollTop);
   const scrollableContainerRef = useRef<HTMLDivElement>(null);
 
@@ -112,7 +112,7 @@ const SearchPage: React.FC = () => {
     );
 
     return books.map(({ item }) => item);
-  }, [searchCriteria, sortingKey, sortingOrder, books]);
+  }, [searchCriteria, sortingKey, sortingOrder]);
 
   useEffect(() => {
     if (scrollableContainerRef.current && booksToShow.length) {
@@ -149,7 +149,7 @@ const SearchPage: React.FC = () => {
       <div className={styles['book-form-and-sorting-bar']}>
         <BookForm
           initialValues={searchCriteria}
-          onSubmit={(values, reset) => {
+          onSubmit={values => {
             setSearchCriteria(values);
           }}
           onReset={() => {
@@ -174,9 +174,7 @@ const SearchPage: React.FC = () => {
         />
       </div>
 
-      <BooksList
-        books={booksToShow}
-      />
+      <BooksList books={booksToShow} />
 
       <LinkNoStyle to="/add" className={styles['fab-link']}>
         <Fab color="secondary" aria-label="add">
