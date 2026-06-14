@@ -1,5 +1,5 @@
 import userEvent from '@testing-library/user-event';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 
 import type { Book } from '../model/model';
 import booksActions from '../store/books/actions';

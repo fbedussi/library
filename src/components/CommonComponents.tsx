@@ -1,6 +1,6 @@
 import { AppBar, Toolbar } from '@mui/material';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import styles from './commonComponents.module.css';
 
 export const PageWrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({

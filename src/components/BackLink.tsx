@@ -1,6 +1,6 @@
 import { ChevronLeft } from '@mui/icons-material';
 import { IconButton } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const BackLink = () => {
   const navigate = useNavigate();

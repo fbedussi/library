@@ -1,7 +1,7 @@
 import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router';
 import { PageWrapper } from '../components/CommonComponents';
 import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';

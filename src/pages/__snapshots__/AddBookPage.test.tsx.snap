@@ -40,6 +40,7 @@ exports[`renders correctly 1`] = `
             </h6>
             <a
               class="link-no-style"
+              data-discover="true"
               href="/view-all"
             >
               <button
@@ -81,6 +82,7 @@ exports[`renders correctly 1`] = `
           </p>
           <a
             class="link-no-style"
+            data-discover="true"
             href="/camera"
           >
             <button
@@ -497,6 +499,7 @@ exports[`renders correctly 1`] = `
           </h6>
           <a
             class="link-no-style"
+            data-discover="true"
             href="/view-all"
           >
             <button
@@ -538,6 +541,7 @@ exports[`renders correctly 1`] = `
         </p>
         <a
           class="link-no-style"
+          data-discover="true"
           href="/camera"
         >
           <button

@@ -1,16 +1,16 @@
 import userEvent from '@testing-library/user-event';
-import * as router from 'react-router-dom';
+import * as router from 'react-router';
 
 import { render, screen } from '../test-utils';
 import HomeLink from './HomeLink';
 
-vi.mock('react-router-dom', async importOriginal => ({
+vi.mock('react-router', async importOriginal => ({
   ...(await importOriginal()),
   useNavigate: vi.fn(),
 }));
 
 beforeEach(async () => {
-  const actual = await vi.importActual<typeof router>('react-router-dom');
+  const actual = await vi.importActual<typeof router>('react-router');
   vi.mocked(router.useNavigate).mockImplementation(actual.useNavigate);
 });
 

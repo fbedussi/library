@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 
 import { render } from '../test-utils';
 import SingleBookPage from './SingleBookPage';

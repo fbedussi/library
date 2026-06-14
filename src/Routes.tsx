@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Route, Routes as Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes as Switch } from 'react-router';
 
 import type { TDispatch } from './model/types';
 import AddBookPage from './pages/AddBookPage';

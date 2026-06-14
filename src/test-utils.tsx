@@ -7,7 +7,7 @@ import {
 import type React from 'react';
 import type { JSX } from 'react';
 import { Provider } from 'react-redux';
-import { MemoryRouter } from 'react-router-dom';
+import { MemoryRouter } from 'react-router';
 
 import type { RootState } from './model/model';
 import { getTestStore } from './store';

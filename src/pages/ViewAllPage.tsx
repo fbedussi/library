@@ -2,7 +2,7 @@ import { Typography } from '@mui/material';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import BackLink from '../components/BackLink';
 import BooksList from '../components/BookList';
 import {
