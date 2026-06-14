@@ -8,8 +8,8 @@ import {
 	IconButton,
 	Radio,
 	RadioGroup,
-} from '../styleguide';
-import { ArrowDownward, ArrowUpward } from '../styleguide/icons';
+} from '@mui/material';
+import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
 import styles from './sortingBar.module.css';
 
 interface Props {

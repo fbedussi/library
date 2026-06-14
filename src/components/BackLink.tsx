@@ -1,8 +1,8 @@
-import React from 'react';
+import React from 'react'
+import { ChevronLeft } from '@mui/icons-material';
+import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { IconButton } from '../styleguide';
-import { ChevronLeft } from '../styleguide/icons';
 
 const BackLink = () => {
   const navigate = useNavigate();

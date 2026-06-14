@@ -15,8 +15,8 @@ import ViewAllLink from '../components/ViewAllLink';
 import { convertRead, search, sort } from '../libs/search';
 import { Book, FormData, SortingOrder, SortingKey } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
-import { CircularProgress, Fab, IconButton, Typography } from '../styleguide';
-import { Add, MoreVert, Search } from '../styleguide/icons';
+import { CircularProgress, Fab, IconButton, Typography } from '@mui/material';
+import { Add, MoreVert, Search } from '@mui/icons-material';
 import styles from './searchPage.module.css';
 
 const SearchPage: React.FC = () => {

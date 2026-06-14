@@ -2,8 +2,8 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { TDispatch } from '../../model/types';
-import { IconButton, Snackbar } from '../../styleguide';
-import { Close } from '../../styleguide/icons';
+import { IconButton, Snackbar } from '@mui/material';
+import { Close } from '@mui/icons-material';
 import notificationsActions from './actions';
 import { selectNotifications } from './selectors';
 

@@ -10,8 +10,8 @@ import {
 	Radio,
 	RadioGroup,
 	TextField,
-} from '../styleguide';
-import { Close } from '../styleguide/icons';
+} from '@mui/material';
+import { Close } from '@mui/icons-material';
 import styles from './bookForm.module.css';
 
 interface Props {

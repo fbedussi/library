@@ -1,8 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { IconButton } from '../styleguide';
-import { Search } from '../styleguide/icons';
+import { IconButton } from '@mui/material';
+import { Search } from '@mui/icons-material';
 
 const HomeLink = () => {
   const navigate = useNavigate();

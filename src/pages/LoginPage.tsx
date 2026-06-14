@@ -6,7 +6,7 @@ import { PageWrapper } from '../components/CommonComponents';
 import { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectUserId } from '../store/auth/selectors';
-import { Button, FormControlLabel, Switch, TextField } from '../styleguide';
+import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import styles from './loginPage.module.css';
 
 const LoginPage: React.FC = () => {

@@ -15,7 +15,7 @@ import { Id, FormData } from '../model/model';
 import { TDispatch } from '../model/types';
 import booksActions from '../store/books/actions';
 import { selectBook } from '../store/books/selectors';
-import { Save } from '../styleguide/icons';
+import { Save } from '@mui/icons-material';
 
 const EditBookPage: React.FC = () => {
 	const { bookId } = useParams<{ bookId: Id }>();

@@ -10,8 +10,8 @@ import {
 import { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectBooks } from '../store/books/selectors';
-import { Button, MenuItem, MenuList, Typography } from '../styleguide';
-import { ExitToApp, GetApp } from '../styleguide/icons';
+import { Button, MenuItem, MenuList, Typography } from '@mui/material';
+import { ExitToApp, GetApp } from '@mui/icons-material';
 
 const SettingsPage: React.FC = () => {
   const books = useSelector(selectBooks);

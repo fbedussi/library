@@ -11,8 +11,8 @@ import {
 	CardMedia,
 	IconButton,
 	Typography,
-} from '../styleguide';
-import { Cancel, CheckCircle, Delete, Edit } from '../styleguide/icons';
+} from '@mui/material';
+import { Cancel, CheckCircle, Delete, Edit } from '@mui/icons-material';
 import { LinkNoStyle } from './CommonComponents';
 import styles from './bookCard.module.css'
 

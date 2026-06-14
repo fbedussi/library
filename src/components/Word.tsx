@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Chip } from '../styleguide';
+import { Chip } from '@mui/material';
 import styles from './word.module.css';
 
 const Word: React.FC<{ word: string; onClick: () => void }> = ({

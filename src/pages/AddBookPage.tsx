@@ -28,8 +28,8 @@ import {
 	Radio,
 	RadioGroup,
 	Typography,
-} from '../styleguide';
-import { Camera, Close, Save } from '../styleguide/icons';
+} from '@mui/material';
+import { Camera, Close, Save } from '@mui/icons-material';
 import styles from './addBookPage.module.css';
 
 const AddBookPage: React.FC = () => {

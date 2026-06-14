@@ -8,11 +8,11 @@ import store from './store';
 import ErrorBoundary from './store/errors/ErrorBoundary';
 import NotificationArea from './store/notifications/NotificationArea';
 import {
-  CacheProvider,
   CircularProgress,
   Container,
-  createCache,
-} from './styleguide';
+} from '@mui/material';
+import createCache from '@emotion/cache';
+import { CacheProvider } from '@emotion/react';
 
 const cache = createCache({
   key: 'library',

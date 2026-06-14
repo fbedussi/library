@@ -15,7 +15,7 @@ import { sort } from '../libs/search';
 import { genCharArray, isSortingOrder } from '../libs/utils';
 import { SortingKey, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
-import { Typography } from '../styleguide';
+import { Typography } from '@mui/material';
 import styles from './viewAllPage.module.css';
 
 const ViewAllPage: React.FC = () => {
