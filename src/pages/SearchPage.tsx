@@ -1,4 +1,4 @@
-import Fuse from 'fuse.js';
+import { FuseResult } from 'fuse.js';
 import React, { useEffect, useMemo, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router-dom';
@@ -97,7 +97,7 @@ const SearchPage: React.FC = () => {
   };
 
   const booksToShow = useMemo(() => {
-    const filteredBooks: Fuse.FuseResult<Book>[] | undefined = search(
+    const filteredBooks: FuseResult<Book>[] | undefined = search(
       convertRead(searchCriteria),
     );
     const books =
