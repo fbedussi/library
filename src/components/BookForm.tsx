@@ -1,18 +1,9 @@
-import { Close } from '@mui/icons-material';
-import {
-  Button,
-  Checkbox,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Radio,
-  RadioGroup,
-  TextField,
-} from '@mui/material';
 import type React from 'react';
 import { useEffect, useState } from 'react';
 import type { FormData as BookData } from '../model/model';
 import styles from './bookForm.module.css';
+import TextField from './TextField';
+import Close from '../icons/Close';
 
 interface Props {
   initialValues: BookData;
@@ -112,83 +103,85 @@ const BookForm: React.FC<Props> = ({
         <TextField
           id="author"
           name="author"
-          variant="outlined"
           label="autore"
           defaultValue={defaults.author}
-          error={!!errors.author}
-          helperText={errors.author}
+          error={errors.author}
         />
 
         <TextField
           id="title"
           name="title"
-          variant="outlined"
           label="titolo"
           defaultValue={defaults.title}
-          error={!!errors.title}
-          helperText={errors.title}
+          error={errors.title}
         />
 
         <TextField
           id="location"
           name="location"
-          variant="outlined"
           label="collocazione"
           defaultValue={defaults.location}
-          error={!!errors.location}
-          helperText={errors.location}
+          error={errors.location}
         />
 
         <TextField
           id="category"
           name="category"
-          variant="outlined"
           label="categoria"
+          placeholder="cate"
           defaultValue={defaults.category ?? ''}
         />
 
         {variant === 'search' && (
-          <FormControlLabel
-            control={
-              <Checkbox
-                name="showOnlyNotRead"
-                defaultChecked={!!defaults.showOnlyNotRead}
-              />
-            }
-            label="non letto"
-          />
+          <label>
+            <input
+              type="checkbox"
+              name="showOnlyNotRead"
+              defaultChecked={!!defaults.showOnlyNotRead}
+            />
+            non letto
+          </label>
         )}
 
         {variant === 'edit' && (
-          <FormControl>
-            <FormLabel>letto</FormLabel>
-            <RadioGroup name="read" defaultValue={defaults.read ?? ''} row>
-              <FormControlLabel value="true" control={<Radio />} label="sì" />
-              <FormControlLabel value="false" control={<Radio />} label="no" />
-              <FormControlLabel value="" control={<Radio />} label="non so" />
-            </RadioGroup>
-          </FormControl>
+          <fieldset>
+            <legend>letto</legend>
+            <input
+              type="radio"
+              id="yes"
+              name="read"
+              value="true"
+              defaultChecked={defaults.read === 'true'}
+            />
+            <label htmlFor="yes">sì</label>
+            <input
+              type="radio"
+              id="no"
+              name="read"
+              value="false"
+              defaultChecked={defaults.read === 'false'}
+            />
+            <label htmlFor="no">no</label>
+            <input
+              type="radio"
+              id="do-not-know"
+              name="read"
+              value=""
+              defaultChecked={defaults.read === undefined}
+            />
+            <label htmlFor="do-not-know">non so</label>
+          </fieldset>
         )}
       </div>
       <div className={styles['buttons-wrapper']}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={PrimaryIcon}
-          type="submit"
-        >
+        <button className="btn" type="submit">
+          {PrimaryIcon}
           {primaryLabel}
-        </Button>
-        <Button
-          variant="outlined"
-          color="primary"
-          size="large"
-          startIcon={<Close />}
-          type="reset"
-        >
+        </button>
+        <button className="btn secondary" type="reset">
+          <Close />
           reset
-        </Button>
+        </button>
       </div>
     </form>
   );

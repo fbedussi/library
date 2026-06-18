@@ -1,8 +1,8 @@
-import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
 import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, useNavigate } from 'react-router';
 import { PageWrapper } from '../components/CommonComponents';
+import TextField from '../components/TextField';
 import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectUserId } from '../store/auth/selectors';
@@ -32,27 +32,21 @@ const LoginPage: React.FC = () => {
           );
         }}
       >
-        <TextField
-          name="username"
-          id="username"
-          label="nome utente"
-          variant="outlined"
-        />
+        <TextField name="username" id="username" label="nome utente" />
         <TextField
           name="password"
           id="password"
           type="password"
           label="password"
-          variant="outlined"
         />
-        <FormControlLabel
-          control={<Switch name="rememberMe" />}
-          label="ricordami"
-        />
+        <label>
+          <input type="checkbox" name="rememberMe" />
+          ricordami
+        </label>
         <div className={styles['button-wrapper']}>
-          <Button type="submit" color="primary" variant="contained">
+          <button type="submit" className="btn">
             accedi
-          </Button>
+          </button>
         </div>
       </form>
     </PageWrapper>

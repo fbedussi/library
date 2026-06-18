@@ -80,7 +80,7 @@ export type FormData = Omit<SearchCriteria, 'read'> & {
   read?: string;
 };
 
-export type SortingKey = 'author' | 'title' | 'location';
+export type SortingKey = 'author' | 'title' | 'location' | 'category';
 
 export type Base64 = string;
 

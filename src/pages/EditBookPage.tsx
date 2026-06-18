@@ -1,14 +1,10 @@
-import { Save } from '@mui/icons-material';
 import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import BackLink from '../components/BackLink';
 import BookForm from '../components/BookForm';
-import {
-  BottomAppBar,
-  BottomBarPageWrapper,
-  ToolbarStyled,
-} from '../components/CommonComponents';
+import { PageWrapper, TopAppBar } from '../components/CommonComponents';
+import Save from '../icons/Save';
 import { convertRead } from '../libs/search';
 import { bookFormValidation } from '../libs/validation';
 import type { FormData, Id } from '../model/model';
@@ -35,7 +31,11 @@ const EditBookPage: React.FC = () => {
   };
 
   return (
-    <BottomBarPageWrapper>
+    <PageWrapper>
+      <TopAppBar>
+        <BackLink />
+      </TopAppBar>
+
       <BookForm
         initialValues={initialValues}
         enableReinitialize={true}
@@ -47,13 +47,7 @@ const EditBookPage: React.FC = () => {
         primaryLabel="salva"
         variant="edit"
       />
-
-      <BottomAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-        </ToolbarStyled>
-      </BottomAppBar>
-    </BottomBarPageWrapper>
+    </PageWrapper>
   );
 };
 

@@ -13,110 +13,45 @@ exports[`renders 1`] = `
           class="login-form"
         >
           <div
-            class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
+            class="container"
           >
+            <input
+              id="username"
+              name="username"
+              type="text"
+            />
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
               for="username"
-              id="username-label"
             >
               nome utente
             </label>
-            <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
-            >
-              <input
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                id="username"
-                name="username"
-                type="text"
-              />
-              <fieldset
-                aria-hidden="true"
-                class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
-              >
-                <legend
-                  class="css-1n64csd-MuiNotchedOutlined-root"
-                >
-                  <span>
-                    nome utente
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
           </div>
           <div
-            class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
+            class="container"
           >
+            <input
+              id="password"
+              name="password"
+              type="password"
+            />
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
               for="password"
-              id="password-label"
             >
               password
             </label>
-            <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
-            >
-              <input
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-                id="password"
-                name="password"
-                type="password"
-              />
-              <fieldset
-                aria-hidden="true"
-                class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
-              >
-                <legend
-                  class="css-1n64csd-MuiNotchedOutlined-root"
-                >
-                  <span>
-                    password
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
           </div>
-          <label
-            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-19opgx6-MuiFormControlLabel-root"
-          >
-            <span
-              class="MuiSwitch-root MuiSwitch-sizeMedium css-rehya9-MuiSwitch-root"
-            >
-              <span
-                class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase"
-              >
-                <input
-                  class="PrivateSwitchBase-input MuiSwitch-input css-12xagqm-MuiSwitchBase-root"
-                  name="rememberMe"
-                  role="switch"
-                  type="checkbox"
-                />
-                <span
-                  class="MuiSwitch-thumb css-1mw77bv-MuiSwitch-thumb"
-                />
-              </span>
-              <span
-                class="MuiSwitch-track css-pm6g3f-MuiSwitch-track"
-              />
-            </span>
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
-            >
-              ricordami
-            </span>
+          <label>
+            <input
+              name="rememberMe"
+              type="checkbox"
+            />
+            ricordami
           </label>
           <div
             class="button-wrapper"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
-              tabindex="0"
+              class="btn"
               type="submit"
             >
               accedi
@@ -135,110 +70,45 @@ exports[`renders 1`] = `
         class="login-form"
       >
         <div
-          class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
+          class="container"
         >
+          <input
+            id="username"
+            name="username"
+            type="text"
+          />
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
             for="username"
-            id="username-label"
           >
             nome utente
           </label>
-          <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-              id="username"
-              name="username"
-              type="text"
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-1n64csd-MuiNotchedOutlined-root"
-              >
-                <span>
-                  nome utente
-                </span>
-              </legend>
-            </fieldset>
-          </div>
         </div>
         <div
-          class="MuiFormControl-root MuiTextField-root css-1xp5r68-MuiFormControl-root-MuiTextField-root"
+          class="container"
         >
+          <input
+            id="password"
+            name="password"
+            type="password"
+          />
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-19qnlrw-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
             for="password"
-            id="password-label"
           >
             password
           </label>
-          <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-quhxjy-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiOutlinedInput-input css-16wblaj-MuiInputBase-input-MuiOutlinedInput-input"
-              id="password"
-              name="password"
-              type="password"
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-18p5xg2-MuiNotchedOutlined-root-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-1n64csd-MuiNotchedOutlined-root"
-              >
-                <span>
-                  password
-                </span>
-              </legend>
-            </fieldset>
-          </div>
         </div>
-        <label
-          class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-19opgx6-MuiFormControlLabel-root"
-        >
-          <span
-            class="MuiSwitch-root MuiSwitch-sizeMedium css-rehya9-MuiSwitch-root"
-          >
-            <span
-              class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-aqlqb4-MuiButtonBase-root-MuiSwitchBase-root-MuiSwitch-switchBase"
-            >
-              <input
-                class="PrivateSwitchBase-input MuiSwitch-input css-12xagqm-MuiSwitchBase-root"
-                name="rememberMe"
-                role="switch"
-                type="checkbox"
-              />
-              <span
-                class="MuiSwitch-thumb css-1mw77bv-MuiSwitch-thumb"
-              />
-            </span>
-            <span
-              class="MuiSwitch-track css-pm6g3f-MuiSwitch-track"
-            />
-          </span>
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-rizt0-MuiTypography-root"
-          >
-            ricordami
-          </span>
+        <label>
+          <input
+            name="rememberMe"
+            type="checkbox"
+          />
+          ricordami
         </label>
         <div
           class="button-wrapper"
         >
           <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-sizeMedium MuiButton-colorPrimary css-74d805-MuiButtonBase-root-MuiButton-root"
-            tabindex="0"
+            class="btn"
             type="submit"
           >
             accedi

@@ -1,13 +1,6 @@
-import { ArrowDownward, ArrowUpward } from '@mui/icons-material';
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-} from '@mui/material';
 import type React from 'react';
+import ArrowDownward from '../icons/ArrowDownward';
+import ArrowUpward from '../icons/ArrowUpward';
 import type { SortingKey, SortingOrder } from '../model/model';
 import styles from './sortingBar.module.css';
 
@@ -17,7 +10,6 @@ interface Props {
   sortingOrder: SortingOrder;
   setSortingOrder: (order: SortingOrder) => void;
   foundNumber: number;
-  className?: string;
 }
 
 const SortingBar: React.FC<Props> = ({
@@ -26,39 +18,60 @@ const SortingBar: React.FC<Props> = ({
   sortingOrder,
   setSortingOrder,
   foundNumber,
-  className,
 }) => {
   return (
-    <FormControl component="fieldset" name="sorting-bar" className={className}>
-      <FormLabel component="legend">
-        {foundNumber} risultati • ordina per
-      </FormLabel>
-      <div className={styles['sort-controls']}>
-        <RadioGroup
-          className={styles['sorting-radio-group']}
+    <fieldset className={styles.container}>
+      <legend>{foundNumber} risultati • ordina per</legend>
+      <label>
+        <input
+          type="radio"
           name="sortingKey"
-          value={sortingKey}
-          onChange={(_, value) => setSortingKey(value as SortingKey)}
-        >
-          <FormControlLabel value="author" control={<Radio />} label="autore" />
-          <FormControlLabel value="title" control={<Radio />} label="titolo" />
-          <FormControlLabel
-            value="location"
-            control={<Radio />}
-            label="coll."
-          />
-          <FormControlLabel value="category" control={<Radio />} label="cat." />
-        </RadioGroup>
-        <IconButton
-          data-testid="sorting-btn"
-          onClick={() =>
-            setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')
-          }
-        >
-          {sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
-        </IconButton>
-      </div>
-    </FormControl>
+          value="author"
+          checked={sortingKey === 'author'}
+          onClick={() => setSortingKey('author')}
+        />
+        autore
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="title"
+          checked={sortingKey === 'title'}
+          onClick={() => setSortingKey('title')}
+        />
+        titolo
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="location"
+          checked={sortingKey === 'location'}
+          onClick={() => setSortingKey('location')}
+        />
+        coll.
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="category"
+          checked={sortingKey === 'category'}
+          onClick={() => setSortingKey('category')}
+        />
+        cat.
+      </label>
+
+      <button
+        className="icon-btn"
+        type="button"
+        data-testid="sorting-btn"
+        onClick={() => setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')}
+      >
+        {sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
+      </button>
+    </fieldset>
   );
 };
 

@@ -1,7 +1,17 @@
 :root {
   --color-secondary: #9c27b0;
   --color-success: #2e7d32;
+  --color-error: red;
+  --color-text-primary: white;
   --color-text-secondary: rgba(0, 0, 0, 0.6);
+  --color-background-primary: #1976d2;
+  --color-background: white;
+  --color-primary-inverse: white;
+  --color-grey: lightgrey;
+  --form-el-y-padding: 1rem;
+  --form-el-x-padding: 1rem;
+  --border-radius: 5px;
+  --border-size: 1px;
 }
 
 html,
@@ -17,11 +27,136 @@ body,
   box-sizing: border-box;
 }
 
-button {
-  background-color: transparent;
-  border: none;
+.icon {
+  fill: currentColor;
+  width: 1.5rem;
+  height: 1.5rem;
+
+  &.error {
+    fill: var(--color-error);
+  }
+
+  &.primary {
+    fill: var(--color-background-primary);
+  }
+}
+
+button,
+input {
   appearance: none;
+  background: none;
+  border: none;
   font: inherit;
+  color: inherit;
+}
+
+input[type="text"],
+input[type="password"] {
+  border: solid var(--color-grey) var(--border-size);
+  padding: var(--form-el-y-padding) var(--form-el-x-padding);
+  border-radius: var(--border-radius);
+  outline-color: var(--color-background-primary);
+  width: 100%;
+}
+
+input[type="checkbox"] {
+  &::before {
+    content: "";
+    border: solid 2px grey;
+    border-radius: 3px;
+    width: 1rem;
+    height: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &:checked {
+    &::before {
+      background-color: var(--color-background-primary);
+      border-color: var(--color-background-primary);
+      content: "✓";
+      color: var(--color-primary-inverse);
+    }
+  }
+}
+
+label:has(input[type="checkbox"]) {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+fieldset {
+  border: none;
+  display: flex;
+  gap: 1rem;
+
+  legend {
+    margin-bottom: 0.5rem;
+  }
+
+  label {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  input[type="radio"] {
+    &::before {
+      content: "";
+      border: solid 2px grey;
+      width: 1rem;
+      height: 1rem;
+      border-radius: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:checked {
+      &::before {
+        border-color: var(--color-background-primary);
+        content: "●";
+        color: var(--color-background-primary);
+      }
+    }
+  }
+}
+
+.icon-btn {
+  border-radius: 50%;
+  padding: 0.5rem;
+
+  &:hover,
+  &:active {
+    background-color: rgba(0, 0, 0, 0.05);
+  }
+}
+
+.btn {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  --background-color: var(--color-background-primary);
+  background-color: var(--background-color);
+  color: var(--color-text-primary);
+  padding: var(--form-el-y-padding) var(--form-el-x-padding);
+  border-radius: var(--border-radius);
+  border: solid var(--color-background-primary) var(--border-size);
+
+  &:hover,
+  &:active {
+    background-color: color-mix(in oklab, var(--background-color), black 5%);
+  }
+
+  &.secondary {
+    --background-color: var(--color-background);
+    color: var(--color-background-primary);
+  }
 }
 
 .full-height-container {
@@ -30,4 +165,63 @@ button {
 
 .book-card-container {
   padding: 0.5rem 1rem;
+}
+
+.color-secondary {
+  color: var(--color-text-secondary);
+}
+
+.fab {
+  --background-color: var(--color-secondary);
+  background-color: var(--background-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 3rem;
+  color: white;
+  box-shadow:
+    rgba(0, 0, 0, 0.2) 0px 3px 5px -1px,
+    rgba(0, 0, 0, 0.14) 0px 6px 10px 0px,
+    rgba(0, 0, 0, 0.12) 0px 1px 18px 0px;
+
+  &:hover,
+  &:active {
+    background-color: color-mix(in oklab, var(--background-color), black 5%);
+  }
+}
+
+.card {
+  border: solid 1px lightgray;
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.badge-wrapper {
+  position: relative;
+
+  .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-color: var(--color-secondary);
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 2rem;
+    padding: 0.25rem;
+  }
+}
+
+.snackbar:popover-open {
+  background-color: grey;
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  inset: 88%;
+  border: darkgray 1px solid;
+  position: fixed;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }

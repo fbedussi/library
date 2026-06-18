@@ -1,6 +1,10 @@
 import { fireEvent, render, screen } from '../../test-utils';
 import NotificationArea from './NotificationArea';
 
+beforeEach(() => {
+  HTMLElement.prototype.showPopover = vi.fn();
+});
+
 vi.mock('./actions', () => ({
   default: { removeNotification: () => 'removeNotification' },
 }));

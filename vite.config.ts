@@ -25,10 +25,5 @@ export default defineConfig({
         url: 'http://localhost',
       },
     },
-    server: {
-      deps: {
-        inline: ['@mui/material'],
-      },
-    },
   },
 });

@@ -1,14 +1,9 @@
-import { Cancel, CheckCircle, Delete, Edit } from '@mui/icons-material';
-import {
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  IconButton,
-  Typography,
-} from '@mui/material';
 import type React from 'react';
 import { useDispatch } from 'react-redux';
+import Cancel from '../icons/Cancel';
+import CheckCircle from '../icons/CheckCircle';
+import Delete from '../icons/Delete';
+import Edit from '../icons/Edit';
 import type { Book } from '../model/model';
 import type { TDispatch } from '../model/types';
 import booksActions from '../store/books/actions';
@@ -23,52 +18,46 @@ const BookCard: React.FC<{
   const dispatch: TDispatch = useDispatch();
   const { author, title, location, category, id, coverPath, read } = book;
   return (
-    <Card
-      variant="outlined"
-      className={`book-card ${styles.card}`}
-      style={style}
-    >
+    <article className={`card ${styles.card}`} style={style}>
       <div className={styles['book-info']}>
-        <CardContent>
+        <div>
           <div className={styles['author-and-read-icon']}>
             {author}
 
-            {read === false && <Cancel color="error" />}
-            {read === true && <CheckCircle color="primary" />}
+            {read === false && <Cancel className="error" />}
+            {read === true && <CheckCircle className="primary" />}
           </div>
           <LinkNoStyle to={`/book/${id}`}>
-            <Typography variant="h5" component="h2" className="book-title">
-              {title}
-            </Typography>
+            <h2 className="book-title">{title}</h2>
           </LinkNoStyle>
-          <Typography color="textSecondary">{location}</Typography>
-          <Typography color="textSecondary">{category}</Typography>
-        </CardContent>
-        <CardActions className={styles.actions} disableSpacing>
-          <IconButton
-            data-testid="delete-btn"
-            onClick={() => {
-              dispatch(booksActions.remove(id));
-              onDelete?.();
-            }}
-          >
-            <Delete />
-          </IconButton>
-          <LinkNoStyle to={`/edit/${id}`} data-testid="edit-link">
-            <IconButton>
-              <Edit />
-            </IconButton>
-          </LinkNoStyle>
-        </CardActions>
+          <div className="color-secondary">{location}</div>
+          <div className="color-secondary">{category}</div>
+        </div>
+        {!!coverPath && (
+          <div className={styles['book-cover']} data-testid="book-cover">
+            <img src={coverPath} alt="copertina" />
+          </div>
+        )}
       </div>
-      {!!coverPath && (
-        <CardMedia
-          className={styles['book-cover']}
-          data-testid="book-cover"
-          image={coverPath}
-        />
-      )}
-    </Card>
+      <footer className={styles.actions}>
+        <button
+          type="button"
+          className="icon-btn"
+          data-testid="delete-btn"
+          onClick={() => {
+            dispatch(booksActions.remove(id));
+            onDelete?.();
+          }}
+        >
+          <Delete />
+        </button>
+        <LinkNoStyle to={`/edit/${id}`} data-testid="edit-link">
+          <button type="button" className="icon-btn">
+            <Edit />
+          </button>
+        </LinkNoStyle>
+      </footer>
+    </article>
   );
 };
 

@@ -1,15 +1,10 @@
-import { Typography } from '@mui/material';
 import type React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useSearchParams } from 'react-router';
 import BackLink from '../components/BackLink';
 import BooksList from '../components/BookList';
-import {
-  ToolbarStyled,
-  TopAppBar,
-  TopBarPageWrapper,
-} from '../components/CommonComponents';
+import { TopAppBar, TopBarPageWrapper } from '../components/CommonComponents';
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
 import { sort } from '../libs/search';
@@ -53,12 +48,10 @@ const ViewAllPage: React.FC = () => {
 
   return (
     <TopBarPageWrapper>
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-          <Typography variant="h6">Vedi tutti</Typography>
-          <ViewAllLink />
-        </ToolbarStyled>
+      <TopAppBar>
+        <BackLink />
+        <h1>Vedi tutti</h1>
+        <ViewAllLink />
       </TopAppBar>
 
       <SortingBar

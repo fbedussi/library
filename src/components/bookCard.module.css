@@ -2,11 +2,29 @@
   display: flex;
   width: 100%;
   height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: normal;
+    margin-bottom: 0;
+  }
 }
 
 .book-info {
   flex: 1;
   max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  > div:first-child {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
 }
 
 .author-and-read-icon {
@@ -18,6 +36,8 @@
 
 .actions {
   padding: 0;
+  display: flex;
+  gap: 1rem;
 }
 
 .book-cover {

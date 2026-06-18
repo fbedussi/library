@@ -6,11 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
 import BackLink from '../components/BackLink';
-import {
-  PageWrapper,
-  ToolbarStyled,
-  TopAppBar,
-} from '../components/CommonComponents';
+import { PageWrapper, TopAppBar } from '../components/CommonComponents';
 import type { TDispatch } from '../model/types';
 import photosActions from '../store/photos/actions';
 
@@ -21,10 +17,8 @@ const CameraPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-        </ToolbarStyled>
+      <TopAppBar>
+        <BackLink />
       </TopAppBar>
       <Camera
         onTakePhoto={dataUri => {

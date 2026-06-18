@@ -1,14 +1,3 @@
-import { Camera, Close, Save } from '@mui/icons-material';
-import {
-  Button,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  IconButton,
-  Radio,
-  RadioGroup,
-  Typography,
-} from '@mui/material';
 import type React from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -17,12 +6,14 @@ import BookForm from '../components/BookForm';
 import {
   LinkNoStyle,
   PageWrapper,
-  ToolbarStyled,
   TopAppBar,
 } from '../components/CommonComponents';
 import HomeLink from '../components/HomeLink';
 import ViewAllLink from '../components/ViewAllLink';
 import Word from '../components/Word';
+import Camera from '../icons/Camera';
+import Close from '../icons/Close';
+import Save from '../icons/Save';
 import { convertRead } from '../libs/search';
 import { bookFormValidation } from '../libs/validation';
 import type { Book, FormData, SelectedField } from '../model/model';
@@ -54,12 +45,10 @@ const AddBookPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <HomeLink />
-          <Typography variant="h6">Inserimento</Typography>
-          <ViewAllLink />
-        </ToolbarStyled>
+      <TopAppBar>
+        <HomeLink />
+        <h1>Inserimento</h1>
+        <ViewAllLink />
       </TopAppBar>
       {!currentPhotoUrl && (
         <div className={styles['camera-button-wrapper']}>
@@ -69,9 +58,10 @@ const AddBookPage: React.FC = () => {
             copertina)
           </p>
           <LinkNoStyle to="/camera">
-            <Button variant="contained" color="primary" startIcon={<Camera />}>
+            <button className="btn" type="button">
+              <Camera />
               fotografa la copertina
-            </Button>
+            </button>
           </LinkNoStyle>
         </div>
       )}
@@ -99,38 +89,40 @@ const AddBookPage: React.FC = () => {
       {!!words.length && (
         <div>
           <div className={styles['reset-image-button-wrapper']}>
-            <IconButton
+            <button
+              type="button"
               data-testid="reset-photo-data-btn"
               onClick={() => {
                 dispatch(photosActions.resetPhotoData());
               }}
             >
               <Close />
-            </IconButton>
+            </button>
           </div>
-          <FormControl component="fieldset">
-            <FormLabel component="legend">
+          <fieldset>
+            <legend>
               Seleziona il campo e clicca sulle parole per aggiungerle al campo
               selezionato
-            </FormLabel>
-            <RadioGroup
-              className={styles['field-selection']}
+            </legend>
+            <input
+              type="radio"
+              id="selectedField-author"
               name="selectedField"
-              value={selectedField}
-              onChange={e => setSelectedField(e.target.value as SelectedField)}
-            >
-              <FormControlLabel
-                value="author"
-                control={<Radio />}
-                label="autore"
-              />
-              <FormControlLabel
-                value="title"
-                control={<Radio />}
-                label="titolo"
-              />
-            </RadioGroup>
-          </FormControl>
+              value="author"
+              onClick={() => setSelectedField('author')}
+              checked={selectedField === 'author'}
+            />
+            <label htmlFor="selectedField-author">autore</label>
+            <input
+              type="radio"
+              id="selectedField-title"
+              name="selectedField"
+              value="title"
+              onClick={() => setSelectedField('title')}
+              checked={selectedField === 'title'}
+            />
+            <label htmlFor="selectedField-title">titolo</label>
+          </fieldset>
           <div className={styles['word-container']}>
             {words.map((word, index) => (
               <Word

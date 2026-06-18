@@ -1,5 +1,3 @@
-import { Add, MoreVert, Search } from '@mui/icons-material';
-import { CircularProgress, Fab, IconButton, Typography } from '@mui/material';
 import type { FuseResult } from 'fuse.js';
 import type React from 'react';
 import { useEffect, useMemo, useRef } from 'react';
@@ -8,12 +6,15 @@ import { useNavigate, useSearchParams } from 'react-router';
 import BookForm from '../components/BookForm';
 import BooksList from '../components/BookList';
 import {
+  CircularProgress,
   LinkNoStyle,
-  ToolbarStyled,
   TopAppBar,
 } from '../components/CommonComponents';
 import SortingBar from '../components/SortingBar';
 import ViewAllLink from '../components/ViewAllLink';
+import Add from '../icons/Add';
+import MoreVert from '../icons/MoreVert ';
+import Search from '../icons/Search';
 import { convertRead, search, sort } from '../libs/search';
 import type { Book, FormData, SortingKey, SortingOrder } from '../model/model';
 import { selectBooks } from '../store/books/selectors';
@@ -136,15 +137,17 @@ const SearchPage: React.FC = () => {
         setSearchParams(searchParams, { replace: true });
       }}
     >
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <IconButton color="inherit" onClick={() => navigate('/settings')}>
-            <MoreVert />
-          </IconButton>
-          {!books.length ? <CircularProgress color="secondary" /> : null}
-          <Typography variant="h6">Ricerca</Typography>
-          <ViewAllLink />
-        </ToolbarStyled>
+      <TopAppBar>
+        <button
+          className="icon-btn"
+          type="button"
+          onClick={() => navigate('/settings')}
+        >
+          <MoreVert />
+        </button>
+        {!books.length ? <CircularProgress color="secondary" /> : null}
+        <h1>Ricerca</h1>
+        <ViewAllLink />
       </TopAppBar>
       <div className={styles['book-form-and-sorting-bar']}>
         <BookForm
@@ -177,9 +180,9 @@ const SearchPage: React.FC = () => {
       <BooksList books={booksToShow} />
 
       <LinkNoStyle to="/add" className={styles['fab-link']}>
-        <Fab color="secondary" aria-label="add">
+        <button type="button" className="fab" aria-label="add">
           <Add />
-        </Fab>
+        </button>
       </LinkNoStyle>
     </div>
   );

@@ -1,5 +1,4 @@
-import { AppBar, Toolbar } from '@mui/material';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { Link } from 'react-router';
 import styles from './commonComponents.module.css';
 
@@ -22,15 +21,6 @@ export const TopBarPageWrapper: React.FC<
   />
 );
 
-export const BottomBarPageWrapper: React.FC<
-  React.HTMLAttributes<HTMLDivElement>
-> = ({ className, ...props }) => (
-  <div
-    {...props}
-    className={`${styles['bottom-bar-page-wrapper']}${className ? ` ${className}` : ''}`}
-  />
-);
-
 export const LinkNoStyle = React.forwardRef<
   HTMLAnchorElement,
   React.ComponentProps<typeof Link>
@@ -43,32 +33,13 @@ export const LinkNoStyle = React.forwardRef<
 ));
 LinkNoStyle.displayName = 'LinkNoStyle';
 
-export const BottomAppBar: React.FC<React.ComponentProps<typeof AppBar>> = ({
-  className,
-  ...props
-}) => (
-  <AppBar
-    {...props}
-    className={`${styles['bottom-app-bar']}${className ? ` ${className}` : ''}`}
-  />
+export const TopAppBar: React.FC<PropsWithChildren> = ({ children }) => (
+  <div className={styles['top-app-bar']}>{children}</div>
 );
 
-export const TopAppBar: React.FC<React.ComponentProps<typeof AppBar>> = ({
-  className,
-  ...props
-}) => (
-  <AppBar
-    {...props}
-    className={`${styles['top-app-bar']}${className ? ` ${className}` : ''}`}
-  />
-);
-
-export const ToolbarStyled: React.FC<React.ComponentProps<typeof Toolbar>> = ({
-  className,
-  ...props
-}) => (
-  <Toolbar
-    {...props}
-    className={`${styles['toolbar-styled']}${className ? ` ${className}` : ''}`}
-  />
+export const CircularProgress = ({ color }: { color?: 'secondary' }) => (
+  <div
+    role="progressbar"
+    className={`${styles.loeader} ${color === 'secondary' ? styles.secondary : ''}`}
+  ></div>
 );

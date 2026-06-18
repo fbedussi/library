@@ -1,18 +1,17 @@
-import { ChevronLeft } from '@mui/icons-material';
-import { IconButton } from '@mui/material';
 import { useNavigate } from 'react-router';
+import ChevronLeft from '../icons/ChevronLeft';
 
 const BackLink = () => {
   const navigate = useNavigate();
   return (
-    <IconButton
-      edge="start"
-      color="inherit"
+    <button
+      className="icon-btn"
+      type="button"
       aria-label="open drawer"
       onClick={() => navigate(-1)}
     >
       <ChevronLeft />
-    </IconButton>
+    </button>
   );
 };
 
