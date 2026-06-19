@@ -1,4 +1,4 @@
-import { RootState } from '../../model/model';
+import type { RootState } from '../../model/model';
 
 export const selectNotifications = (state: RootState) => state.notifications;
 

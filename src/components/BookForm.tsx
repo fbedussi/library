@@ -1,194 +1,190 @@
-import { Field, Form, Formik, FormikHelpers } from 'formik';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-
-import { pxToRem } from '../libs/styles';
-import { FormData } from '../model/model';
-import {
-	Button,
-	Checkbox,
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	Radio,
-	RadioGroup,
-	TextField,
-} from '../styleguide';
-import { Close } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-
-const InputWrapper = styled.div`
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-`;
-
-const ButtonsWrapper = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr;
-	gap: ${pxToRem(theme.spacing(1))}rem;
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
+import type React from 'react';
+import { useEffect, useState } from 'react';
+import type { FormData as BookData } from '../model/model';
+import styles from './bookForm.module.css';
+import TextField from './TextField';
+import Close from '../icons/Close';
 
 interface Props {
-	initialValues: FormData;
-	enableReinitialize?: boolean;
-	validate?: (values: FormData) => { [k: string]: string };
-	onSubmit: (values: FormData, formikHelpers: FormikHelpers<FormData>) => void;
-	onReset?: () => void;
-	PrimaryIcon: JSX.Element;
-	primaryLabel: string;
-	className?: string;
-	variant: 'search' | 'edit';
+  initialValues: BookData;
+  enableReinitialize?: boolean;
+  validate?: (values: BookData) => { [k: string]: string };
+  onSubmit: (values: BookData, reset: () => void) => void;
+  onReset?: () => void;
+  PrimaryIcon: React.ReactElement;
+  primaryLabel: string;
+  className?: string;
+  variant: 'search' | 'edit';
 }
 
+const emptyValues: BookData = {
+  author: '',
+  title: '',
+  location: '',
+  category: '',
+};
+
+type State = {
+  resetKey: number;
+  defaults: BookData;
+  errors: { [k: string]: string };
+};
+
 const BookForm: React.FC<Props> = ({
-	initialValues,
-	enableReinitialize,
-	validate,
-	onSubmit,
-	onReset,
-	PrimaryIcon,
-	primaryLabel,
-	className,
-	variant,
+  initialValues,
+  enableReinitialize,
+  validate,
+  onSubmit,
+  onReset,
+  PrimaryIcon,
+  primaryLabel,
+  className,
+  variant,
 }) => {
-	const { t } = useTranslation();
+  const [{ resetKey, defaults, errors }, setState] = useState<State>({
+    resetKey: 0,
+    defaults: initialValues,
+    errors: {},
+  });
 
-	return (
-		<Formik
-			initialValues={initialValues}
-			enableReinitialize={enableReinitialize}
-			validate={validate}
-			onSubmit={onSubmit}
-			onReset={onReset}
-			className={className}
-		>
-			{({
-				handleChange,
-				values,
-				errors,
-				handleReset,
-				resetForm,
-				setFieldValue,
-			}) => {
-				return (
-					<Form name="book-form">
-						<InputWrapper>
-							<Field
-								id="author"
-								name="author"
-								variant="outlined"
-								as={TextField}
-								label={t('app.author')}
-								error={!!errors.author}
-								helperText={errors.author}
-							/>
+  useEffect(() => {
+    if (enableReinitialize) {
+      setState(s => ({
+        ...s,
+        resetKey: s.resetKey + 1,
+        defaults: initialValues,
+      }));
+    }
+  }, [initialValues, enableReinitialize]);
 
-							<Field
-								id="title"
-								name="title"
-								variant="outlined"
-								as={TextField}
-								label={t('app.title')}
-								error={!!errors.title}
-								helperText={errors.title}
-							/>
+  const reset = () =>
+    setState(s => ({
+      resetKey: s.resetKey + 1,
+      defaults: emptyValues,
+      errors: {},
+    }));
 
-							<Field
-								id="location"
-								name="location"
-								as={TextField}
-								variant="outlined"
-								label={t('app.location')}
-								error={!!errors.location}
-								helperText={errors.location}
-							/>
+  const handleAction = (formData: FormData) => {
+    const values: BookData = {
+      author: formData.get('author')?.toString() ?? '',
+      title: formData.get('title')?.toString() ?? '',
+      location: formData.get('location')?.toString() ?? '',
+      category: formData.get('category')?.toString() ?? '',
+      read: formData.get('read')?.toString() ?? '',
+      ...(variant === 'search' && {
+        showOnlyNotRead: formData.get('showOnlyNotRead') === 'on',
+      }),
+    };
+    const validationErrors = validate ? validate(values) : {};
+    if (Object.keys(validationErrors).length > 0) {
+      setState(s => ({ ...s, errors: validationErrors }));
+      return;
+    }
+    setState(s => ({ ...s, defaults: values, errors: {} }));
+    onSubmit(values, reset);
+  };
 
-							<Field
-								id="category"
-								name="category"
-								as={TextField}
-								variant="outlined"
-								label={t('app.category')}
-							/>
+  return (
+    <form
+      key={resetKey}
+      name="book-form"
+      action={handleAction}
+      onReset={() => {
+        setState(s => ({
+          resetKey: s.resetKey + 1,
+          defaults: emptyValues,
+          errors: {},
+        }));
+        onReset?.();
+      }}
+      className={className}
+    >
+      <div className={styles['input-wrapper']}>
+        <TextField
+          id="author"
+          name="author"
+          label="autore"
+          defaultValue={defaults.author}
+          error={errors.author}
+        />
 
-							{variant === 'search' && (
-								<FormControlLabel
-									control={
-										<Checkbox
-											name="showOnlyNotRead"
-											onChange={(_, checked) => {
-												setFieldValue('showOnlyNotRead', checked);
-											}}
-											checked={!!values.showOnlyNotRead}
-										/>
-									}
-									label={t('app.notRead')}
-								/>
-							)}
+        <TextField
+          id="title"
+          name="title"
+          label="titolo"
+          defaultValue={defaults.title}
+          error={errors.title}
+        />
 
-							{variant === 'edit' && (
-								<FormControl>
-									<FormLabel>{t('app.read')}</FormLabel>
-									<RadioGroup
-										name="read"
-										onChange={handleChange}
-										value={values.read}
-										row
-									>
-										<FormControlLabel
-											value="true"
-											control={<Radio />}
-											label={t('app.yes')}
-										/>
-										<FormControlLabel
-											value="false"
-											control={<Radio />}
-											label={t('app.no')}
-										/>
-										<FormControlLabel
-											value=""
-											control={<Radio />}
-											label={t('app.dontKnow')}
-										/>
-									</RadioGroup>
-								</FormControl>
-							)}
-						</InputWrapper>
-						<ButtonsWrapper>
-							<Button
-								variant="contained"
-								color="primary"
-								size="large"
-								startIcon={PrimaryIcon}
-								type="submit"
-							>
-								{primaryLabel}
-							</Button>
-							<Button
-								variant="outlined"
-								color="primary"
-								size="large"
-								startIcon={<Close />}
-								type="reset"
-								onClick={() => {
-									resetForm({
-										values: { author: '', title: '', location: '', category: '' },
-									});
-									handleReset();
-								}}
-							>
-								{t('app.reset')}
-							</Button>
-						</ButtonsWrapper>
-					</Form>
-				);
-			}}
-		</Formik>
-	);
+        <TextField
+          id="location"
+          name="location"
+          label="collocazione"
+          defaultValue={defaults.location}
+          error={errors.location}
+        />
+
+        <TextField
+          id="category"
+          name="category"
+          label="categoria"
+          placeholder="cate"
+          defaultValue={defaults.category ?? ''}
+        />
+
+        {variant === 'search' && (
+          <label>
+            <input
+              type="checkbox"
+              name="showOnlyNotRead"
+              defaultChecked={!!defaults.showOnlyNotRead}
+            />
+            non letto
+          </label>
+        )}
+
+        {variant === 'edit' && (
+          <fieldset>
+            <legend>letto</legend>
+            <input
+              type="radio"
+              id="yes"
+              name="read"
+              value="true"
+              defaultChecked={defaults.read === 'true'}
+            />
+            <label htmlFor="yes">sì</label>
+            <input
+              type="radio"
+              id="no"
+              name="read"
+              value="false"
+              defaultChecked={defaults.read === 'false'}
+            />
+            <label htmlFor="no">no</label>
+            <input
+              type="radio"
+              id="do-not-know"
+              name="read"
+              value=""
+              defaultChecked={defaults.read === undefined}
+            />
+            <label htmlFor="do-not-know">non so</label>
+          </fieldset>
+        )}
+      </div>
+      <div className={styles['buttons-wrapper']}>
+        <button className="btn" type="submit">
+          {PrimaryIcon}
+          {primaryLabel}
+        </button>
+        <button className="btn secondary" type="reset">
+          <Close />
+          reset
+        </button>
+      </div>
+    </form>
+  );
 };
 
 export default BookForm;

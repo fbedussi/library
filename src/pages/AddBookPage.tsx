@@ -1,194 +1,160 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
 import BookCard from '../components/BookCard';
-
 import BookForm from '../components/BookForm';
 import {
-	LinkNoStyle,
-	PageWrapper,
-	ToolbarStyled,
-	TopAppBar,
+  LinkNoStyle,
+  PageWrapper,
+  TopAppBar,
 } from '../components/CommonComponents';
 import HomeLink from '../components/HomeLink';
 import ViewAllLink from '../components/ViewAllLink';
 import Word from '../components/Word';
+import Camera from '../icons/Camera';
+import Close from '../icons/Close';
+import Save from '../icons/Save';
 import { convertRead } from '../libs/search';
-import { pxToRem } from '../libs/styles';
 import { bookFormValidation } from '../libs/validation';
-import { Book, FormData, SelectedField } from '../model/model';
-import { TDispatch } from '../model/types';
+import type { Book, FormData, SelectedField } from '../model/model';
+import type { TDispatch } from '../model/types';
 import booksActions from '../store/books/actions';
 import photosActions from '../store/photos/actions';
 import { selectCurrentPhotoPath, selectWords } from '../store/photos/selectors';
-import {
-	Button,
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup,
-	Typography,
-} from '../styleguide';
-import { Camera, Close, Save } from '../styleguide/icons';
-import theme from '../styleguide/theme';
-
-const CameraButtonWrapper = styled.div`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-	text-align: center;
-`;
-
-const Instructions = styled.p`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
-
-const ResetImageButtonWrapper = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: flex-end;
-`;
-
-const FieldSelection = styled(RadioGroup)`
-	flex-direction: row;
-`;
-
-const WordContainer = styled.div`
-	margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
-
-const Image = styled.img`
-	width: 50vmin;
-	max-width: 300px;
-	height: auto;
-	margin: 0 auto;
-`;
+import styles from './addBookPage.module.css';
 
 const AddBookPage: React.FC = () => {
-	const { t } = useTranslation();
+  const dispatch: TDispatch = useDispatch();
 
-	const dispatch: TDispatch = useDispatch();
+  const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
 
-	const currentPhotoUrl = useSelector(selectCurrentPhotoPath);
+  const blankInputs: FormData = {
+    author: '',
+    title: '',
+    location: '',
+    category: '',
+    read: '',
+  };
+  const [initialValues, setInitialValues] = useState({ ...blankInputs });
 
-	const blankInputs: FormData = {
-		author: '',
-		title: '',
-		location: '',
-		category: '',
-		read: '',
-	};
-	const [initialValues, setInitialValues] = useState({ ...blankInputs });
+  const [selectedField, setSelectedField] = useState('author' as SelectedField);
 
-	const [selectedField, setSelectedField] = useState('author' as SelectedField);
+  const [lastAddedBook, setLastAddedBook] = useState<Book | undefined>();
 
-	const [lastAddedBook, setLastAddedBook] = useState<Book | undefined>();
+  const words = useSelector(selectWords);
 
-	const words = useSelector(selectWords);
+  return (
+    <PageWrapper>
+      <TopAppBar>
+        <HomeLink />
+        <h1>Inserimento</h1>
+        <ViewAllLink />
+      </TopAppBar>
+      {!currentPhotoUrl && (
+        <div className={styles['camera-button-wrapper']}>
+          <p className={styles.instructions}>
+            Se vuoi puoi fotografare la copertina, questo consentirà anche di
+            estrarre automaticamente il titolo e l'autore (se presenti in
+            copertina)
+          </p>
+          <LinkNoStyle to="/camera">
+            <button className="btn" type="button">
+              <Camera />
+              fotografa la copertina
+            </button>
+          </LinkNoStyle>
+        </div>
+      )}
 
-	return (
-		<PageWrapper>
-			<TopAppBar position="fixed" color="primary">
-				<ToolbarStyled>
-					<HomeLink />
-					<Typography variant="h6">{t('app.insert')}</Typography>
-					<ViewAllLink />
-				</ToolbarStyled>
-			</TopAppBar>
-			{!currentPhotoUrl && (
-				<CameraButtonWrapper>
-					<Instructions>{t('app.cameraInstructions')}</Instructions>
-					<LinkNoStyle to="/camera">
-						<Button variant="contained" color="primary" startIcon={<Camera />}>
-							{t('app.takePhoto')}
-						</Button>
-					</LinkNoStyle>
-				</CameraButtonWrapper>
-			)}
+      <BookForm
+        initialValues={initialValues}
+        enableReinitialize={true}
+        validate={bookFormValidation()}
+        onSubmit={(values, reset) => {
+          const book = convertRead({
+            ...values,
+            coverPath: currentPhotoUrl,
+          });
+          dispatch(booksActions.add(book)).then(
+            newBook => newBook && setLastAddedBook(newBook),
+          );
+          dispatch(photosActions.resetPhotoData());
+          reset();
+        }}
+        PrimaryIcon={<Save />}
+        primaryLabel="salva"
+        variant="edit"
+      />
 
-			<BookForm
-				initialValues={initialValues}
-				enableReinitialize={true}
-				validate={bookFormValidation(t)}
-				onSubmit={(values, { resetForm }) => {
-					const book = convertRead({
-						...values,
-						coverPath: currentPhotoUrl,
-					});
-					dispatch(booksActions.add(book)).then(
-						newBook => newBook && setLastAddedBook(newBook),
-					);
-					dispatch(photosActions.resetPhotoData());
-					resetForm();
-				}}
-				PrimaryIcon={<Save />}
-				primaryLabel={t('app.save')}
-				variant="edit"
-			/>
+      {!!words.length && (
+        <div>
+          <div className={styles['reset-image-button-wrapper']}>
+            <button
+              type="button"
+              data-testid="reset-photo-data-btn"
+              onClick={() => {
+                dispatch(photosActions.resetPhotoData());
+              }}
+            >
+              <Close />
+            </button>
+          </div>
+          <fieldset>
+            <legend>
+              Seleziona il campo e clicca sulle parole per aggiungerle al campo
+              selezionato
+            </legend>
+            <input
+              type="radio"
+              id="selectedField-author"
+              name="selectedField"
+              value="author"
+              onClick={() => setSelectedField('author')}
+              checked={selectedField === 'author'}
+            />
+            <label htmlFor="selectedField-author">autore</label>
+            <input
+              type="radio"
+              id="selectedField-title"
+              name="selectedField"
+              value="title"
+              onClick={() => setSelectedField('title')}
+              checked={selectedField === 'title'}
+            />
+            <label htmlFor="selectedField-title">titolo</label>
+          </fieldset>
+          <div className={styles['word-container']}>
+            {words.map((word, index) => (
+              <Word
+                // biome-ignore lint/suspicious/noArrayIndexKey: it's ok
+                key={`${word}_${index}`}
+                word={word}
+                onClick={() => {
+                  setInitialValues({
+                    ...initialValues,
+                    [selectedField]: initialValues[selectedField].length
+                      ? `${initialValues[selectedField]} ${word}`
+                      : word,
+                  });
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      )}
 
-			{!!words.length && (
-				<div>
-					<ResetImageButtonWrapper>
-						<IconButton
-							data-testid="reset-photo-data-btn"
-							onClick={() => {
-								dispatch(photosActions.resetPhotoData());
-							}}
-						>
-							<Close />
-						</IconButton>
-					</ResetImageButtonWrapper>
-					<FormControl component="fieldset">
-						<FormLabel component="legend">
-							{t('app.autocompleteInstructions')}
-						</FormLabel>
-						<FieldSelection
-							name="selectedField"
-							value={selectedField}
-							onChange={e => setSelectedField(e.target.value as SelectedField)}
-						>
-							<FormControlLabel
-								value="author"
-								control={<Radio />}
-								label={t('app.author')}
-							/>
-							<FormControlLabel
-								value="title"
-								control={<Radio />}
-								label={t('app.title')}
-							/>
-						</FieldSelection>
-					</FormControl>
-					<WordContainer>
-						{words.map((word, index) => (
-							<Word
-								key={`${word}_${index}`}
-								word={word}
-								onClick={() => {
-									setInitialValues({
-										...initialValues,
-										[selectedField]: initialValues[selectedField].length
-											? `${initialValues[selectedField]} ${word}`
-											: word,
-									});
-								}}
-							/>
-						))}
-					</WordContainer>
-				</div>
-			)}
+      {currentPhotoUrl && (
+        <img className={styles.image} src={currentPhotoUrl} alt="bookCover" />
+      )}
 
-			{currentPhotoUrl && <Image src={currentPhotoUrl} alt="bookCover" />}
-
-			{lastAddedBook && (
-				<BookCard
-					book={lastAddedBook}
-					onDelete={() => setLastAddedBook(undefined)}
-				/>
-			)}
-		</PageWrapper>
-	);
+      {lastAddedBook && (
+        <BookCard
+          book={lastAddedBook}
+          onDelete={() => setLastAddedBook(undefined)}
+        />
+      )}
+    </PageWrapper>
+  );
 };
 
 export default AddBookPage;

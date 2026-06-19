@@ -1,11 +1,13 @@
-import { FormData } from '../model/model';
-import { TFunction } from 'i18next';
+import type { FormData } from '../model/model';
 
-export const bookFormValidation = (t: TFunction) => (values: FormData) => {
-	return Object.entries(values).reduce((errors, [key, val]) => {
-		if (!['read', 'category'].includes(key) && !val) {
-			errors[key] = t('errors.mandatoryField');
-		}
-		return errors;
-	}, {} as { [k: string]: string });
+export const bookFormValidation = () => (values: FormData) => {
+  return Object.entries(values).reduce(
+    (errors, [key, val]) => {
+      if (!['read', 'category'].includes(key) && !val) {
+        errors[key] = 'campo obbligatorio';
+      }
+      return errors;
+    },
+    {} as { [k: string]: string },
+  );
 };

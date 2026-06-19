@@ -1,12 +1,10 @@
-import React from 'react';
-
 import userEvent from '@testing-library/user-event';
 
 import { render, screen } from '../test-utils';
 import SortingBar from './SortingBar';
 
-const setSortingKey = jest.fn();
-const setSortingOrder = jest.fn();
+const setSortingKey = vi.fn();
+const setSortingOrder = vi.fn();
 
 test('has all the controls', () => {
   render(
@@ -19,12 +17,12 @@ test('has all the controls', () => {
     />,
   );
 
-  const authorRadio = screen.getByLabelText('app.author') as HTMLInputElement;
+  const authorRadio = screen.getByLabelText('autore') as HTMLInputElement;
   expect(authorRadio).toBeInTheDocument();
   expect(authorRadio.checked).toBe(true);
-  expect(screen.getByLabelText('app.title')).toBeInTheDocument();
-  expect(screen.getByLabelText('app.locationShort')).toBeInTheDocument();
-  expect(screen.getByLabelText('app.categoryShort')).toBeInTheDocument();
+  expect(screen.getByLabelText('titolo')).toBeInTheDocument();
+  expect(screen.getByLabelText('coll.')).toBeInTheDocument();
+  expect(screen.getByLabelText('cat.')).toBeInTheDocument();
   expect(screen.getByTestId('sorting-btn')).toBeInTheDocument();
 });
 
@@ -56,7 +54,7 @@ test('sort by location', async () => {
     />,
   );
 
-  await user.click(screen.getByLabelText('app.locationShort'));
+  await user.click(screen.getByLabelText('coll.'));
   expect(setSortingKey).toBeCalledWith('location');
 });
 
@@ -73,6 +71,6 @@ test('sort by category', async () => {
     />,
   );
 
-  await user.click(screen.getByLabelText('app.categoryShort'));
+  await user.click(screen.getByLabelText('cat.'));
   expect(setSortingKey).toBeCalledWith('category');
 });

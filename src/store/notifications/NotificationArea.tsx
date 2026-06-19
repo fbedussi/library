@@ -1,40 +1,38 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { TDispatch } from '../../model/types';
-import { IconButton, Snackbar } from '../../styleguide';
-import { Close } from '../../styleguide/icons';
+import type { TDispatch } from '../../model/types';
 import notificationsActions from './actions';
 import { selectNotifications } from './selectors';
+import Close from '../../icons/Close';
 
 const NotificationArea = () => {
-  const { t } = useTranslation();
   const notifications = useSelector(selectNotifications);
   const dispatch: TDispatch = useDispatch();
+
+  useEffect(() => {
+    notifications.forEach(({ _id }) => {
+      document.getElementById(_id)?.showPopover();
+    });
+  }, [notifications]);
+
   return (
     <>
-      {notifications.map(({ message, messageIsLabelKey, _id }) => (
-        <Snackbar
-          key={_id}
-          open={true}
-          message={messageIsLabelKey ? t(message) : message}
-          action={
-            <React.Fragment>
-              <IconButton
-                size="small"
-                aria-label="close"
-                data-testid="close-button"
-                color="inherit"
-                onClick={() =>
-                  dispatch(notificationsActions.removeNotification(_id))
-                }
-              >
-                <Close />
-              </IconButton>
-            </React.Fragment>
-          }
-        />
+      {notifications.map(({ message, _id }) => (
+        <div key={_id} popover="" id={_id} className="snackbar">
+          <div>{message}</div>
+          <button
+            type="button"
+            popoverTarget={_id}
+            popoverTargetAction="hide"
+            aria-label="close"
+            data-testid="close-button"
+            onClick={() =>
+              dispatch(notificationsActions.removeNotification(_id))
+            }
+          >
+            <Close />
+          </button>
+        </div>
       ))}
     </>
   );

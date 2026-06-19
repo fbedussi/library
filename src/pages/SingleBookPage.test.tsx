@@ -1,10 +1,9 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router';
 
 import { render } from '../test-utils';
 import SingleBookPage from './SingleBookPage';
 
-jest.mock('../data', () => ({}));
+vi.mock('../data', () => ({}));
 
 test('renders correctly - no book', () => {
   const page = render(<SingleBookPage />);

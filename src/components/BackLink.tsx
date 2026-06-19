@@ -1,20 +1,17 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-
-import { IconButton } from '../styleguide';
-import { ChevronLeft } from '../styleguide/icons';
+import { useNavigate } from 'react-router';
+import ChevronLeft from '../icons/ChevronLeft';
 
 const BackLink = () => {
   const navigate = useNavigate();
   return (
-    <IconButton
-      edge="start"
-      color="inherit"
+    <button
+      className="icon-btn"
+      type="button"
       aria-label="open drawer"
       onClick={() => navigate(-1)}
     >
       <ChevronLeft />
-    </IconButton>
+    </button>
   );
 };
 

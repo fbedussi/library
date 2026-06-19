@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`renders 1`] = `
 {
@@ -6,128 +6,55 @@ exports[`renders 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe sc-iBYQkv ljvCyv eqvGvc"
+        class="page-wrapper login-page-wrapper"
       >
         <form
-          action="#"
-          class="sc-ftTHYK gngptd"
+          action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
+          class="login-form"
         >
           <div
-            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+            class="container"
           >
+            <input
+              id="username"
+              name="username"
+              type="text"
+            />
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
               for="username"
-              id="username-label"
             >
-              app.username
+              nome utente
             </label>
-            <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-            >
-              <input
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                id="username"
-                name="username"
-                type="text"
-                value=""
-              />
-              <fieldset
-                aria-hidden="true"
-                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-              >
-                <legend
-                  class="css-yjsfm1"
-                >
-                  <span>
-                    app.username
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
           </div>
           <div
-            class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+            class="container"
           >
+            <input
+              id="password"
+              name="password"
+              type="password"
+            />
             <label
-              class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-              data-shrink="false"
               for="password"
-              id="password-label"
             >
-              app.password
+              password
             </label>
-            <div
-              class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-            >
-              <input
-                aria-invalid="false"
-                class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-                id="password"
-                name="password"
-                type="password"
-                value=""
-              />
-              <fieldset
-                aria-hidden="true"
-                class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-              >
-                <legend
-                  class="css-yjsfm1"
-                >
-                  <span>
-                    app.password
-                  </span>
-                </legend>
-              </fieldset>
-            </div>
           </div>
-          <label
-            class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
-          >
-            <span
-              class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
-            >
-              <span
-                class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
-              >
-                <input
-                  class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
-                  name="rememberMe"
-                  type="checkbox"
-                  value="false"
-                />
-                <span
-                  class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
-                />
-                <span
-                  class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-                />
-              </span>
-              <span
-                class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
-              />
-            </span>
-            <span
-              class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
-            >
-              app.rememberMe
-            </span>
+          <label>
+            <input
+              name="rememberMe"
+              type="checkbox"
+            />
+            ricordami
           </label>
           <div
-            class="sc-pyfCe hRSUzW"
+            class="button-wrapper"
           >
             <button
-              class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-              tabindex="0"
+              class="btn"
               type="submit"
             >
-              app.login
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
+              accedi
             </button>
           </div>
         </form>
@@ -136,128 +63,55 @@ exports[`renders 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe sc-iBYQkv ljvCyv eqvGvc"
+      class="page-wrapper login-page-wrapper"
     >
       <form
-        action="#"
-        class="sc-ftTHYK gngptd"
+        action="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"
+        class="login-form"
       >
         <div
-          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+          class="container"
         >
+          <input
+            id="username"
+            name="username"
+            type="text"
+          />
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
             for="username"
-            id="username-label"
           >
-            app.username
+            nome utente
           </label>
-          <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-              id="username"
-              name="username"
-              type="text"
-              value=""
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-yjsfm1"
-              >
-                <span>
-                  app.username
-                </span>
-              </legend>
-            </fieldset>
-          </div>
         </div>
         <div
-          class="MuiFormControl-root MuiTextField-root css-1u3bzj6-MuiFormControl-root-MuiTextField-root"
+          class="container"
         >
+          <input
+            id="password"
+            name="password"
+            type="password"
+          />
           <label
-            class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined MuiFormLabel-colorPrimary MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-outlined css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root"
-            data-shrink="false"
             for="password"
-            id="password-label"
           >
-            app.password
+            password
           </label>
-          <div
-            class="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-colorPrimary MuiInputBase-formControl css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root"
-          >
-            <input
-              aria-invalid="false"
-              class="MuiInputBase-input MuiOutlinedInput-input css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input"
-              id="password"
-              name="password"
-              type="password"
-              value=""
-            />
-            <fieldset
-              aria-hidden="true"
-              class="MuiOutlinedInput-notchedOutline css-1d3z3hw-MuiOutlinedInput-notchedOutline"
-            >
-              <legend
-                class="css-yjsfm1"
-              >
-                <span>
-                  app.password
-                </span>
-              </legend>
-            </fieldset>
-          </div>
         </div>
-        <label
-          class="MuiFormControlLabel-root MuiFormControlLabel-labelPlacementEnd css-j204z7-MuiFormControlLabel-root"
-        >
-          <span
-            class="MuiSwitch-root MuiSwitch-sizeMedium css-julti5-MuiSwitch-root"
-          >
-            <span
-              class="MuiButtonBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-root MuiSwitch-switchBase MuiSwitch-colorPrimary css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase"
-            >
-              <input
-                class="PrivateSwitchBase-input MuiSwitch-input css-1m9pwf3"
-                name="rememberMe"
-                type="checkbox"
-                value="false"
-              />
-              <span
-                class="MuiSwitch-thumb css-jsexje-MuiSwitch-thumb"
-              />
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-              />
-            </span>
-            <span
-              class="MuiSwitch-track css-1yjjitx-MuiSwitch-track"
-            />
-          </span>
-          <span
-            class="MuiTypography-root MuiTypography-body1 MuiFormControlLabel-label css-ahj2mt-MuiTypography-root"
-          >
-            app.rememberMe
-          </span>
+        <label>
+          <input
+            name="rememberMe"
+            type="checkbox"
+          />
+          ricordami
         </label>
         <div
-          class="sc-pyfCe hRSUzW"
+          class="button-wrapper"
         >
           <button
-            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium MuiButton-root MuiButton-contained MuiButton-containedPrimary MuiButton-sizeMedium MuiButton-containedSizeMedium css-sghohy-MuiButtonBase-root-MuiButton-root"
-            tabindex="0"
+            class="btn"
             type="submit"
           >
-            app.login
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
-            />
+            accedi
           </button>
         </div>
       </form>

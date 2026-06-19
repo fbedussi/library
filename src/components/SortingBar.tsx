@@ -1,95 +1,78 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-
-import { SortingKey, SortingOrder } from '../model/model';
-import {
-	FormControl,
-	FormControlLabel,
-	FormLabel,
-	IconButton,
-	Radio,
-	RadioGroup,
-} from '../styleguide';
-import { ArrowDownward, ArrowUpward } from '../styleguide/icons';
-
-const SortControls = styled.div`
-	display: flex;
-	width: 100%;
-	justify-content: space-between;
-	align-items: center;
-`;
-
-const SortingRadioGroup = styled(RadioGroup)`
-	flex-direction: row;
-	.MuiFormControlLabel-label {
-		font-size: 0.8rem;
-		font-size: 0.8rem;
-	}
-`;
+import type React from 'react';
+import ArrowDownward from '../icons/ArrowDownward';
+import ArrowUpward from '../icons/ArrowUpward';
+import type { SortingKey, SortingOrder } from '../model/model';
+import styles from './sortingBar.module.css';
 
 interface Props {
-	sortingKey: SortingKey;
-	setSortingKey: (key: SortingKey) => void;
-	sortingOrder: SortingOrder;
-	setSortingOrder: (order: SortingOrder) => void;
-	foundNumber: number;
-	className?: string;
+  sortingKey: SortingKey;
+  setSortingKey: (key: SortingKey) => void;
+  sortingOrder: SortingOrder;
+  setSortingOrder: (order: SortingOrder) => void;
+  foundNumber: number;
 }
 
 const SortingBar: React.FC<Props> = ({
-	sortingKey,
-	setSortingKey,
-	sortingOrder,
-	setSortingOrder,
-	foundNumber,
-	className,
+  sortingKey,
+  setSortingKey,
+  sortingOrder,
+  setSortingOrder,
+  foundNumber,
 }) => {
-	const { t } = useTranslation();
+  return (
+    <fieldset className={styles.container}>
+      <legend>{foundNumber} risultati • ordina per</legend>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="author"
+          checked={sortingKey === 'author'}
+          onClick={() => setSortingKey('author')}
+        />
+        autore
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="title"
+          checked={sortingKey === 'title'}
+          onClick={() => setSortingKey('title')}
+        />
+        titolo
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="location"
+          checked={sortingKey === 'location'}
+          onClick={() => setSortingKey('location')}
+        />
+        coll.
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="sortingKey"
+          value="category"
+          checked={sortingKey === 'category'}
+          onClick={() => setSortingKey('category')}
+        />
+        cat.
+      </label>
 
-	return (
-		<FormControl component="fieldset" name="sorting-bar" className={className}>
-			<FormLabel component="legend">
-				{t('app.resultsFound', { foundNumber })} • {t('app.orderBy')}
-			</FormLabel>
-			<SortControls>
-				<SortingRadioGroup
-					name="sortingKey"
-					value={sortingKey}
-					onChange={(e, value) => setSortingKey(value as SortingKey)}
-				>
-					<FormControlLabel
-						value="author"
-						control={<Radio />}
-						label={t('app.author')}
-					/>
-					<FormControlLabel
-						value="title"
-						control={<Radio />}
-						label={t('app.title')}
-					/>
-					<FormControlLabel
-						value="location"
-						control={<Radio />}
-						label={t('app.locationShort')}
-					/>
-					<FormControlLabel
-						value="category"
-						control={<Radio />}
-						label={t('app.categoryShort')}
-					/>
-				</SortingRadioGroup>
-				<IconButton
-					data-testid="sorting-btn"
-					onClick={() =>
-						setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')
-					}
-				>
-					{sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
-				</IconButton>
-			</SortControls>
-		</FormControl>
-	);
+      <button
+        className="icon-btn"
+        type="button"
+        data-testid="sorting-btn"
+        onClick={() => setSortingOrder(sortingOrder === 'asc' ? 'desc' : 'asc')}
+      >
+        {sortingOrder === 'asc' ? <ArrowDownward /> : <ArrowUpward />}
+      </button>
+    </fieldset>
+  );
 };
 
 export default SortingBar;

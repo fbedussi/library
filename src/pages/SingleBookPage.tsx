@@ -1,15 +1,11 @@
-import React from 'react';
+import type React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 
 import BackLink from '../components/BackLink';
 import BookCard from '../components/BookCard';
-import {
-  BottomAppBar,
-  BottomBarPageWrapper,
-  ToolbarStyled,
-} from '../components/CommonComponents';
-import { Id } from '../model/model';
+import { PageWrapper, TopAppBar } from '../components/CommonComponents';
+import type { Id } from '../model/model';
 import { selectBook } from '../store/books/selectors';
 
 const SingleBookPage: React.FC = () => {
@@ -21,14 +17,13 @@ const SingleBookPage: React.FC = () => {
   }
 
   return (
-    <BottomBarPageWrapper>
+    <PageWrapper>
+      <TopAppBar>
+        <BackLink />
+      </TopAppBar>
+
       <BookCard book={book} />
-      <BottomAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-        </ToolbarStyled>
-      </BottomAppBar>
-    </BottomBarPageWrapper>
+    </PageWrapper>
   );
 };
 

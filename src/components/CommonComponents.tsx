@@ -1,39 +1,45 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { PropsWithChildren } from 'react';
+import { Link } from 'react-router';
+import styles from './commonComponents.module.css';
 
-import { pxToRem } from '../libs/styles';
-import { AppBar, Toolbar } from '../styleguide';
-import theme from '../styleguide/theme';
+export const PageWrapper: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+  className,
+  ...props
+}) => (
+  <div
+    {...props}
+    className={`${styles['page-wrapper']}${className ? ` ${className}` : ''}`}
+  />
+);
 
-export const PageWrapper = styled.div`
-  padding: 80px ${pxToRem(theme.spacing(2))}rem 0;
-`;
+export const TopBarPageWrapper: React.FC<
+  React.HTMLAttributes<HTMLDivElement>
+> = ({ className, ...props }) => (
+  <div
+    {...props}
+    className={`${styles['top-bar-page-wrapper']}${className ? ` ${className}` : ''}`}
+  />
+);
 
-export const TopBarPageWrapper = styled(PageWrapper)`
-  padding-bottom: ${pxToRem(theme.spacing(2))}rem;
-`;
+export const LinkNoStyle = React.forwardRef<
+  HTMLAnchorElement,
+  React.ComponentProps<typeof Link>
+>(({ className, ...props }, ref) => (
+  <Link
+    ref={ref}
+    {...props}
+    className={`${styles['link-no-style']}${className ? ` ${className}` : ''}`}
+  />
+));
+LinkNoStyle.displayName = 'LinkNoStyle';
 
-export const BottomBarPageWrapper = styled(PageWrapper)`
-  padding-top: ${pxToRem(theme.spacing(2))}rem;
-`;
+export const TopAppBar: React.FC<PropsWithChildren> = ({ children }) => (
+  <div className={styles['top-app-bar']}>{children}</div>
+);
 
-export const LinkNoStyle = styled(Link)`
-  color: inherit;
-  text-decoration: none;
-`;
-
-export const BottomAppBar = styled(AppBar)`
-  top: auto;
-  bottom: 0;
-`;
-
-export const TopAppBar = styled(AppBar)`
-  top: 0;
-  bottom: auto;
-  left: 0;
-  width: min(100vw, 100%);
-`;
-
-export const ToolbarStyled = styled(Toolbar)`
-  justify-content: space-between;
-`;
+export const CircularProgress = ({ color }: { color?: 'secondary' }) => (
+  <div
+    role="progressbar"
+    className={`${styles.loeader} ${color === 'secondary' ? styles.secondary : ''}`}
+  ></div>
+);

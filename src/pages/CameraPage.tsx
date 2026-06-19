@@ -1,17 +1,13 @@
 // import 'react-html5-camera-photo/build/css/index.css'
 
-import React from 'react';
+import type React from 'react';
 import Camera, { FACING_MODES, IMAGE_TYPES } from 'react-html5-camera-photo';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 import BackLink from '../components/BackLink';
-import {
-  PageWrapper,
-  ToolbarStyled,
-  TopAppBar,
-} from '../components/CommonComponents';
-import { TDispatch } from '../model/types';
+import { PageWrapper, TopAppBar } from '../components/CommonComponents';
+import type { TDispatch } from '../model/types';
 import photosActions from '../store/photos/actions';
 
 const CameraPage: React.FC = () => {
@@ -21,10 +17,8 @@ const CameraPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-        </ToolbarStyled>
+      <TopAppBar>
+        <BackLink />
       </TopAppBar>
       <Camera
         onTakePhoto={dataUri => {

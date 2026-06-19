@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`CameraPage renders correcly 1`] = `
 {
@@ -6,37 +6,28 @@ exports[`CameraPage renders correcly 1`] = `
   "baseElement": <body>
     <div>
       <div
-        class="sc-bcXHqe ljvCyv"
+        class="page-wrapper"
       >
-        <header
-          class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER gZJVVQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+        <div
+          class="top-app-bar"
         >
-          <div
-            class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
+          <button
+            aria-label="open drawer"
+            class="icon-btn"
+            type="button"
           >
-            <button
-              aria-label="open drawer"
-              class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
-              tabindex="0"
-              type="button"
+            <svg
+              aria-hidden="true"
+              class="icon"
+              focusable="false"
+              viewBox="0 0 24 24"
             >
-              <svg
-                aria-hidden="true"
-                class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-                data-testid="ChevronLeftIcon"
-                focusable="false"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-                />
-              </svg>
-              <span
-                class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+              <path
+                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
               />
-            </button>
-          </div>
-        </header>
+            </svg>
+          </button>
+        </div>
         <div
           class="react-html5-camera-photo "
         >
@@ -46,7 +37,6 @@ exports[`CameraPage renders correcly 1`] = `
           />
           <img
             alt="camera"
-            src=""
             style="display: none;"
           />
           <video
@@ -72,37 +62,28 @@ exports[`CameraPage renders correcly 1`] = `
   </body>,
   "container": <div>
     <div
-      class="sc-bcXHqe ljvCyv"
+      class="page-wrapper"
     >
-      <header
-        class="MuiPaper-root MuiPaper-elevation MuiPaper-elevation4 MuiAppBar-root MuiAppBar-colorPrimary MuiAppBar-positionFixed sc-jSUZER gZJVVQ mui-fixed css-11b3ww9-MuiPaper-root-MuiAppBar-root"
+      <div
+        class="top-app-bar"
       >
-        <div
-          class="MuiToolbar-root MuiToolbar-gutters MuiToolbar-regular sc-gKPRtg cBJhWD css-hyum1k-MuiToolbar-root"
+        <button
+          aria-label="open drawer"
+          class="icon-btn"
+          type="button"
         >
-          <button
-            aria-label="open drawer"
-            class="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit MuiIconButton-edgeStart MuiIconButton-sizeMedium css-1d6w9lk-MuiButtonBase-root-MuiIconButton-root"
-            tabindex="0"
-            type="button"
+          <svg
+            aria-hidden="true"
+            class="icon"
+            focusable="false"
+            viewBox="0 0 24 24"
           >
-            <svg
-              aria-hidden="true"
-              class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium css-i4bv87-MuiSvgIcon-root"
-              data-testid="ChevronLeftIcon"
-              focusable="false"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
-              />
-            </svg>
-            <span
-              class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+            <path
+              d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"
             />
-          </button>
-        </div>
-      </header>
+          </svg>
+        </button>
+      </div>
       <div
         class="react-html5-camera-photo "
       >
@@ -112,7 +93,6 @@ exports[`CameraPage renders correcly 1`] = `
         />
         <img
           alt="camera"
-          src=""
           style="display: none;"
         />
         <video

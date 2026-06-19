@@ -1,7 +1,7 @@
-import { NavigateFunction } from 'react-router';
+import type { NavigateFunction } from 'react-router';
 
 import { firebaseLogin, firebaseLogout } from '../../firebase';
-import { AppThunk } from '../../model/types';
+import type { AppThunk } from '../../model/types';
 import { deletePersistedtUserId, persistUserId } from '../../persistance';
 import booksActions from '../books/actions';
 import errorsActions from '../errors/actions';

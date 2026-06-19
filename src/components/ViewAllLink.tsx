@@ -1,20 +1,18 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
-
+import Book from '../icons/Book';
 import { selectBooks } from '../store/books/selectors';
-import { Badge, IconButton } from '../styleguide';
-import { Book } from '../styleguide/icons';
 import { LinkNoStyle } from './CommonComponents';
 
 const ViewAllLink = () => {
   const books = useSelector(selectBooks);
   return (
     <LinkNoStyle to="/view-all">
-      <IconButton color="inherit">
-        <Badge badgeContent={books.length} color="secondary" max={9999}>
+      <button className="icon-btn" type="button">
+        <div className="badge-wrapper">
+          <div className="badge">{Math.min(books.length, 9999)}</div>
           <Book />
-        </Badge>
-      </IconButton>
+        </div>
+      </button>
     </LinkNoStyle>
   );
 };

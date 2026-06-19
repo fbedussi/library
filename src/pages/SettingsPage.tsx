@@ -1,22 +1,16 @@
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import BackLink from '../components/BackLink';
-import {
-  PageWrapper,
-  ToolbarStyled,
-  TopAppBar,
-} from '../components/CommonComponents';
-import { TDispatch } from '../model/types';
+import { PageWrapper, TopAppBar } from '../components/CommonComponents';
+import ExitToApp from '../icons/ExitToApp';
+import GetApp from '../icons/GetApp';
+import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectBooks } from '../store/books/selectors';
-import { Button, MenuItem, Typography } from '../styleguide';
-import { ExitToApp, GetApp } from '../styleguide/icons';
+import styles from './settingsPage.module.css';
 
 const SettingsPage: React.FC = () => {
   const books = useSelector(selectBooks);
-  const { t } = useTranslation();
   const dispatch: TDispatch = useDispatch();
 
   const csv = ['"Author";"Title";"Location"']
@@ -31,30 +25,30 @@ const SettingsPage: React.FC = () => {
 
   return (
     <PageWrapper>
-      <TopAppBar position="fixed" color="primary">
-        <ToolbarStyled>
-          <BackLink />
-          <Typography variant="h6">{t('app.settings')}</Typography>
-          <div></div>
-        </ToolbarStyled>
+      <TopAppBar>
+        <BackLink />
+        <h1>Impostazioni</h1>
+        <div></div>
       </TopAppBar>
 
-      <MenuItem>
+      <div className={styles.container}>
         <a href={href} download="library.csv" target="_blank" rel="noreferrer">
-          <Button variant="contained" startIcon={<GetApp />}>
-            {t('app.export')}
-          </Button>
+          <button type="button" className="btn">
+            <GetApp />
+            esporta dati
+          </button>
         </a>
-      </MenuItem>
-      <MenuItem>
-        <Button
-          variant="contained"
-          startIcon={<ExitToApp />}
-          onClick={() => dispatch(authActions.logout())}
-        >
-          {t('app.logout')}
-        </Button>
-      </MenuItem>
+        <div>
+          <button
+            type="button"
+            className="btn"
+            onClick={() => dispatch(authActions.logout())}
+          >
+            <ExitToApp />
+            logout
+          </button>
+        </div>
+      </div>
     </PageWrapper>
   );
 };

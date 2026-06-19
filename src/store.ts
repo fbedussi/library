@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
+import type { ReducersMapObject, UnknownAction } from 'redux';
 
-import { RootState } from './model/model';
+import type { RootState } from './model/model';
 import auth from './store/auth/slice';
 import books from './store/books/slice';
 import errors from './store/errors/slice';
@@ -13,7 +14,7 @@ const reducer = {
   errors,
   notifications,
   auth,
-};
+} as ReducersMapObject<RootState, UnknownAction, Partial<RootState>>;
 
 export const getTestStore = (preloadedState: Partial<RootState>) =>
   configureStore({

@@ -1,26 +1,23 @@
-import React from 'react';
-import * as router from 'react-router-dom';
-
 import userEvent from '@testing-library/user-event';
+import * as router from 'react-router';
 
 import { render, screen } from '../test-utils';
 import BackLink from './BackLink';
 
-jest.mock('react-router-dom', () => ({
-  ...(jest.requireActual('react-router-dom') as any),
-  useNavigate: jest.fn(),
+vi.mock('react-router', async importOriginal => ({
+  ...(await importOriginal()),
+  useNavigate: vi.fn(),
 }));
 
-beforeEach(() => {
-  (router.useNavigate as any).mockImplementation(
-    jest.requireActual('react-router-dom').useNavigate,
-  );
+beforeEach(async () => {
+  const actual = await vi.importActual<typeof router>('react-router');
+  vi.mocked(router.useNavigate).mockImplementation(actual.useNavigate);
 });
 
 test('triggers history.push on click', async () => {
   const user = userEvent.setup();
-  const mockedNavigate = jest.fn();
-  (router.useNavigate as any).mockReturnValue(mockedNavigate);
+  const mockedNavigate = vi.fn();
+  vi.mocked(router.useNavigate).mockReturnValue(mockedNavigate);
   render(<BackLink />);
   await user.click(screen.getByRole('button'));
   expect(mockedNavigate).toBeCalledWith(-1);

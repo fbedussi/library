@@ -1,92 +1,55 @@
-import { Field, Form, Formik } from 'formik';
-import React from 'react';
-import { useTranslation } from 'react-i18next';
+import type React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate, useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-
+import { Navigate, useNavigate } from 'react-router';
 import { PageWrapper } from '../components/CommonComponents';
-import { pxToRem } from '../libs/styles';
-import { TDispatch } from '../model/types';
+import TextField from '../components/TextField';
+import type { TDispatch } from '../model/types';
 import authActions from '../store/auth/actions';
 import { selectUserId } from '../store/auth/selectors';
-import { Button, FormControlLabel, Switch, TextField } from '../styleguide';
-import theme from '../styleguide/theme';
-
-const LoginPageWrapper = styled(PageWrapper)`
-  justify-content: center;
-`;
-
-const LoginForm = styled(Form)`
-  margin: 0 auto;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  margin-bottom: ${pxToRem(theme.spacing(2))}rem;
-
-  > * {
-    margin-bottom: ${pxToRem(theme.spacing(1))}rem;
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  width: 100%;
-`;
+import styles from './loginPage.module.css';
 
 const LoginPage: React.FC = () => {
   const userId = useSelector(selectUserId);
-  const { t } = useTranslation();
   const dispatch: TDispatch = useDispatch();
-
   const navigate = useNavigate();
 
   return userId ? (
     <Navigate to="/search" />
   ) : (
-    <LoginPageWrapper>
-      <Formik
-        initialValues={{
-          username: '',
-          password: '',
-          rememberMe: false,
-        }}
-        onSubmit={values => {
-          dispatch(authActions.login(values, navigate));
-        }}
-      >
-        {() => {
-          return (
-            <LoginForm>
-              <Field
-                as={TextField}
-                name="username"
-                id="username"
-                label={t('app.username')}
-                variant="outlined"
-              />
-              <Field
-                as={TextField}
-                name="password"
-                id="password"
-                type="password"
-                label={t('app.password')}
-                variant="outlined"
-              />
-              <FormControlLabel
-                control={<Field as={Switch} name="rememberMe" />}
-                label={t('app.rememberMe')}
-              />
-              <ButtonWrapper>
-                <Button type="submit" color="primary" variant="contained">
-                  {t('app.login')}
-                </Button>
-              </ButtonWrapper>
-            </LoginForm>
+    <PageWrapper className={styles['login-page-wrapper']}>
+      <form
+        className={styles['login-form']}
+        action={(formData: FormData) => {
+          dispatch(
+            authActions.login(
+              {
+                username: formData.get('username') as string,
+                password: formData.get('password') as string,
+                rememberMe: formData.get('rememberMe') === 'on',
+              },
+              navigate,
+            ),
           );
         }}
-      </Formik>
-    </LoginPageWrapper>
+      >
+        <TextField name="username" id="username" label="nome utente" />
+        <TextField
+          name="password"
+          id="password"
+          type="password"
+          label="password"
+        />
+        <label>
+          <input type="checkbox" name="rememberMe" />
+          ricordami
+        </label>
+        <div className={styles['button-wrapper']}>
+          <button type="submit" className="btn">
+            accedi
+          </button>
+        </div>
+      </form>
+    </PageWrapper>
   );
 };
 

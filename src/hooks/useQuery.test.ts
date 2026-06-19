@@ -1,6 +1,6 @@
 import { useQuery } from './useQuery';
 
-jest.mock('react-router-dom', () => ({
+vi.mock('react-router', () => ({
   useLocation: () => ({ search: 'a=b' }),
 }));
 

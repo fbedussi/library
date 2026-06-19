@@ -1,12 +1,10 @@
-import React from 'react';
-import { Provider } from 'react-redux';
-
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 
 import Routes from './Routes';
 import { getTestStore } from './store';
 
-jest.mock('./config', () => {
+vi.mock('./config', () => {
   return {
     firebase: {
       apiKey: 'apiKey',
@@ -20,7 +18,7 @@ jest.mock('./config', () => {
   };
 });
 
-jest.mock('./firebase', () => ({}));
+vi.mock('./firebase', () => ({}));
 
 test('renders login page if no user id is set', () => {
   render(
@@ -28,7 +26,7 @@ test('renders login page if no user id is set', () => {
       <Routes />
     </Provider>,
   );
-  expect(screen.getByLabelText('app.username')).toBeInTheDocument();
+  expect(screen.getByLabelText('nome utente')).toBeInTheDocument();
 });
 
 test('renders search page if user id is set', () => {
