@@ -24,7 +24,7 @@ const TextField = ({
     <div
       className={[
         styles.container,
-        !!error ? styles['with-error'] : undefined,
+        error ? styles['with-error'] : undefined,
       ].join(' ')}
     >
       <input

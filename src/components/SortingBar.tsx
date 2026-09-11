@@ -2,7 +2,6 @@ import type React from 'react';
 import ArrowDownward from '../icons/ArrowDownward';
 import ArrowUpward from '../icons/ArrowUpward';
 import type { SortingKey, SortingOrder } from '../model/model';
-import styles from './sortingBar.module.css';
 
 interface Props {
   sortingKey: SortingKey;
@@ -20,7 +19,7 @@ const SortingBar: React.FC<Props> = ({
   foundNumber,
 }) => {
   return (
-    <fieldset className={styles.container}>
+    <fieldset>
       <legend>{foundNumber} risultati • ordina per</legend>
       <label>
         <input

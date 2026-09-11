@@ -1,4 +1,4 @@
-import React, { PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 import { Link } from 'react-router';
 import styles from './commonComponents.module.css';
 

@@ -1,5 +1,6 @@
 import React, { type PropsWithChildren, Suspense } from 'react';
 import { connect } from 'react-redux';
+import { CircularProgress } from '../../components/CommonComponents';
 import type {
   BeError,
   Notification,
@@ -11,7 +12,6 @@ import ErrorPage from '../../pages/ErrorPage';
 import notificationsActions from '../notifications/actions';
 import errorsActions from './actions';
 import { selectHttpErrors, selectUiErrors } from './selectors';
-import { CircularProgress } from '../../components/CommonComponents';
 
 interface Props {
   setHttpError: (error: BeError) => void;

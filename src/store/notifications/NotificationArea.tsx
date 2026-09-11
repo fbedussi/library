@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Close from '../../icons/Close';
 import type { TDispatch } from '../../model/types';
 import notificationsActions from './actions';
 import { selectNotifications } from './selectors';
-import Close from '../../icons/Close';
 
 const NotificationArea = () => {
   const notifications = useSelector(selectNotifications);

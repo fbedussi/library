@@ -1,9 +1,9 @@
 import type React from 'react';
 import { useEffect, useState } from 'react';
+import Close from '../icons/Close';
 import type { FormData as BookData } from '../model/model';
 import styles from './bookForm.module.css';
 import TextField from './TextField';
-import Close from '../icons/Close';
 
 interface Props {
   initialValues: BookData;
