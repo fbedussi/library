@@ -28,7 +28,7 @@ const SortingBar: React.FC<Props> = ({
           name="sortingKey"
           value="author"
           checked={sortingKey === 'author'}
-          onClick={() => setSortingKey('author')}
+          onChange={() => setSortingKey('author')}
         />
         autore
       </label>
@@ -38,7 +38,7 @@ const SortingBar: React.FC<Props> = ({
           name="sortingKey"
           value="title"
           checked={sortingKey === 'title'}
-          onClick={() => setSortingKey('title')}
+          onChange={() => setSortingKey('title')}
         />
         titolo
       </label>
@@ -48,7 +48,7 @@ const SortingBar: React.FC<Props> = ({
           name="sortingKey"
           value="location"
           checked={sortingKey === 'location'}
-          onClick={() => setSortingKey('location')}
+          onChange={() => setSortingKey('location')}
         />
         coll.
       </label>
@@ -58,7 +58,7 @@ const SortingBar: React.FC<Props> = ({
           name="sortingKey"
           value="category"
           checked={sortingKey === 'category'}
-          onClick={() => setSortingKey('category')}
+          onChange={() => setSortingKey('category')}
         />
         cat.
       </label>

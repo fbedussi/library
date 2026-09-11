@@ -2,6 +2,7 @@ import React, { Suspense } from 'react';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { CircularProgress } from './components/CommonComponents';
+import './poor-material.css';
 import './global.css';
 import Routes from './Routes';
 import store from './store';

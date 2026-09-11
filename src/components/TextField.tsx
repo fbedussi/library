@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import styles from './textField.module.css';
 
 const TextField = ({
@@ -21,7 +21,12 @@ const TextField = ({
   const [dirty, setDirty] = useState(!!defaultValue);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={[
+        styles.container,
+        !!error ? styles['with-error'] : undefined,
+      ].join(' ')}
+    >
       <input
         id={id}
         type={type ?? 'text'}
